@@ -1,6 +1,6 @@
 ﻿namespace IS_17
 {
-    partial class FormMaid
+    partial class FormAdmin_Workers_Edit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            label1 = new Label();
             SuspendLayout();
             // 
-            // FormMaid
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(204, 256);
+            label1.Name = "label1";
+            label1.Size = new Size(387, 15);
+            label1.TabIndex = 1;
+            label1.Text = "На этой форме функционал редактирования и удаления работников";
+            // 
+            // FormAdmin_Workers_Edit
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "FormMaid";
-            Text = "FormMaid";
+            ClientSize = new Size(814, 527);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "FormAdmin_Workers_Edit";
+            Text = "FormAdmin_Workers_Edit";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
     }
 }
