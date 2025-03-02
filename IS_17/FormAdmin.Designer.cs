@@ -31,7 +31,8 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAdmin));
             panel1 = new Panel();
-            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            pictureBox3 = new PictureBox();
             label1 = new Label();
             btnHum = new PictureBox();
             sidebar = new FlowLayoutPanel();
@@ -55,7 +56,8 @@
             sidebarTransition = new System.Windows.Forms.Timer(components);
             menuTransition2 = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnHum).BeginInit();
             sidebar.SuspendLayout();
             menuConteiner.SuspendLayout();
@@ -71,26 +73,43 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(pictureBox2);
+            panel1.Controls.Add(pictureBox3);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnHum);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(882, 59);
+            panel1.Size = new Size(882, 55);
             panel1.TabIndex = 1;
+            panel1.MouseDown += panel1_MouseDown;
+            panel1.MouseMove += panel1_MouseMove;
+            panel1.MouseUp += panel1_MouseUp;
             // 
-            // pictureBox1
+            // pictureBox2
             // 
-            pictureBox1.BackColor = Color.Gainsboro;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(823, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(56, 50);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            pictureBox2.BackColor = Color.White;
+            pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
+            pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox2.Location = new Point(840, 11);
+            pictureBox2.Margin = new Padding(3, 2, 3, 2);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(30, 30);
+            pictureBox2.TabIndex = 8;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = Color.White;
+            pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
+            pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox3.Location = new Point(804, 11);
+            pictureBox3.Margin = new Padding(3, 2, 3, 2);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(30, 30);
+            pictureBox3.TabIndex = 7;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
             // 
             // label1
             // 
@@ -107,7 +126,7 @@
             btnHum.Image = (Image)resources.GetObject("btnHum.Image");
             btnHum.Location = new Point(6, 3);
             btnHum.Name = "btnHum";
-            btnHum.Size = new Size(56, 50);
+            btnHum.Size = new Size(55, 50);
             btnHum.SizeMode = PictureBoxSizeMode.StretchImage;
             btnHum.TabIndex = 1;
             btnHum.TabStop = false;
@@ -121,9 +140,9 @@
             sidebar.Controls.Add(button7);
             sidebar.Controls.Add(button8);
             sidebar.Dock = DockStyle.Left;
-            sidebar.Location = new Point(0, 59);
+            sidebar.Location = new Point(0, 55);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(62, 533);
+            sidebar.Size = new Size(62, 537);
             sidebar.TabIndex = 2;
             // 
             // menuConteiner
@@ -334,7 +353,8 @@
             Load += FormAdmin_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)btnHum).EndInit();
             sidebar.ResumeLayout(false);
             menuConteiner.ResumeLayout(false);
@@ -351,7 +371,6 @@
         #endregion
 
         private Panel panel1;
-        private PictureBox pictureBox1;
         private Label label1;
         private PictureBox btnHum;
         private FlowLayoutPanel sidebar;
@@ -376,5 +395,7 @@
         private System.Windows.Forms.Timer menuTransition1;
         private System.Windows.Forms.Timer sidebarTransition;
         private System.Windows.Forms.Timer menuTransition2;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
     }
 }

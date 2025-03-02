@@ -149,14 +149,14 @@
             dataGridView1.Dock = DockStyle.Left;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(461, 527);
+            dataGridView1.Size = new Size(461, 531);
             dataGridView1.TabIndex = 33;
             // 
             // FormAdmin_Workers_Create
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(814, 527);
+            ClientSize = new Size(814, 531);
             Controls.Add(dataGridView1);
             Controls.Add(textBox1);
             Controls.Add(button2);

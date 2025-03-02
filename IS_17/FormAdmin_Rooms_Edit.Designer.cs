@@ -44,7 +44,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(814, 527);
+            ClientSize = new Size(814, 531);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormAdmin_Rooms_Edit";

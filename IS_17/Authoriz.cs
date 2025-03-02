@@ -193,5 +193,46 @@ namespace IS_17
             passTB.ForeColor = Color.Gray;
             passTB.PasswordChar = '\0';
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+
+        private bool isDragging = false;
+        private Point startPoint;
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                startPoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point newPoint = panel1.PointToScreen(new Point(e.X, e.Y));
+                newPoint.Offset(-startPoint.X, -startPoint.Y);
+                this.Location = newPoint;
+            }
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
+            }
+        }
     }
 }
