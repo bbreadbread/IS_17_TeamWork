@@ -265,6 +265,18 @@ namespace IS_17
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Authoriz authoriz = new Authoriz();
+            this.Hide();
+            authoriz.Show();
+        }
     }
 }
 

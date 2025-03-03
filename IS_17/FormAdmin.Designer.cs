@@ -97,6 +97,7 @@
             pictureBox2.Size = new Size(30, 30);
             pictureBox2.TabIndex = 8;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // pictureBox3
             // 
@@ -323,6 +324,7 @@
             button8.TabStop = false;
             button8.Text = "Выход";
             button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
             // 
             // menuTransition1
             // 

@@ -28,33 +28,183 @@
         /// </summary>
         private void InitializeComponent()
         {
+            SurnametextBox = new TextBox();
+            label4 = new Label();
+            dataGridView1 = new DataGridView();
+            NametextBox = new TextBox();
+            buttonEditWorker = new Button();
+            label5 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             label1 = new Label();
+            TypecomboBox = new ComboBox();
+            NumbertextBox = new TextBox();
+            EmailtextBox = new TextBox();
+            buttonDeleteWorker = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
+            // 
+            // SurnametextBox
+            // 
+            SurnametextBox.Location = new Point(524, 98);
+            SurnametextBox.Name = "SurnametextBox";
+            SurnametextBox.Size = new Size(227, 23);
+            SurnametextBox.TabIndex = 46;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            label4.Location = new Point(524, 75);
+            label4.Name = "label4";
+            label4.Size = new Size(88, 20);
+            label4.TabIndex = 47;
+            label4.Text = "Фамилия";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Left;
+            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(461, 531);
+            dataGridView1.TabIndex = 45;
+            // 
+            // NametextBox
+            // 
+            NametextBox.Location = new Point(524, 157);
+            NametextBox.Name = "NametextBox";
+            NametextBox.Size = new Size(227, 23);
+            NametextBox.TabIndex = 37;
+            // 
+            // buttonEditWorker
+            // 
+            buttonEditWorker.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            buttonEditWorker.Location = new Point(524, 393);
+            buttonEditWorker.Name = "buttonEditWorker";
+            buttonEditWorker.Size = new Size(227, 40);
+            buttonEditWorker.TabIndex = 44;
+            buttonEditWorker.Text = "Редактировать";
+            buttonEditWorker.UseVisualStyleBackColor = true;
+            buttonEditWorker.Click += buttonEditWorker_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            label5.Location = new Point(524, 319);
+            label5.Name = "label5";
+            label5.Size = new Size(104, 20);
+            label5.TabIndex = 43;
+            label5.Text = "Должность";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            label3.Location = new Point(524, 256);
+            label3.Name = "label3";
+            label3.Size = new Size(86, 20);
+            label3.TabIndex = 42;
+            label3.Text = "Телефон";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            label2.Location = new Point(524, 193);
+            label2.Name = "label2";
+            label2.Size = new Size(62, 20);
+            label2.TabIndex = 41;
+            label2.Text = "Почта";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(204, 256);
+            label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            label1.Location = new Point(524, 134);
             label1.Name = "label1";
-            label1.Size = new Size(387, 15);
-            label1.TabIndex = 1;
-            label1.Text = "На этой форме функционал редактирования и удаления работников";
+            label1.Size = new Size(43, 20);
+            label1.TabIndex = 40;
+            label1.Text = "Имя";
+            // 
+            // TypecomboBox
+            // 
+            TypecomboBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            TypecomboBox.FormattingEnabled = true;
+            TypecomboBox.Items.AddRange(new object[] { "Горничная", "Портье", "Завхоз" });
+            TypecomboBox.Location = new Point(524, 342);
+            TypecomboBox.Name = "TypecomboBox";
+            TypecomboBox.Size = new Size(227, 28);
+            TypecomboBox.TabIndex = 39;
+            // 
+            // NumbertextBox
+            // 
+            NumbertextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            NumbertextBox.Location = new Point(524, 279);
+            NumbertextBox.Name = "NumbertextBox";
+            NumbertextBox.Size = new Size(227, 26);
+            NumbertextBox.TabIndex = 38;
+            // 
+            // EmailtextBox
+            // 
+            EmailtextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            EmailtextBox.Location = new Point(524, 216);
+            EmailtextBox.Name = "EmailtextBox";
+            EmailtextBox.Size = new Size(227, 26);
+            EmailtextBox.TabIndex = 36;
+            // 
+            // buttonDeleteWorker
+            // 
+            buttonDeleteWorker.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            buttonDeleteWorker.Location = new Point(524, 439);
+            buttonDeleteWorker.Name = "buttonDeleteWorker";
+            buttonDeleteWorker.Size = new Size(227, 40);
+            buttonDeleteWorker.TabIndex = 48;
+            buttonDeleteWorker.Text = "Удалить";
+            buttonDeleteWorker.UseVisualStyleBackColor = true;
+            buttonDeleteWorker.Click += buttonDeleteWorker_Click;
             // 
             // FormAdmin_Workers_Edit
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(814, 531);
+            Controls.Add(buttonDeleteWorker);
+            Controls.Add(SurnametextBox);
+            Controls.Add(label4);
+            Controls.Add(dataGridView1);
+            Controls.Add(NametextBox);
+            Controls.Add(buttonEditWorker);
+            Controls.Add(label5);
+            Controls.Add(label3);
+            Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(TypecomboBox);
+            Controls.Add(NumbertextBox);
+            Controls.Add(EmailtextBox);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormAdmin_Workers_Edit";
             Text = "FormAdmin_Workers_Edit";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
+        private TextBox SurnametextBox;
+        private Label label4;
+        private DataGridView dataGridView1;
+        private TextBox NametextBox;
+        private Button buttonEditWorker;
+        private Label label5;
+        private Label label3;
+        private Label label2;
         private Label label1;
+        private ComboBox TypecomboBox;
+        private TextBox NumbertextBox;
+        private TextBox EmailtextBox;
+        private Button buttonDeleteWorker;
     }
 }

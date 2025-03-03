@@ -28,63 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            button2 = new Button();
+            NametextBox = new TextBox();
+            buttonAddWorkers = new Button();
             label5 = new Label();
-            label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            comboBox1 = new ComboBox();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
+            TypecomboBox = new ComboBox();
+            NumbertextBox = new TextBox();
+            EmailtextBox = new TextBox();
             dataGridView1 = new DataGridView();
+            SurnametextBox = new TextBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // textBox1
+            // NametextBox
             // 
-            textBox1.Location = new Point(528, 104);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(227, 23);
-            textBox1.TabIndex = 13;
+            NametextBox.Location = new Point(524, 157);
+            NametextBox.Name = "NametextBox";
+            NametextBox.Size = new Size(227, 23);
+            NametextBox.TabIndex = 13;
             // 
-            // button2
+            // buttonAddWorkers
             // 
-            button2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            button2.Location = new Point(528, 399);
-            button2.Name = "button2";
-            button2.Size = new Size(227, 40);
-            button2.TabIndex = 22;
-            button2.Text = "Добавить";
-            button2.UseVisualStyleBackColor = true;
+            buttonAddWorkers.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            buttonAddWorkers.Location = new Point(524, 393);
+            buttonAddWorkers.Name = "buttonAddWorkers";
+            buttonAddWorkers.Size = new Size(227, 40);
+            buttonAddWorkers.TabIndex = 22;
+            buttonAddWorkers.Text = "Добавить";
+            buttonAddWorkers.UseVisualStyleBackColor = true;
+            buttonAddWorkers.Click += buttonAddWorkers_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            label5.Location = new Point(528, 324);
+            label5.Location = new Point(524, 319);
             label5.Name = "label5";
-            label5.Size = new Size(51, 20);
+            label5.Size = new Size(104, 20);
             label5.TabIndex = 21;
-            label5.Text = "Роль";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            label4.Location = new Point(528, 264);
-            label4.Name = "label4";
-            label4.Size = new Size(73, 20);
-            label4.TabIndex = 20;
-            label4.Text = "Пароль";
+            label5.Text = "Должность";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            label3.Location = new Point(528, 203);
+            label3.Location = new Point(524, 256);
             label3.Name = "label3";
             label3.Size = new Size(86, 20);
             label3.TabIndex = 19;
@@ -94,7 +85,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            label2.Location = new Point(528, 140);
+            label2.Location = new Point(524, 193);
             label2.Name = "label2";
             label2.Size = new Size(62, 20);
             label2.TabIndex = 18;
@@ -104,44 +95,37 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            label1.Location = new Point(528, 81);
+            label1.Location = new Point(524, 134);
             label1.Name = "label1";
-            label1.Size = new Size(127, 20);
+            label1.Size = new Size(43, 20);
             label1.TabIndex = 17;
-            label1.Text = "Фамилия Имя";
+            label1.Text = "Имя";
             // 
-            // comboBox1
+            // TypecomboBox
             // 
-            comboBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(528, 347);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(227, 28);
-            comboBox1.TabIndex = 16;
+            TypecomboBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            TypecomboBox.FormattingEnabled = true;
+            TypecomboBox.Items.AddRange(new object[] { "Горничная", "Портье", "Завхоз" });
+            TypecomboBox.Location = new Point(524, 342);
+            TypecomboBox.Name = "TypecomboBox";
+            TypecomboBox.Size = new Size(227, 28);
+            TypecomboBox.TabIndex = 16;
             // 
-            // textBox4
+            // NumbertextBox
             // 
-            textBox4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            textBox4.Location = new Point(528, 287);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(227, 26);
-            textBox4.TabIndex = 15;
+            NumbertextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            NumbertextBox.Location = new Point(524, 279);
+            NumbertextBox.Name = "NumbertextBox";
+            NumbertextBox.Size = new Size(227, 26);
+            NumbertextBox.TabIndex = 14;
             // 
-            // textBox3
+            // EmailtextBox
             // 
-            textBox3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            textBox3.Location = new Point(528, 226);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(227, 26);
-            textBox3.TabIndex = 14;
-            // 
-            // textBox2
-            // 
-            textBox2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            textBox2.Location = new Point(528, 163);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(227, 26);
-            textBox2.TabIndex = 12;
+            EmailtextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            EmailtextBox.Location = new Point(524, 216);
+            EmailtextBox.Name = "EmailtextBox";
+            EmailtextBox.Size = new Size(227, 26);
+            EmailtextBox.TabIndex = 12;
             // 
             // dataGridView1
             // 
@@ -152,26 +136,44 @@
             dataGridView1.Size = new Size(461, 531);
             dataGridView1.TabIndex = 33;
             // 
+            // SurnametextBox
+            // 
+            SurnametextBox.Location = new Point(524, 98);
+            SurnametextBox.Name = "SurnametextBox";
+            SurnametextBox.Size = new Size(227, 23);
+            SurnametextBox.TabIndex = 34;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            label4.Location = new Point(524, 75);
+            label4.Name = "label4";
+            label4.Size = new Size(88, 20);
+            label4.TabIndex = 35;
+            label4.Text = "Фамилия";
+            // 
             // FormAdmin_Workers_Create
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(814, 531);
-            Controls.Add(dataGridView1);
-            Controls.Add(textBox1);
-            Controls.Add(button2);
-            Controls.Add(label5);
+            Controls.Add(SurnametextBox);
             Controls.Add(label4);
+            Controls.Add(dataGridView1);
+            Controls.Add(NametextBox);
+            Controls.Add(buttonAddWorkers);
+            Controls.Add(label5);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(comboBox1);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
+            Controls.Add(TypecomboBox);
+            Controls.Add(NumbertextBox);
+            Controls.Add(EmailtextBox);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormAdmin_Workers_Create";
             Text = "FormAdmin_Workers";
+            Load += FormAdmin_Workers_Create_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -179,17 +181,17 @@
 
         #endregion
 
-        private TextBox textBox1;
-        private Button button2;
+        private TextBox NametextBox;
+        private Button buttonAddWorkers;
         private Label label5;
-        private Label label4;
         private Label label3;
         private Label label2;
         private Label label1;
-        private ComboBox comboBox1;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
+        private ComboBox TypecomboBox;
+        private TextBox NumbertextBox;
+        private TextBox EmailtextBox;
         private DataGridView dataGridView1;
+        private TextBox SurnametextBox;
+        private Label label4;
     }
 }
