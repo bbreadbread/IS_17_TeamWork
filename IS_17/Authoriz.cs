@@ -24,9 +24,14 @@ namespace IS_17
             string email = emailTB.Text;
             string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
 
-            if(emailTB.Text=="zroot")
+            if (emailTB.Text == "zroot")
             {
-                FormZavhoz a =new FormZavhoz();
+                FormZavhoz a = new FormZavhoz();
+                a.Show();
+            }
+            if (emailTB.Text == "aroot")
+            {
+                FormAdmin a = new FormAdmin();
                 a.Show();
             }
             if (Regex.IsMatch(email, pattern))
@@ -237,6 +242,11 @@ namespace IS_17
             {
                 isDragging = false;
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
