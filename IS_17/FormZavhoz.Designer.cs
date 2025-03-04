@@ -34,6 +34,7 @@
             button7 = new Button();
             button8 = new Button();
             panel1 = new Panel();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             sidebar.SuspendLayout();
             SuspendLayout();
@@ -55,6 +56,7 @@
             sidebar.BackColor = Color.MidnightBlue;
             sidebar.Controls.Add(button7);
             sidebar.Controls.Add(button8);
+            sidebar.Controls.Add(button1);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
             sidebar.Margin = new Padding(3, 4, 3, 4);
@@ -90,6 +92,7 @@
             button8.TabStop = false;
             button8.Text = "Поставщики";
             button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
             // 
             // panel1
             // 
@@ -98,6 +101,21 @@
             panel1.Size = new Size(212, 406);
             panel1.TabIndex = 7;
             panel1.Visible = false;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Lavender;
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.ImageAlign = ContentAlignment.MiddleLeft;
+            button1.Location = new Point(3, 148);
+            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Name = "button1";
+            button1.Size = new Size(293, 64);
+            button1.TabIndex = 6;
+            button1.TabStop = false;
+            button1.Text = "Отчёты";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // FormZavhoz
             // 
@@ -122,5 +140,6 @@
         private Button button7;
         private Button button8;
         private Panel panel1;
+        private Button button1;
     }
 }
