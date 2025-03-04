@@ -16,7 +16,7 @@ namespace IS_17
 {
     public partial class FormAdmin_Rooms_Create : Form
     {
-        string allView = $"SELECT TOP (1000) [ID_Номера], [Тип комнаты], [Количество мест], [Цена за сутки], [Статус] FROM [HotelDB].[dbo].[Номера]";
+        string allView = $"SELECT TOP (1000)  [ID_Номера], [Тип комнаты], [Количество мест], [Цена за сутки], [Статус] FROM [HotelDB].[dbo].[Номера]";
         public FormAdmin_Rooms_Create()
         {
             InitializeComponent();
