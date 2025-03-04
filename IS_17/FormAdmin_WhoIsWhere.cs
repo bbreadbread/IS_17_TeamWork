@@ -26,9 +26,8 @@ namespace IS_17
 
         private void FormAdmin_WhoIsWhere_Load(object sender, EventArgs e)
         {
-            // Подключение к базе данных
-            string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True"; // Замените на вашу строку подключения
-            string query = "SELECT [ID_Номера], [Статус] FROM [HotelDB].[dbo].[Номера];"; // Запрос для получения данных
+            string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
+            string query = "SELECT [ID_Номера], [Статус] FROM [HotelDB].[dbo].[Номера];";
 
             DataTable dataTable = new DataTable();
 
@@ -40,7 +39,38 @@ namespace IS_17
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        adapter.Fill(dataTable); // Заполняем DataTable данными из базы
+                        adapter.Fill(dataTable);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при загрузке данных: " + ex.Message);
+                    return;
+                }
+            }
+
+            string query2 = @"SELECT 
+	                        b.[ID_Номера] AS Номер,
+                            g.[Имя] AS Имя,
+	                        g.[Фамилия] AS Фамилия
+                        FROM 
+                            [HotelDB].[dbo].[Бронирования] b
+                        JOIN 
+                            [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
+                        WHERE 
+                            b.[Статус бронирования] = 'Подтверждено';";
+
+            DataTable dataTable2 = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query2, connection))
+                    {
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        adapter.Fill(dataTable2);
                     }
                 }
                 catch (Exception ex)
@@ -51,30 +81,25 @@ namespace IS_17
             }
 
             // Создаем панели
-            int panelSize = 80; // Размер панели (80x80)
-            int panelsPerRow = 8; // Количество панелей в ряду
-            int spacing = 10; // Расстояние между панелями
+            int panelSize = 80;
+            int panelsPerRow = 8;
+            int spacing = 10;
 
-            // Вычисляем общую ширину и высоту сетки панелей
             int totalWidth = panelsPerRow * (panelSize + spacing) - spacing;
             int totalHeight = ((dataTable.Rows.Count + panelsPerRow - 1) / panelsPerRow) * (panelSize + spacing) - spacing;
 
-            // Центрируем сетку панелей на форме
             int startX = (this.ClientSize.Width - totalWidth) / 2;
             int startY = (this.ClientSize.Height - totalHeight) / 2;
 
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                // Получаем данные о номере
                 int roomId = Convert.ToInt32(dataTable.Rows[i]["ID_Номера"]);
                 string status = dataTable.Rows[i]["Статус"].ToString();
 
-                // Создаем новую панель
                 Panel panel = new Panel();
                 panel.Size = new Size(panelSize, panelSize);
                 panel.BorderStyle = BorderStyle.FixedSingle;
 
-                // Устанавливаем цвет панели в зависимости от статуса
                 switch (status)
                 {
                     case "Доступно":
@@ -93,14 +118,14 @@ namespace IS_17
 
                 // Добавляем номер комнаты на панель
                 Label label = new Label();
-                label.Text = roomId.ToString(); // Номер комнаты
+                label.Text = roomId.ToString();
                 label.AutoSize = true;
                 label.Font = new Font("Arial", 12, FontStyle.Bold);
                 label.ForeColor = Color.White;
-                label.Location = new Point(10, 10); // Позиция метки на панели
+                label.Location = new Point(10, 10);
                 panel.Controls.Add(label);
+                this.Text = "Закрепление комнаты " + $"{roomId}";
 
-                // Вычисляем позицию панели
                 int row = i / panelsPerRow;
                 int col = i % panelsPerRow;
                 panel.Location = new Point(
@@ -108,13 +133,52 @@ namespace IS_17
                     startY + row * (panelSize + spacing)  // Y
                 );
 
-                // Добавляем панель на форму
                 this.Controls.Add(panel);
 
-                // Обработка клика по панели
                 panel.Click += (sender, e) =>
                 {
-                    MessageBox.Show($"Вы выбрали комнату {roomId} (Статус: {status})");
+
+
+                    CustomMessageBox customMessageBox = new CustomMessageBox();
+                    DialogResult result = customMessageBox.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        int idSelected = customMessageBox.IdSelected;
+
+                        string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
+                        string query = $"UPDATE [HotelDB].[dbo].[Номера] " +
+                                       $"SET [Статус] = 'Забронировано' " +
+                                       $"WHERE [ID_Номера] = {idSelected};";
+
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            try
+                            {
+                                connection.Open();
+                                using (SqlCommand command = new SqlCommand(query, connection))
+                                {
+                                    command.Parameters.AddWithValue("@ID_Номера", idSelected);
+                                    int rowsAffected = command.ExecuteNonQuery();
+
+                                    if (rowsAffected > 0)
+                                    {
+                                        panel.BackColor = Color.Yellow;
+
+                                        MessageBox.Show("Статус номера успешно обновлен.");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Ошибка: номер не найден или не обновлен.");
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Ошибка при обновлении данных: " + ex.Message);
+                            }
+                        }
+                    }
                 };
             }
         }

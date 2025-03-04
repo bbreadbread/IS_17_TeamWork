@@ -128,26 +128,5 @@ namespace IS_17
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
-        private static bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private static bool IsValidPhoneNumber(string phone)
-        {
-            return Regex.IsMatch(phone, @"^\d{10}$");
-        }
-        private static bool ContainsOnlyLetters(string input)
-        {
-            return Regex.IsMatch(input, @"^[a-zA-Zа-яА-Я]+$");
-        }
     }
 }
