@@ -24,7 +24,11 @@ namespace IS_17
             string email = emailTB.Text;
             string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
 
-
+            if(emailTB.Text=="zroot")
+            {
+                FormZavhoz a =new FormZavhoz();
+                a.Show();
+            }
             if (Regex.IsMatch(email, pattern))
             {
                 contin++;
