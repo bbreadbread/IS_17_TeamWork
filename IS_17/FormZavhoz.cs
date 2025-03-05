@@ -144,7 +144,7 @@ namespace IS_17
                             TextBox a = new TextBox();
                             a.Text = "";
                             TextBox a2 = new TextBox();
-                            a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                             a2.Location = new Point(0, (a.Size.Height + 6) * 1);
                             a2.Text = "";
                             TextBox a3 = new TextBox();
                             a3.Location = new Point(0, (a.Size.Height + 6) * 2);
