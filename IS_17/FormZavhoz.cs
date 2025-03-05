@@ -138,97 +138,190 @@ namespace IS_17
                 {
                     try
                     {
-
-                        panel1.Controls.Clear();
-                        TextBox a = new TextBox();
-                        a.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-                        TextBox a2 = new TextBox();
-                        a2.Location = new Point(0, (a.Size.Height + 6) * 1);
-                        a2.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-                        TextBox a3 = new TextBox();
-                        a3.Location = new Point(0, (a.Size.Height + 6) * 2);
-                        a3.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-                        TextBox a4 = new TextBox();
-                        a4.Location = new Point(0, (a.Size.Height + 6) * 3);
-                        a4.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
-                        ComboBox b = new ComboBox();
-                        b.Location = new Point(0, (a.Size.Height + 6) * 4);
-                        b.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-                        TextBox a5 = new TextBox();
-                        a5.Location = new Point(0, (a.Size.Height + 6) * 5);
-                        a5.Text = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
-                        NumericUpDown c = new NumericUpDown();
-                        c.Location = new Point(0, (a.Size.Height + 6) * 6);
-                        Button d = new Button();
-                        d.Location = new Point(0, (a.Size.Height + 6) * 7);
-                        d.Text = "Купить";
-                        d.Size = new Size(a.Size.Width, a.Size.Height);
-                        // d.Click += new EventHandler(save);
-                        Button d1 = new Button();
-                        d1.Location = new Point(0, (a.Size.Height + 6) * 8);
-                        d1.Size = new Size(a.Size.Width, a.Size.Height);
-                        d1.Text = "Сохранить";
-                        d1.Click += new EventHandler(save);
-                        d.Click += new EventHandler(otchet);
-                        Button d3 = new Button();
-                        d3.Location = new Point(0, (a.Size.Height + 6) * 9);
-                        d3.Text = "Удалить";
-                        d3.Size = new Size(a.Size.Width, a.Size.Height);
-                        d3.Click += new EventHandler(deleteinvent);
-                        Button d4 = new Button();
-                        d4.Location = new Point(0, (a.Size.Height + 6) * 10);
-                        d4.Text = "Дрбавить";
-                        d4.Size = new Size(a.Size.Width, a.Size.Height);
-                        d4.Click += new EventHandler(insertinvent);
-                        btn = d1;
-                        s = c;
-                        aa = a;
-                        aa2 = a2;
-                        aa3 = a3;
-                        aa4 = a4;
-                        aa5 = b;
-                        aa6 = a5;
-
-                        panel1.Controls.Add(a);
-                        panel1.Controls.Add(a2);
-                        panel1.Controls.Add(a3);
-                        panel1.Controls.Add(a4);
-                        panel1.Controls.Add(b);
-                        panel1.Controls.Add(a5);
-                        panel1.Controls.Add(c);
-                        panel1.Controls.Add(d);
-                        panel1.Controls.Add(d1);
-                        panel1.Controls.Add(d3);
-                        panel1.Controls.Add(d4);
-                        panel1.Visible = true;
-                        string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-                        string query = $"SELECT TOP (1000) [Название компании]\r\n  FROM [HotelDB].[dbo].[Поставщики]\r\n";
-
-                        using (SqlConnection connect1 = new SqlConnection(connect))
+                        if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
                         {
-                            try
-                            {
-                                connect1.Open();
-                                int index = 0;
-                                SqlCommand command = new SqlCommand(query, connect1);
-                                SqlDataReader reader = command.ExecuteReader();
+                            panel1.Controls.Clear();
+                            TextBox a = new TextBox();
+                            a.Text = "";
+                            TextBox a2 = new TextBox();
+                            a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                            a2.Text = "";
+                            TextBox a3 = new TextBox();
+                            a3.Location = new Point(0, (a.Size.Height + 6) * 2);
+                            a3.Text = "";
+                            TextBox a4 = new TextBox();
+                            a4.Location = new Point(0, (a.Size.Height + 6) * 3);
+                            a4.Text = "";
+                            ComboBox b = new ComboBox();
+                            b.Location = new Point(0, (a.Size.Height + 6) * 4);
+                            b.Text = "";
+                            TextBox a5 = new TextBox();
+                            a5.Location = new Point(0, (a.Size.Height + 6) * 5);
+                            a5.Text = "";
+                            NumericUpDown c = new NumericUpDown();
+                            c.Location = new Point(0, (a.Size.Height + 6) * 6);
+                            Button d = new Button();
+                            d.Location = new Point(0, (a.Size.Height + 6) * 7);
+                            d.Text = "Купить";
+                            d.Size = new Size(a.Size.Width, a.Size.Height);
+                            // d.Click += new EventHandler(save);
+                            Button d1 = new Button();
+                            d1.Location = new Point(0, (a.Size.Height + 6) * 8);
+                            d1.Size = new Size(a.Size.Width, a.Size.Height);
+                            d1.Text = "Сохранить";
+                            d1.Click += new EventHandler(save);
+                            d.Click += new EventHandler(otchet);
+                            Button d3 = new Button();
+                            d3.Location = new Point(0, (a.Size.Height + 6) * 9);
+                            d3.Text = "Удалить";
+                            d3.Size = new Size(a.Size.Width, a.Size.Height);
+                            d3.Click += new EventHandler(deleteinvent);
+                            Button d4 = new Button();
+                            d4.Location = new Point(0, (a.Size.Height + 6) * 10);
+                            d4.Text = "Дрбавить";
+                            d4.Size = new Size(a.Size.Width, a.Size.Height);
+                            d4.Click += new EventHandler(insertinvent);
+                            btn = d1;
+                            s = c;
+                            aa = a;
+                            aa2 = a2;
+                            aa3 = a3;
+                            aa4 = a4;
+                            aa5 = b;
+                            aa6 = a5;
 
-                                while (reader.Read())
-                                {
-                                    b.Items.Add(reader["Название компании"].ToString());
-                                }
-                                command.Dispose();
-                                reader.Close();
-                                connect1.Close();
-                            }
-                            catch (SqlException ex)
+                            panel1.Controls.Add(a);
+                            panel1.Controls.Add(a2);
+                            panel1.Controls.Add(a3);
+                            panel1.Controls.Add(a4);
+                            panel1.Controls.Add(b);
+                            panel1.Controls.Add(a5);
+                            panel1.Controls.Add(c);
+                            panel1.Controls.Add(d);
+                            panel1.Controls.Add(d1);
+                            panel1.Controls.Add(d3);
+                            panel1.Controls.Add(d4);
+                            panel1.Visible = true;
+                            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+                            string query = $"SELECT TOP (1000) [Название компании]\r\n  FROM [HotelDB].[dbo].[Поставщики]\r\n";
+
+                            using (SqlConnection connect1 = new SqlConnection(connect))
                             {
-                                MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                                try
+                                {
+                                    connect1.Open();
+                                    int index = 0;
+                                    SqlCommand command = new SqlCommand(query, connect1);
+                                    SqlDataReader reader = command.ExecuteReader();
+
+                                    while (reader.Read())
+                                    {
+                                        b.Items.Add(reader["Название компании"].ToString());
+                                    }
+                                    command.Dispose();
+                                    reader.Close();
+                                    connect1.Close();
+                                }
+                                catch (SqlException ex)
+                                {
+                                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                                }
+                            }
+                        
+                    }
+                        else
+                        {
+                            panel1.Controls.Clear();
+                            TextBox a = new TextBox();
+                            a.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+                            TextBox a2 = new TextBox();
+                            a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                            a2.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                            TextBox a3 = new TextBox();
+                            a3.Location = new Point(0, (a.Size.Height + 6) * 2);
+                            a3.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+                            TextBox a4 = new TextBox();
+                            a4.Location = new Point(0, (a.Size.Height + 6) * 3);
+                            a4.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
+                            ComboBox b = new ComboBox();
+                            b.Location = new Point(0, (a.Size.Height + 6) * 4);
+                            b.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+                            TextBox a5 = new TextBox();
+                            a5.Location = new Point(0, (a.Size.Height + 6) * 5);
+                            a5.Text = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
+                            NumericUpDown c = new NumericUpDown();
+                            c.Location = new Point(0, (a.Size.Height + 6) * 6);
+                            Button d = new Button();
+                            d.Location = new Point(0, (a.Size.Height + 6) * 7);
+                            d.Text = "Купить";
+                            d.Size = new Size(a.Size.Width, a.Size.Height);
+                            // d.Click += new EventHandler(save);
+                            Button d1 = new Button();
+                            d1.Location = new Point(0, (a.Size.Height + 6) * 8);
+                            d1.Size = new Size(a.Size.Width, a.Size.Height);
+                            d1.Text = "Сохранить";
+                            d1.Click += new EventHandler(save);
+                            d.Click += new EventHandler(otchet);
+                            Button d3 = new Button();
+                            d3.Location = new Point(0, (a.Size.Height + 6) * 9);
+                            d3.Text = "Удалить";
+                            d3.Size = new Size(a.Size.Width, a.Size.Height);
+                            d3.Click += new EventHandler(deleteinvent);
+                            Button d4 = new Button();
+                            d4.Location = new Point(0, (a.Size.Height + 6) * 10);
+                            d4.Text = "Дрбавить";
+                            d4.Size = new Size(a.Size.Width, a.Size.Height);
+                            d4.Click += new EventHandler(insertinvent);
+                            btn = d1;
+                            s = c;
+                            aa = a;
+                            aa2 = a2;
+                            aa3 = a3;
+                            aa4 = a4;
+                            aa5 = b;
+                            aa6 = a5;
+
+                            panel1.Controls.Add(a);
+                            panel1.Controls.Add(a2);
+                            panel1.Controls.Add(a3);
+                            panel1.Controls.Add(a4);
+                            panel1.Controls.Add(b);
+                            panel1.Controls.Add(a5);
+                            panel1.Controls.Add(c);
+                            panel1.Controls.Add(d);
+                            panel1.Controls.Add(d1);
+                            panel1.Controls.Add(d3);
+                            panel1.Controls.Add(d4);
+                            panel1.Visible = true;
+                            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+                            string query = $"SELECT TOP (1000) [Название компании]\r\n  FROM [HotelDB].[dbo].[Поставщики]\r\n";
+
+                            using (SqlConnection connect1 = new SqlConnection(connect))
+                            {
+                                try
+                                {
+                                    connect1.Open();
+                                    int index = 0;
+                                    SqlCommand command = new SqlCommand(query, connect1);
+                                    SqlDataReader reader = command.ExecuteReader();
+
+                                    while (reader.Read())
+                                    {
+                                        b.Items.Add(reader["Название компании"].ToString());
+                                    }
+                                    command.Dispose();
+                                    reader.Close();
+                                    connect1.Close();
+                                }
+                                catch (SqlException ex)
+                                {
+                                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                                }
                             }
                         }
                     }
-                    catch(Exception eeee) { }
-
+                    catch (Exception eeee) { }
+                
                 }
                 else
                     if (tablee == 2)
@@ -417,19 +510,21 @@ namespace IS_17
         }
         private void otchet(object sender, EventArgs e)
         {
-            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-            string query = $"INSERT INTO Отчеты ([Тип], [Описание], [ID_Ответственного Работника], [Дата создания записи]) VALUES ('Финансовый', 'Покупка товара: {dataGridView1.SelectedRows[0].Cells[0].Value.ToString()} кол-во: {s.Value.ToString()} на сумму: {int.Parse(dataGridView1.SelectedRows[0].Cells[5].Value.ToString()) * s.Value}', '2', '{DateTime.Now.ToString()}')";
-            using (SqlConnection connect1 = new SqlConnection(connect))
-            {
-                connect1.Open();
-                SqlCommand command = new SqlCommand(query, connect1);
-                command.ExecuteNonQuery();
-            }
-            //dataGridView1.SelectedRows[0].Cells[1].Value=int.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString()) + s.Value;
-            //dataGridView1.SelectedRows[0].Cells[2].Value = int.Parse(dataGridView1.SelectedRows[0].Cells[2].Value.ToString()) + s.Value;
-            aa2.Text = (int.Parse(aa2.Text) + s.Value).ToString();
-            aa3.Text = (int.Parse(aa3.Text) + s.Value).ToString();
-            btn.PerformClick();
+            
+                string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+                string query = $"INSERT INTO Отчеты ([Тип], [Описание], [ID_Ответственного Работника], [Дата создания записи]) VALUES ('Финансовый', 'Покупка товара: {dataGridView1.SelectedRows[0].Cells[0].Value.ToString()} кол-во: {s.Value.ToString()} на сумму: {int.Parse(dataGridView1.SelectedRows[0].Cells[5].Value.ToString()) * s.Value}', '2', '{DateTime.Now.ToString()}')";
+                using (SqlConnection connect1 = new SqlConnection(connect))
+                {
+                    connect1.Open();
+                    SqlCommand command = new SqlCommand(query, connect1);
+                    command.ExecuteNonQuery();
+                }
+                //dataGridView1.SelectedRows[0].Cells[1].Value=int.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString()) + s.Value;
+                //dataGridView1.SelectedRows[0].Cells[2].Value = int.Parse(dataGridView1.SelectedRows[0].Cells[2].Value.ToString()) + s.Value;
+                aa2.Text = (int.Parse(aa2.Text) + s.Value).ToString();
+                aa3.Text = (int.Parse(aa3.Text) + s.Value).ToString();
+                btn.PerformClick();
+            
         }
 
         private void button7_Click(object sender, EventArgs e)
