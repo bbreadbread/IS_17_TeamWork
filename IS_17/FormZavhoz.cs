@@ -449,7 +449,7 @@ namespace IS_17
         {
             tablee = 0;
             panel1.Controls.Clear();
-            panel1.Visible = true;           
+            panel1.Visible = true;
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Add("1", "ID Отчета");
@@ -473,7 +473,7 @@ namespace IS_17
                     while (reader.Read())
                     {
                         string v1 = reader[" ID_Отчета"].ToString();
-                        
+
                     }
                     command.Dispose();
                     reader.Close();
@@ -484,5 +484,6 @@ namespace IS_17
                     MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
                 }
             }
+        }
     }
 }
