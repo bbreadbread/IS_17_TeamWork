@@ -30,44 +30,46 @@
         {
             listBoxReservation = new ListBox();
             buttonReservation = new Button();
-            button1 = new Button();
+            buttonUnassign = new Button();
             labelName = new Label();
             labelSurname = new Label();
+            labelInfo = new Label();
             SuspendLayout();
             // 
             // listBoxReservation
             // 
             listBoxReservation.FormattingEnabled = true;
             listBoxReservation.ItemHeight = 15;
-            listBoxReservation.Location = new Point(12, 42);
+            listBoxReservation.Location = new Point(12, 57);
             listBoxReservation.Name = "listBoxReservation";
-            listBoxReservation.Size = new Size(297, 259);
+            listBoxReservation.Size = new Size(297, 244);
             listBoxReservation.TabIndex = 0;
             // 
             // buttonReservation
             // 
-            buttonReservation.Location = new Point(12, 315);
+            buttonReservation.AccessibleRole = AccessibleRole.OutlineButton;
+            buttonReservation.Location = new Point(21, 315);
             buttonReservation.Name = "buttonReservation";
-            buttonReservation.Size = new Size(143, 31);
+            buttonReservation.Size = new Size(288, 31);
             buttonReservation.TabIndex = 1;
             buttonReservation.Text = "Закрепить за комнатой";
             buttonReservation.UseVisualStyleBackColor = true;
             buttonReservation.Click += buttonReservation_Click;
             // 
-            // button1
+            // buttonUnassign
             // 
-            button1.Location = new Point(161, 315);
-            button1.Name = "button1";
-            button1.Size = new Size(148, 31);
-            button1.TabIndex = 2;
-            button1.Text = "Открепить от комнаты";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonUnassign.Location = new Point(201, 5);
+            buttonUnassign.Name = "buttonUnassign";
+            buttonUnassign.Size = new Size(108, 44);
+            buttonUnassign.TabIndex = 2;
+            buttonUnassign.Text = "Открепить от комнаты";
+            buttonUnassign.UseVisualStyleBackColor = true;
+            buttonUnassign.Click += buttonUnassign_Click;
             // 
             // labelName
             // 
             labelName.AutoSize = true;
-            labelName.Location = new Point(12, 13);
+            labelName.Location = new Point(13, 34);
             labelName.Name = "labelName";
             labelName.Size = new Size(38, 15);
             labelName.TabIndex = 3;
@@ -76,20 +78,30 @@
             // labelSurname
             // 
             labelSurname.AutoSize = true;
-            labelSurname.Location = new Point(92, 13);
+            labelSurname.Location = new Point(85, 34);
             labelSurname.Name = "labelSurname";
             labelSurname.Size = new Size(38, 15);
             labelSurname.TabIndex = 4;
             labelSurname.Text = "label2";
+            // 
+            // labelInfo
+            // 
+            labelInfo.AutoSize = true;
+            labelInfo.Location = new Point(46, 9);
+            labelInfo.Name = "labelInfo";
+            labelInfo.Size = new Size(38, 15);
+            labelInfo.TabIndex = 5;
+            labelInfo.Text = "label1";
             // 
             // CustomMessageBox
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(321, 358);
+            Controls.Add(labelInfo);
             Controls.Add(labelSurname);
             Controls.Add(labelName);
-            Controls.Add(button1);
+            Controls.Add(buttonUnassign);
             Controls.Add(buttonReservation);
             Controls.Add(listBoxReservation);
             FormBorderStyle = FormBorderStyle.Fixed3D;
@@ -103,8 +115,9 @@
 
         private ListBox listBoxReservation;
         private Button buttonReservation;
-        private Button button1;
+        private Button buttonUnassign;
         private Label labelName;
         private Label labelSurname;
+        private Label labelInfo;
     }
 }

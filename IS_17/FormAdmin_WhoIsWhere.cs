@@ -11,24 +11,31 @@ using System.Windows.Forms;
 
 namespace IS_17
 {
+    //         @"SELECT 
+    //      b.[ID_Номера] AS Номер,
+    //         g.[Имя] AS Имя,
+    //      g.[Фамилия] AS Фамилия
+    //     FROM 
+    //         [HotelDB].[dbo].[Бронирования] b
+    //     JOIN 
+    //         [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
+    //     WHERE 
+    //         b.[Статус бронирования] = 'Подтверждено';";
     public partial class FormAdmin_WhoIsWhere : Form
     {
+
         public FormAdmin_WhoIsWhere()
         {
             InitializeComponent();
             LoadPanels();
+            refreshTimer.Start();
         }
 
         private void LoadPanels()
         {
-            
-        }
-
-        private void FormAdmin_WhoIsWhere_Load(object sender, EventArgs e)
-        {
+            this.Controls.Clear();
             string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
-            string query = "SELECT [ID_Номера], [Статус] FROM [HotelDB].[dbo].[Номера];";
-
+            string query = "SELECT [ID_Номера], [Статус],[Закрепленная горничная] FROM [HotelDB].[dbo].[Номера];";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -49,38 +56,8 @@ namespace IS_17
                 }
             }
 
-            string query2 = @"SELECT 
-	                        b.[ID_Номера] AS Номер,
-                            g.[Имя] AS Имя,
-	                        g.[Фамилия] AS Фамилия
-                        FROM 
-                            [HotelDB].[dbo].[Бронирования] b
-                        JOIN 
-                            [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
-                        WHERE 
-                            b.[Статус бронирования] = 'Подтверждено';";
 
-            DataTable dataTable2 = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query2, connection))
-                    {
-                        SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        adapter.Fill(dataTable2);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка при загрузке данных: " + ex.Message);
-                    return;
-                }
-            }
-
-            // Создаем панели
             int panelSize = 80;
             int panelsPerRow = 8;
             int spacing = 10;
@@ -95,18 +72,22 @@ namespace IS_17
             {
                 int roomId = Convert.ToInt32(dataTable.Rows[i]["ID_Номера"]);
                 string status = dataTable.Rows[i]["Статус"].ToString();
-
+                string maidHad = dataTable.Rows[i]["Закрепленная горничная"].ToString();
+                // Создаем новую панель
                 Panel panel = new Panel();
                 panel.Size = new Size(panelSize, panelSize);
                 panel.BorderStyle = BorderStyle.FixedSingle;
 
+                // Устанавливаем цвет панели в зависимости от статуса
                 switch (status)
                 {
                     case "Доступно":
-                        panel.BackColor = Color.Green;
+                        if (maidHad == "") panel.BackColor = Color.Green;
+                        else panel.BackColor = Color.Chartreuse;
                         break;
                     case "Забронировано":
-                        panel.BackColor = Color.Yellow;
+                        if (maidHad == "") panel.BackColor = Color.Orange;
+                        else panel.BackColor = Color.Yellow;
                         break;
                     case "Тех. обслуживание":
                         panel.BackColor = Color.Red;
@@ -122,10 +103,10 @@ namespace IS_17
                 label.AutoSize = true;
                 label.Font = new Font("Arial", 12, FontStyle.Bold);
                 label.ForeColor = Color.White;
+
                 label.Location = new Point(10, 10);
                 panel.Controls.Add(label);
                 this.Text = "Закрепление комнаты " + $"{roomId}";
-
                 int row = i / panelsPerRow;
                 int col = i % panelsPerRow;
                 panel.Location = new Point(
@@ -133,16 +114,58 @@ namespace IS_17
                     startY + row * (panelSize + spacing)  // Y
                 );
 
+                // Добавляем панель на форму
                 this.Controls.Add(panel);
 
+                // Обработка клика по панели
                 panel.Click += (sender, e) =>
                 {
 
+                    string query2 = $@"SELECT 
+                                    b.[ID_Номера] AS Номер,
+                                    g.[Имя] AS Имя,
+                                    g.[Фамилия] AS Фамилия
+                                FROM 
+                                    [HotelDB].[dbo].[Бронирования] b
+                                JOIN 
+                                    [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
+                                WHERE 
+                                    b.[Статус бронирования] = 'Подтверждено'
+                                AND b.[ID_Номера] = {roomId};";
 
-                    CustomMessageBox customMessageBox = new CustomMessageBox();
+                    string MaidName = "";
+                    string MaidSurname = "";
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            using (SqlCommand command = new SqlCommand(query2, connection))
+                            {
+                                SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                                SqlDataReader reader = command.ExecuteReader();
+
+                                while (reader.Read())
+                                {
+                                    MaidName = reader["Имя"].ToString();
+                                    MaidSurname = reader["Фамилия"].ToString();
+                                }
+                                reader.Close();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Ошибка при загрузке данных: " + ex.Message);
+                            return;
+                        }
+                    }
+                    ///Color [Yellow]
+                    string colorPanel = panel.BackColor.ToString();
+                    CustomMessageBox customMessageBox = new CustomMessageBox(MaidName, MaidSurname, roomId, colorPanel);
                     DialogResult result = customMessageBox.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result == DialogResult.OK && panel.BackColor == Color.Green)
                     {
                         int idSelected = customMessageBox.IdSelected;
 
@@ -163,8 +186,6 @@ namespace IS_17
 
                                     if (rowsAffected > 0)
                                     {
-                                        panel.BackColor = Color.Yellow;
-
                                         MessageBox.Show("Статус номера успешно обновлен.");
                                     }
                                     else
@@ -181,6 +202,21 @@ namespace IS_17
                     }
                 };
             }
+        }
+
+        private void FormAdmin_WhoIsWhere_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            LoadPanels();
+        }
+
+        private void FormAdmin_WhoIsWhere_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            refreshTimer.Stop();
         }
     }
 }

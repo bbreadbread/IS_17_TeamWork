@@ -28,7 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            refreshTimer = new System.Windows.Forms.Timer(components);
             SuspendLayout();
+            // 
+            // refreshTimer
+            // 
+            refreshTimer.Interval = 4000;
+            refreshTimer.Tick += refreshTimer_Tick;
             // 
             // FormAdmin_WhoIsWhere
             // 
@@ -38,10 +45,13 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormAdmin_WhoIsWhere";
             Text = "FormAdmin_WhoIsWhere";
+            FormClosed += FormAdmin_WhoIsWhere_FormClosed;
             Load += FormAdmin_WhoIsWhere_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer refreshTimer;
     }
 }

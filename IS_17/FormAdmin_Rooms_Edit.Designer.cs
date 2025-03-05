@@ -107,7 +107,7 @@
             // 
             StatuscomboBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
             StatuscomboBox.FormattingEnabled = true;
-            StatuscomboBox.Items.AddRange(new object[] { "Доступно", "Забронировано", "Тех. обслуживание" });
+            StatuscomboBox.Items.AddRange(new object[] { "Доступно", "Тех. обслуживание" });
             StatuscomboBox.Location = new Point(532, 308);
             StatuscomboBox.Name = "StatuscomboBox";
             StatuscomboBox.Size = new Size(227, 28);

@@ -30,6 +30,15 @@ namespace IS_17
                 CountSeatnumericUpDown.Text = row.Cells["Количество мест"].Value.ToString();
                 PricetextBox.Text = row.Cells["Цена за сутки"].Value.ToString();
                 StatuscomboBox.Text = row.Cells["Статус"].Value.ToString();
+
+                if (StatuscomboBox.Text == "Забронировано")
+                {
+                    StatuscomboBox.Enabled = false;
+                }
+                else
+                {
+                    StatuscomboBox.Enabled = true;
+                }
             }
         }
         private void LoadWorkers(string query)
@@ -84,17 +93,57 @@ namespace IS_17
             int idSet = dataGridView1.CurrentRow.Index;
             string query = $"UPDATE [HotelDB].[dbo].[Номера] SET [Тип комнаты] = '{typeRoomcomboBox.Text}', [Количество мест] = {int1},  [Цена за сутки] = {int2}, [Статус] = '{StatuscomboBox.Text}' WHERE [ID_Номера] = {idSet + 1};";
             LoadWorkers(query);
+            LoadWorkers($@"DELETE FROM[HotelDB].[dbo].[Бронирования]
+                        WHERE[ID_Номера] IN(
+                            SELECT[ID_Номера]
+                            FROM[HotelDB].[dbo].[Номера]
+                            WHERE[Статус] = 'Доступно'
+                        );");
             LoadWorkers(allView);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int int1 = int.Parse(CountSeatnumericUpDown.Text);
-            int int2 = int.Parse(PricetextBox.Text);
-            int idSet = dataGridView1.CurrentRow.Index;
-            string query = $"DELETE FROM [HotelDB].[dbo].[Номера] WHERE [Тип комнаты] = '{typeRoomcomboBox.Text}' and [Количество мест] = {int1} and [Цена за сутки] = {int2}";
-            LoadWorkers(query);
-            LoadWorkers(allView);
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
+                object value = selectedRow.Cells[0].Value;
+
+                if (value != null)
+                {
+                    int roomId = Convert.ToInt32(value);
+                    int int1 = int.Parse(CountSeatnumericUpDown.Text);
+                    int int2 = int.Parse(PricetextBox.Text);
+                    int idSet = dataGridView1.CurrentRow.Index;
+                    string query = $@"IF EXISTS (SELECT 1 FROM [HotelDB].[dbo].[Номера]
+                                        WHERE [ID_Номера] = {roomId} 
+                                        AND [Статус] = 'Забронировано')
+
+                                    BEGIN
+                                        DELETE FROM [HotelDB].[dbo].[Бронирования]
+                                        WHERE [ID_Номера] = {roomId};
+
+                                        DELETE FROM [HotelDB].[dbo].[Номера]
+                                        WHERE [ID_Номера] = {roomId};
+                                    END
+                                    ELSE 
+                                    BEGIN 
+                                        DELETE FROM [HotelDB].[dbo].[Номера]
+                                        WHERE [ID_Номера] = {roomId};
+                                    END";
+                    LoadWorkers(query);
+                    LoadWorkers(allView);
+                }
+                else
+                {
+                    MessageBox.Show("Значение в первом столбце отсутствует.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Строка не выбрана.");
+            }
         }
     }
 }

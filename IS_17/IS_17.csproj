@@ -27,4 +27,12 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\VisualStudioProject\IS_17\IS_17\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\VisualStudioProject\IS_17\IS_17\.editorconfig" />
+  </ItemGroup>
+
 </Project>

@@ -96,7 +96,7 @@ namespace IS_17
                 return;
             }
 
-            LoadWorkers($"INSERT INTO [HotelDB].[dbo].[Работники] ([Номер комнаты], [Тип комнаты], [Количество мест], [Цена за сутки], [Статус]) VALUES" +
+            LoadWorkers($"INSERT INTO [HotelDB].[dbo].[Номера] ([Тип комнаты], [Количество мест], [Цена за сутки], [Статус]) VALUES" +
                 $" ('{тип}', '{количество_мест}', '{цена_за_сутки}', '{статус}');");
             LoadWorkers(allView);
 
