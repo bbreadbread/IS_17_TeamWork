@@ -525,6 +525,7 @@ namespace IS_17
                 aa3.Text = (int.Parse(aa3.Text) + s.Value).ToString();
                 btn.PerformClick();
             
+
         }
 
         private void button7_Click(object sender, EventArgs e)
