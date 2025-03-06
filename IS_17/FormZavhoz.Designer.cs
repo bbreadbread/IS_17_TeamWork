@@ -43,11 +43,11 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(344, 85);
+            dataGridView1.Location = new Point(359, 12);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(439, 406);
+            dataGridView1.Size = new Size(439, 480);
             dataGridView1.TabIndex = 5;
             dataGridView1.Visible = false;
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
@@ -128,9 +128,9 @@
             // 
             // panel1
             // 
-            panel1.Location = new Point(789, 85);
+            panel1.Location = new Point(804, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(212, 406);
+            panel1.Size = new Size(248, 514);
             panel1.TabIndex = 7;
             panel1.Visible = false;
             // 
@@ -138,7 +138,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1002, 595);
+            ClientSize = new Size(1056, 595);
             Controls.Add(panel1);
             Controls.Add(sidebar);
             Controls.Add(dataGridView1);

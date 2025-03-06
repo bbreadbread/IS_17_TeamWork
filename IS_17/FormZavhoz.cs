@@ -148,45 +148,92 @@ namespace IS_17
                         if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
                         {
                             panel1.Controls.Clear();
+                            Label f = new Label();
+                            f.Location=new Point(3, 0);
+                            f.Text = "Название:";
+                            f.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ////////                            
+                            Label f1 = new Label();
+                            f1.Location = new Point(3, f.Size.Height+20+3);
+                            f1.Text = "Общее кол-во:";
+                            f1.Size = new Size(f.Width * 2, f.Height);
+                            f1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// ////////                            
+                            Label f2 = new Label();
+                            f2.Location = new Point(3, (f.Size.Height + 20 + 3)*2);
+                            f2.Text = "Кол-во на складе:";
+                            f2.Size = new Size(f.Width * 3, f.Height);
+                            f2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// /// ////////                            
+                            Label f3 = new Label();
+                            f3.Location = new Point(3, (f.Size.Height + 20 + 3) * 3);
+                            f3.Text = "Кол-во повреждённых:";
+                            f3.Size = new Size(f.Width * 3, f.Height);
+                            f3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            ////// /// ////////                            
+                            Label f4 = new Label();
+                            f4.Location = new Point(3, (f.Size.Height + 20 + 3) * 4+4);
+                            f4.Text = "Поставщик:";
+                            f4.Size = new Size(f.Width * 4, f.Height);
+                            f4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// /// ////////                            
+                            Label f5 = new Label();
+                            f5.Location = new Point(3, (f.Size.Height + 20 + 3) * 5 + 4);
+                            f5.Text = "Цена:";
+                            f5.Size = new Size(f.Width * 3, f.Height);
+                            f5.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// /// /// ////////                            
+                            Label f6 = new Label();
+                            f6.Location = new Point(3, (f.Size.Height + 20 + 3) * 6 + 4);
+                            f6.Text = "Кол-во для покупки:";
+                            f6.Size = new Size(f.Width * 3, f.Height);
+                            f6.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
                             TextBox a = new TextBox();
                             a.Text = "";
+                            a.Location = new Point(3, 20);
                             TextBox a2 = new TextBox();
-                            a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                            a2.Location = new Point(3, a.Size.Height*1+ 20 * 2);
                             a2.Text = "";
                             TextBox a3 = new TextBox();
-                            a3.Location = new Point(0, (a.Size.Height + 6) * 2);
+                            a3.Location = new Point(3, a.Size.Height * 2 + 20 * 3);
                             a3.Text = "";
                             TextBox a4 = new TextBox();
-                            a4.Location = new Point(0, (a.Size.Height + 6) * 3);
+                            a4.Location = new Point(3, a.Size.Height * 3 + 20 * 4);
                             a4.Text = "";
                             ComboBox b = new ComboBox();
-                            b.Location = new Point(0, (a.Size.Height + 6) * 4);
+                            b.Location = new Point(3, a.Size.Height * 4 + 20 * 5);
                             b.Text = "";
                             TextBox a5 = new TextBox();
-                            a5.Location = new Point(0, (a.Size.Height + 6) * 5);
+                            a5.Location = new Point(3, a.Size.Height * 5 + 20 * 6);
                             a5.Text = "";
                             NumericUpDown c = new NumericUpDown();
-                            c.Location = new Point(0, (a.Size.Height + 6) * 6);
+                            c.Location = new Point(3, a.Size.Height * 6 + 20 * 7);
                             Button d = new Button();
-                            d.Location = new Point(0, (a.Size.Height + 6) * 7);
+                            d.Location = new Point(0, a.Size.Height * 6 + 20 * 9-10);
                             d.Text = "Купить";
-                            d.Size = new Size(a.Size.Width, a.Size.Height);
+                            d.Size = new Size(a.Size.Width+23, a.Size.Height+10);
                             // d.Click += new EventHandler(save);
                             Button d1 = new Button();
-                            d1.Location = new Point(0, (a.Size.Height + 6) * 8);
-                            d1.Size = new Size(a.Size.Width, a.Size.Height);
+                            d1.Location = new Point(0, a.Size.Height * 8 + 20 * 9 - 25);
+                            d1.Size = new Size(a.Size.Width + 23, a.Size.Height + 10);
                             d1.Text = "Сохранить";
                             d1.Click += new EventHandler(save);
                             d.Click += new EventHandler(otchet);
                             Button d3 = new Button();
-                            d3.Location = new Point(0, (a.Size.Height + 6) * 9);
+                            d3.Location = new Point(0, a.Size.Height * 9 + 20 * 10 - 33);
                             d3.Text = "Удалить";
-                            d3.Size = new Size(a.Size.Width, a.Size.Height);
+                            d3.Size = new Size(a.Size.Width + 23, a.Size.Height + 10);
                             d3.Click += new EventHandler(deleteinvent);
                             Button d4 = new Button();
-                            d4.Location = new Point(0, (a.Size.Height + 6) * 10);
+                            d4.Location = new Point(0, a.Size.Height * 10 + 20 * 11 - 41);
                             d4.Text = "Добавить";
-                            d4.Size = new Size(a.Size.Width, a.Size.Height);
+                            d4.Size = new Size(a.Size.Width + 23, a.Size.Height + 10);
                             d4.Click += new EventHandler(insertinvent);
                             btn = d1;
                             s = c;
@@ -196,7 +243,32 @@ namespace IS_17
                             aa4 = a4;
                             aa5 = b;
                             aa6 = a5;
-
+                            d.BackColor = Color.FromArgb(29, 29, 67);
+                            d1.BackColor = Color.FromArgb(29, 29, 67);
+                            d4.BackColor = Color.FromArgb(29, 29, 67);
+                            d3.BackColor = Color.FromArgb(29, 29, 67);
+                            d.Font= new Font("Century Gothic", 9, FontStyle.Bold);
+                            d.ForeColor = Color.White;
+                            d1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d1.ForeColor = Color.White;
+                            d3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d3.ForeColor = Color.White;
+                            d4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d4.ForeColor = Color.White;
+                            /////
+                            d.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            d1.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            d3.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            d4.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            c.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            b.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            a.Size= new Size(a.Size.Width*2, a.Size.Height + 10);
+                            a2.Size = new Size(a2.Size.Width * 2, a.Size.Height + 10);
+                            a3.Size = new Size(a3.Size.Width * 2, a.Size.Height + 10);
+                            a4.Size = new Size(a4.Size.Width * 2, a.Size.Height + 10);
+                            a5.Size = new Size(a5.Size.Width * 2, a.Size.Height + 10);
+                            
+                            /////
                             panel1.Controls.Add(a);
                             panel1.Controls.Add(a2);
                             panel1.Controls.Add(a3);
@@ -208,6 +280,13 @@ namespace IS_17
                             panel1.Controls.Add(d1);
                             panel1.Controls.Add(d3);
                             panel1.Controls.Add(d4);
+                            panel1.Controls.Add(f);
+                            panel1.Controls.Add(f1);
+                            panel1.Controls.Add(f2);
+                            panel1.Controls.Add(f3);
+                            panel1.Controls.Add(f4);
+                            panel1.Controls.Add(f5);
+                            panel1.Controls.Add(f6);
                             panel1.Visible = true;
                             string connect = allconect;
                             string query = $"SELECT TOP (1000) [Название компании]\r\n  FROM [HotelDB].[dbo].[Поставщики]\r\n";
@@ -241,41 +320,42 @@ namespace IS_17
                             panel1.Controls.Clear();
                             TextBox a = new TextBox();
                             a.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+                            a.Location=new Point(3,20);
                             TextBox a2 = new TextBox();
-                            a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                            a2.Location = new Point(3, a.Size.Height * 1 + 20 * 2);
                             a2.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
                             TextBox a3 = new TextBox();
-                            a3.Location = new Point(0, (a.Size.Height + 6) * 2);
+                            a3.Location = new Point(3, a.Size.Height * 2 + 20 * 3);
                             a3.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
                             TextBox a4 = new TextBox();
-                            a4.Location = new Point(0, (a.Size.Height + 6) * 3);
+                            a4.Location = new Point(3, a.Size.Height * 3 + 20 * 4);
                             a4.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
                             ComboBox b = new ComboBox();
-                            b.Location = new Point(0, (a.Size.Height + 6) * 4);
+                            b.Location = new Point(3, a.Size.Height * 4 + 20 * 5);
                             b.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
                             TextBox a5 = new TextBox();
-                            a5.Location = new Point(0, (a.Size.Height + 6) * 5);
+                            a5.Location = new Point(3, a.Size.Height * 5 + 20 * 6);
                             a5.Text = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
                             NumericUpDown c = new NumericUpDown();
-                            c.Location = new Point(0, (a.Size.Height + 6) * 6);
+                            c.Location = new Point(3, a.Size.Height * 6 + 20 * 7);
                             Button d = new Button();
-                            d.Location = new Point(0, (a.Size.Height + 6) * 7);
+                            d.Location = new Point(0, a.Size.Height * 6 + 20 * 9 - 10);
                             d.Text = "Купить";
                             d.Size = new Size(a.Size.Width, a.Size.Height);
                             // d.Click += new EventHandler(save);
                             Button d1 = new Button();
-                            d1.Location = new Point(0, (a.Size.Height + 6) * 8);
+                            d1.Location = new Point(0, a.Size.Height * 8 + 20 * 9 - 25);
                             d1.Size = new Size(a.Size.Width, a.Size.Height);
                             d1.Text = "Сохранить";
                             d1.Click += new EventHandler(save);
                             d.Click += new EventHandler(otchet);
                             Button d3 = new Button();
-                            d3.Location = new Point(0, (a.Size.Height + 6) * 9);
+                            d3.Location = new Point(0, a.Size.Height * 9 + 20 * 10 - 33);
                             d3.Text = "Удалить";
                             d3.Size = new Size(a.Size.Width, a.Size.Height);
                             d3.Click += new EventHandler(deleteinvent);
                             Button d4 = new Button();
-                            d4.Location = new Point(0, (a.Size.Height + 6) * 10);
+                            d4.Location = new Point(0, a.Size.Height * 10 + 20 * 11 - 41);
                             d4.Text = "Добавить";
                             d4.Size = new Size(a.Size.Width, a.Size.Height);
                             d4.Click += new EventHandler(insertinvent);
@@ -287,7 +367,76 @@ namespace IS_17
                             aa4 = a4;
                             aa5 = b;
                             aa6 = a5;
-
+                            /////
+                            d.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            d1.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            d3.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            d4.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            c.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            b.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            a.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
+                            a2.Size = new Size(a2.Size.Width * 2, a.Size.Height + 10);
+                            a3.Size = new Size(a3.Size.Width * 2, a.Size.Height + 10);
+                            a4.Size = new Size(a4.Size.Width * 2, a.Size.Height + 10);
+                            a5.Size = new Size(a5.Size.Width * 2, a.Size.Height + 10);
+                            Label f = new Label();
+                            f.Location = new Point(3, 0);
+                            f.Text = "Название:";
+                            f.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ////////                            
+                            Label f1 = new Label();
+                            f1.Location = new Point(3, f.Size.Height + 20 + 3);
+                            f1.Text = "Общее кол-во:";
+                            f1.Size = new Size(f.Width * 2, f.Height);
+                            f1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// ////////                            
+                            Label f2 = new Label();
+                            f2.Location = new Point(3, (f.Size.Height + 20 + 3) * 2);
+                            f2.Text = "Кол-во на складе:";
+                            f2.Size = new Size(f.Width * 3, f.Height);
+                            f2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// /// ////////                            
+                            Label f3 = new Label();
+                            f3.Location = new Point(3, (f.Size.Height + 20 + 3) * 3);
+                            f3.Text = "Кол-во повреждённых:";
+                            f3.Size = new Size(f.Width * 3, f.Height);
+                            f3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            ////// /// ////////                            
+                            Label f4 = new Label();
+                            f4.Location = new Point(3, (f.Size.Height + 20 + 3) * 4 + 4);
+                            f4.Text = "Поставщик:";
+                            f4.Size = new Size(f.Width * 4, f.Height);
+                            f4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// /// ////////                            
+                            Label f5 = new Label();
+                            f5.Location = new Point(3, (f.Size.Height + 20 + 3) * 5 + 4);
+                            f5.Text = "Цена:";
+                            f5.Size = new Size(f.Width * 3, f.Height);
+                            f5.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            ///////
+                            /// /// /// ////////                            
+                            Label f6 = new Label();
+                            f6.Location = new Point(3, (f.Size.Height + 20 + 3) * 6 + 4);
+                            f6.Text = "Кол-во для покупки:";
+                            f6.Size = new Size(f.Width * 3, f.Height);
+                            f6.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            /////
+                            d.BackColor = Color.FromArgb(29, 29, 67);
+                            d1.BackColor = Color.FromArgb(29, 29, 67);
+                            d4.BackColor = Color.FromArgb(29, 29, 67);
+                            d3.BackColor = Color.FromArgb(29, 29, 67);
+                            d.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d.ForeColor = Color.White;
+                            d1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d1.ForeColor = Color.White;
+                            d3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d3.ForeColor = Color.White;
+                            d4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d4.ForeColor = Color.White;
                             panel1.Controls.Add(a);
                             panel1.Controls.Add(a2);
                             panel1.Controls.Add(a3);
@@ -299,6 +448,13 @@ namespace IS_17
                             panel1.Controls.Add(d1);
                             panel1.Controls.Add(d3);
                             panel1.Controls.Add(d4);
+                            panel1.Controls.Add(f);
+                            panel1.Controls.Add(f1);
+                            panel1.Controls.Add(f2);
+                            panel1.Controls.Add(f3);
+                            panel1.Controls.Add(f4);
+                            panel1.Controls.Add(f5);
+                            panel1.Controls.Add(f6);
                             panel1.Visible = true;
                             string connect = allconect;
                             string query = $"SELECT TOP (1000) [Название компании]\r\n  FROM [HotelDB].[dbo].[Поставщики]\r\n";
@@ -335,6 +491,32 @@ namespace IS_17
                 {
                     if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
                     {
+                        Label f = new Label();
+                        f.Location = new Point(3, 0);
+                        f.Text = "Название компании:";
+                        f.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ////////                            
+                        Label f1 = new Label();
+                        f1.Location = new Point(3, f.Size.Height + 20 + 3);
+                        f1.Text = "Общее кол-во:";
+                        f1.Size = new Size(f.Width * 2, f.Height);
+                        f1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ///////
+                        /// ////////                            
+                        Label f2 = new Label();
+                        f2.Location = new Point(3, (f.Size.Height + 20 + 3) * 2);
+                        f2.Text = "Кол-во на складе:";
+                        f2.Size = new Size(f.Width * 3, f.Height);
+                        f2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ///////
+                        /// /// ////////                            
+                        Label f3 = new Label();
+                        f3.Location = new Point(3, (f.Size.Height + 20 + 3) * 3);
+                        f3.Text = "Кол-во повреждённых:";
+                        f3.Size = new Size(f.Width * 3, f.Height);
+                        f3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ///////
+                        ///
                         panel1.Controls.Clear();
                         dataGridView1.Visible = true;
                         TextBox a = new TextBox();
@@ -363,6 +545,32 @@ namespace IS_17
                         d2.Text = "Добавить";
                         d2.Size = new Size(a.Size.Width, a.Size.Height);
                         d2.Click += new EventHandler(insertpost);
+                        ///////
+                        a.Size = new Size(a2.Size.Width * 2, a.Size.Height + 10);
+                        a2.Size = new Size(a3.Size.Width * 2, a.Size.Height + 10);
+                        a3.Size = new Size(a4.Size.Width * 2, a.Size.Height + 10);
+                        a4.Size = new Size(a4.Size.Width * 2, a.Size.Height + 10);
+                        a2.Location = new Point(3, a.Size.Height * 1 + 20 * 2);
+                        a3.Location = new Point(3, a.Size.Height * 2 + 20 *3);
+                        a4.Location = new Point(3, a.Size.Height * 3 + 20 * 4);
+                        a.Location = new Point(3,20);
+                        d.BackColor = Color.FromArgb(29, 29, 67);
+                        d1.BackColor = Color.FromArgb(29, 29, 67);
+                        d2.BackColor = Color.FromArgb(29, 29, 67);
+
+                        d.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        d.ForeColor = Color.White;
+                        d1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        d1.ForeColor = Color.White;
+                        d2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        d2.ForeColor = Color.White;
+                        d.Location = new Point(0, a.Size.Height * 4 + 20 * 5 - 10);
+                        d1.Location = new Point(0, a.Size.Height * 5 + 20 * 6 - 10);
+                        d2.Location = new Point(0, a.Size.Height * 6 + 20 * 7 - 10);
+                        d.Size = new Size(d.Size.Width * 2, a.Size.Height + 10);
+                        d1.Size = new Size(d1.Size.Width * 2, a.Size.Height + 10);
+                        d2.Size = new Size(d2.Size.Width * 2, a.Size.Height + 10);
+                        //////
                         panel1.Controls.Add(a);
                         panel1.Controls.Add(a2);
                         panel1.Controls.Add(a3);
@@ -370,6 +578,10 @@ namespace IS_17
                         panel1.Controls.Add(d);
                         panel1.Controls.Add(d1);
                         panel1.Controls.Add(d2);
+                        panel1.Controls.Add(f2);
+                        panel1.Controls.Add(f1);
+                        panel1.Controls.Add(f3);
+                        panel1.Controls.Add(f);
                         aaa = a;
                         aaa2 = a2;
                         aaa3 = a3;
@@ -377,6 +589,31 @@ namespace IS_17
                     }
                     else
                     {
+                        Label f = new Label();
+                        f.Location = new Point(3, 0);
+                        f.Text = "Название компании:";
+                        f.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ////////                            
+                        Label f1 = new Label();
+                        f1.Location = new Point(3, f.Size.Height + 20 + 3);
+                        f1.Text = "Общее кол-во:";
+                        f1.Size = new Size(f.Width * 2, f.Height);
+                        f1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ///////
+                        /// ////////                            
+                        Label f2 = new Label();
+                        f2.Location = new Point(3, (f.Size.Height + 20 + 3) * 2);
+                        f2.Text = "Кол-во на складе:";
+                        f2.Size = new Size(f.Width * 3, f.Height);
+                        f2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ///////
+                        /// /// ////////                            
+                        Label f3 = new Label();
+                        f3.Location = new Point(3, (f.Size.Height + 20 + 3) * 3);
+                        f3.Text = "Кол-во повреждённых:";
+                        f3.Size = new Size(f.Width * 3, f.Height);
+                        f3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        ///////
                         panel1.Controls.Clear();
                         dataGridView1.Visible = true;
                         TextBox a = new TextBox();
@@ -405,6 +642,30 @@ namespace IS_17
                         d2.Text = "Добавить";
                         d2.Size = new Size(a.Size.Width, a.Size.Height);
                         d2.Click += new EventHandler(insertpost);
+                        a.Size = new Size(a2.Size.Width * 2, a.Size.Height + 10);
+                        a2.Size = new Size(a3.Size.Width * 2, a.Size.Height + 10);
+                        a3.Size = new Size(a4.Size.Width * 2, a.Size.Height + 10);
+                        a4.Size = new Size(a4.Size.Width * 2, a.Size.Height + 10);
+                        a2.Location = new Point(3, a.Size.Height * 1 + 20 * 2);
+                        a3.Location = new Point(3, a.Size.Height * 2 + 20 * 3);
+                        a4.Location = new Point(3, a.Size.Height * 3 + 20 * 4);
+                        a.Location = new Point(3, 20);
+                        d.BackColor = Color.FromArgb(29, 29, 67);
+                        d1.BackColor = Color.FromArgb(29, 29, 67);
+                        d2.BackColor = Color.FromArgb(29, 29, 67);
+
+                        d.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        d.ForeColor = Color.White;
+                        d1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        d1.ForeColor = Color.White;
+                        d2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                        d2.ForeColor = Color.White;
+                        d.Location = new Point(0, a.Size.Height * 4 + 20 * 5 - 10);
+                        d1.Location = new Point(0, a.Size.Height * 5 + 20 * 6 - 10);
+                        d2.Location = new Point(0, a.Size.Height * 6 + 20 * 7 - 10);
+                        d.Size = new Size(d.Size.Width * 2, a.Size.Height + 10);
+                        d1.Size = new Size(d1.Size.Width * 2, a.Size.Height + 10);
+                        d2.Size = new Size(d2.Size.Width * 2, a.Size.Height + 10);
                         panel1.Controls.Add(a);
                         panel1.Controls.Add(a2);
                         panel1.Controls.Add(a3);
@@ -412,6 +673,11 @@ namespace IS_17
                         panel1.Controls.Add(d);
                         panel1.Controls.Add(d1);
                         panel1.Controls.Add(d2);
+                        panel1.Controls.Add(f2);
+                        panel1.Controls.Add(f1);
+                        panel1.Controls.Add(f3);
+                        panel1.Controls.Add(f);
+
                         aaa = a;
                         aaa2 = a2;
                         aaa3 = a3;
