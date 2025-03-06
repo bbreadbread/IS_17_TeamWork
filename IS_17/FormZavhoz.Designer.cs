@@ -34,16 +34,12 @@
             button7 = new Button();
             button8 = new Button();
             button1 = new Button();
-<<<<<<< HEAD
             button2 = new Button();
             panel1 = new Panel();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             button3 = new Button();
-=======
-            panel1 = new Panel();
->>>>>>> 184b15deef46498fd83f7ccd8cb8231f43986b32
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             sidebar.SuspendLayout();
             SuspendLayout();
@@ -51,12 +47,11 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(301, 64);
-            dataGridView1.Margin = new Padding(3, 2, 3, 2);
+            dataGridView1.Location = new Point(344, 85);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(384, 304);
+            dataGridView1.Size = new Size(439, 406);
             dataGridView1.TabIndex = 5;
             dataGridView1.Visible = false;
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
@@ -70,8 +65,9 @@
             sidebar.Controls.Add(button2);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
+            sidebar.Margin = new Padding(3, 4, 3, 4);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(265, 446);
+            sidebar.Size = new Size(328, 595);
             sidebar.TabIndex = 6;
             // 
             // button7
@@ -79,9 +75,10 @@
             button7.BackColor = Color.Lavender;
             button7.Image = (Image)resources.GetObject("button7.Image");
             button7.ImageAlign = ContentAlignment.MiddleLeft;
-            button7.Location = new Point(3, 3);
+            button7.Location = new Point(3, 4);
+            button7.Margin = new Padding(3, 4, 3, 4);
             button7.Name = "button7";
-            button7.Size = new Size(256, 48);
+            button7.Size = new Size(293, 64);
             button7.TabIndex = 4;
             button7.TabStop = false;
             button7.Text = "Инвентарь";
@@ -93,30 +90,39 @@
             button8.BackColor = Color.Lavender;
             button8.Image = (Image)resources.GetObject("button8.Image");
             button8.ImageAlign = ContentAlignment.MiddleLeft;
-            button8.Location = new Point(3, 57);
+            button8.Location = new Point(3, 76);
+            button8.Margin = new Padding(3, 4, 3, 4);
             button8.Name = "button8";
-            button8.Size = new Size(256, 48);
+            button8.Size = new Size(293, 64);
             button8.TabIndex = 5;
             button8.TabStop = false;
             button8.Text = "Поставщики";
             button8.UseVisualStyleBackColor = false;
             button8.Click += button8_Click;
             // 
+            // panel1
+            // 
+            panel1.Location = new Point(789, 85);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(212, 406);
+            panel1.TabIndex = 7;
+            panel1.Visible = false;
+            // 
             // button1
             // 
             button1.BackColor = Color.Lavender;
             button1.Image = (Image)resources.GetObject("button1.Image");
             button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(3, 111);
+            button1.Location = new Point(3, 148);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(256, 48);
+            button1.Size = new Size(293, 64);
             button1.TabIndex = 6;
             button1.TabStop = false;
             button1.Text = "Отчёты";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
-<<<<<<< HEAD
             // button2
             // 
             button2.BackColor = Color.Lavender;
@@ -181,34 +187,18 @@
             button3.Visible = false;
             button3.Click += button3_Click;
             // 
-=======
-            // panel1
-            // 
-            panel1.Location = new Point(690, 64);
-            panel1.Margin = new Padding(3, 2, 3, 2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(186, 304);
-            panel1.TabIndex = 7;
-            panel1.Visible = false;
-            // 
->>>>>>> 184b15deef46498fd83f7ccd8cb8231f43986b32
             // FormZavhoz
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-<<<<<<< HEAD
             ClientSize = new Size(1002, 595);
             Controls.Add(button3);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
-=======
-            ClientSize = new Size(877, 446);
->>>>>>> 184b15deef46498fd83f7ccd8cb8231f43986b32
             Controls.Add(panel1);
             Controls.Add(sidebar);
             Controls.Add(dataGridView1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "FormZavhoz";
             Text = "FormZavhoz";
             Load += FormZavhoz_Load;
