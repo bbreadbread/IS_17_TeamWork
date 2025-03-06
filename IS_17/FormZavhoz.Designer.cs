@@ -36,10 +36,6 @@
             button1 = new Button();
             button2 = new Button();
             panel1 = new Panel();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             sidebar.SuspendLayout();
             SuspendLayout();
@@ -100,14 +96,6 @@
             button8.UseVisualStyleBackColor = false;
             button8.Click += button8_Click;
             // 
-            // panel1
-            // 
-            panel1.Location = new Point(789, 85);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(212, 406);
-            panel1.TabIndex = 7;
-            panel1.Visible = false;
-            // 
             // button1
             // 
             button1.BackColor = Color.Lavender;
@@ -146,56 +134,11 @@
             panel1.TabIndex = 7;
             panel1.Visible = false;
             // 
-            // textBox1
-            // 
-            textBox1.Enabled = false;
-            textBox1.Location = new Point(438, 196);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 8;
-            textBox1.Visible = false;
-            // 
-            // textBox2
-            // 
-            textBox2.Enabled = false;
-            textBox2.Location = new Point(438, 257);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 9;
-            textBox2.Visible = false;
-            textBox2.TextChanged += textBox2_TextChanged;
-            // 
-            // textBox3
-            // 
-            textBox3.Enabled = false;
-            textBox3.Location = new Point(438, 318);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(125, 27);
-            textBox3.TabIndex = 12;
-            textBox3.Visible = false;
-            textBox3.TextChanged += textBox3_TextChanged;
-            // 
-            // button3
-            // 
-            button3.Enabled = false;
-            button3.Location = new Point(438, 376);
-            button3.Name = "button3";
-            button3.Size = new Size(94, 29);
-            button3.TabIndex = 13;
-            button3.Text = "Сохранить";
-            button3.UseVisualStyleBackColor = true;
-            button3.Visible = false;
-            button3.Click += button3_Click;
-            // 
             // FormZavhoz
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1002, 595);
-            Controls.Add(button3);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
             Controls.Add(panel1);
             Controls.Add(sidebar);
             Controls.Add(dataGridView1);
@@ -205,7 +148,6 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             sidebar.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -217,9 +159,5 @@
         private Panel panel1;
         private Button button1;
         private Button button2;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private Button button3;
     }
 }

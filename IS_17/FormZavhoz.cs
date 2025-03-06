@@ -699,14 +699,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-            textBox1.Enabled = false;
-            textBox2.Enabled = false;
-            textBox3.Enabled = false;
-            textBox1.Visible = false;
-            textBox2.Visible = false;
-            textBox3.Visible = false;
-            button3.Visible = false;
-            button3.Enabled = false;
+           
             tablee = 1;
             Inventupdate();
         }
@@ -740,15 +733,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-            textBox1.Enabled = false;
-            textBox2.Enabled = false;
-
-            textBox3.Enabled = false;
-            textBox1.Visible = false;
-            textBox2.Visible = false;
-            textBox3.Visible = false;
-            button3.Visible = false;
-            button3.Enabled = false;
+           
             panel1.Controls.Clear();
             panel1.Visible = true;
             tablee = 0;
@@ -871,14 +856,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-            textBox1.Enabled = false;
-            textBox2.Enabled = false;
-            textBox3.Enabled = false;
-            textBox1.Visible = false;
-            textBox2.Visible = false;
-            textBox3.Visible = false;
-            button3.Visible = false;
-            button3.Enabled = false;
+           
             dataGridView1.Visible = true;
             tablee = 0;
             panel1.Controls.Clear();
@@ -943,73 +921,13 @@ namespace IS_17
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.Visible = false;
-            panel1.Visible = false;
-            panel1.Enabled = false;
-            dataGridView1.Enabled = false;
-            panel1.Visible = false;
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            textBox3.Visible = true;
-            textBox1.Enabled = true;
-            textBox2.Enabled = true;
-            textBox3.Enabled = true;
-            button3.Enabled = true;
-            button3.Visible = true;
-            string connect2 = allconect;
-            string query2 = $"SELECT   Почта, Телефон, Пароль\r\nFROM Работники\r\nWHERE ID_Пользователя = 2";
-
-            using (SqlConnection connect1 = new SqlConnection(connect2))
-            {
-                try
-                {
-                    connect1.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query2, connect1);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        textBox1.Text = reader.GetString(index++);
-                        textBox2.Text = reader.GetString(index++);
-                        textBox3.Text = reader.GetString(index++);
-                    }
-                    command.Dispose();
-                    reader.Close();
-                    connect1.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
-                }
-
-            }
+           
         }
 
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string connect = allconect;
-            string query = $"UPDATE Работники\r\nSET Почта = '{textBox1.Text}', Телефон = '{textBox2.Text}', Пароль = '{textBox3.Text}' WHERE ID_Пользователя = 2";
-            using (SqlConnection connect1 = new SqlConnection(connect))
-            {
-                try
-                {
-                    connect1.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query, connect1);
-
-
-                    command.ExecuteNonQuery();
-                    command.Dispose();
-
-                    connect1.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
-                }
-            }
+            
         }
     }
 }
