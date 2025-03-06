@@ -19,6 +19,22 @@ namespace IS_17
         public FormZavhoz()
         {
             InitializeComponent();
+
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
         }
 
 
