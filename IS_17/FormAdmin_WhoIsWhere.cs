@@ -108,6 +108,19 @@ namespace IS_17
                 // Добавляем панель на форму
                 this.Controls.Add(panel);
 
+
+                // Создаем PictureBox
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.Size = new Size(panelSize, panelSize);
+                pictureBox.Location = new Point(panel.Location.X, panel.Location.Y + panelSize + spacing); // Располагаем ниже панели
+                pictureBox.BackColor = Color.Transparent; // Установите цвет фона, если необходимо
+                                                          // Вы можете установить изображение, если у вас есть его источник
+                pictureBox.Image = Image.FromFile("info.png"); // Укажите путь к изображению
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage; // Устанавливаем режим отображения изображения
+
+                // Добавляем PictureBox на форму
+                this.Controls.Add(pictureBox);
+
                 // Обработка клика по панели
                 panel.Click += (sender, e) =>
                 {
