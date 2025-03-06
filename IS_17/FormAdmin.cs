@@ -24,6 +24,31 @@ namespace IS_17
         public FormAdmin()
         {
             InitializeComponent();
+
+            menu.FlatStyle = FlatStyle.Flat; 
+            menu.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67); 
+
+            button_CreateWorkers.FlatStyle = FlatStyle.Flat;
+            button_CreateWorkers.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button_EditWorkers.FlatStyle = FlatStyle.Flat;
+            button_EditWorkers.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            menu2.FlatStyle = FlatStyle.Flat;
+            menu2.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button_CreateRooms.FlatStyle = FlatStyle.Flat;
+            button_CreateRooms.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button_EditRooms.FlatStyle = FlatStyle.Flat;
+            button_EditRooms.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

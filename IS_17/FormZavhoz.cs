@@ -21,6 +21,7 @@ namespace IS_17
             InitializeComponent();
         }
 
+
         int tablee = 0;
         void postupdate()
         {
@@ -979,6 +980,7 @@ namespace IS_17
 
             }
         }
+
 
         private void button3_Click(object sender, EventArgs e)
         {

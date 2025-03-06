@@ -39,10 +39,12 @@
             // 
             // FormAdmin_WhoIsWhere
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(814, 531);
+            BackColor = Color.White;
+            ClientSize = new Size(930, 708);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormAdmin_WhoIsWhere";
             Text = "FormAdmin_WhoIsWhere";
             FormClosed += FormAdmin_WhoIsWhere_FormClosed;

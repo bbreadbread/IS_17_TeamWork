@@ -145,5 +145,49 @@ namespace IS_17
                 MessageBox.Show("Строка не выбрана.");
             }
         }
+
+        private void dataGridView1_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (dataGridView1.Rows[e.RowIndex].Selected)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(231, 212, 247)), e.RowBounds);
+            }
+        }
+
+        private void typeRoomcomboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            // Устанавливаем цвет фона для выделенного элемента
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(231, 212, 247)), e.Bounds);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(new SolidBrush(typeRoomcomboBox.BackColor), e.Bounds);
+            }
+
+            // Рисуем текст элемента
+            e.Graphics.DrawString(typeRoomcomboBox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
+        }
+
+        private void StatuscomboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            // Устанавливаем цвет фона для выделенного элемента
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(231, 212, 247)), e.Bounds);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(new SolidBrush(StatuscomboBox.BackColor), e.Bounds);
+            }
+
+            // Рисуем текст элемента
+            e.Graphics.DrawString(StatuscomboBox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
+        }
     }
 }

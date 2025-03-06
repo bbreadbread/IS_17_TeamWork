@@ -34,6 +34,36 @@ namespace IS_17
 
             labelName.Text = name;
             labelSurname.Text = surname;
+
+            listBoxReservation.DrawItem += ListBox_DrawItem;
+
+            //// Добавление ListBox на форму
+            this.Controls.Add(listBoxReservation);
+        }
+
+        private void ListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            // Проверяем, выделен ли элемент
+            if (e.Index >= 0)
+            {
+                if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                {
+                    // Устанавливаем цвет выделения
+                    e.Graphics.FillRectangle(new SolidBrush(ColorTranslator.FromHtml("#E7D4F7")), e.Bounds);
+                }
+                else
+                {
+                    // Устанавливаем цвет фона для невыделенных элементов
+                    e.Graphics.FillRectangle(Brushes.White, e.Bounds);
+                }
+
+                // Рисуем текст
+                e.Graphics.DrawString(listBoxReservation.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
+            }
+
+            e.DrawFocusRectangle();
         }
 
         private void LoadMaidList()
@@ -188,6 +218,12 @@ namespace IS_17
             }
             this.DialogResult = DialogResult.OK;
 
+            this.Close();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.No;
             this.Close();
         }
     }
