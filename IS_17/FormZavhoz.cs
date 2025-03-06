@@ -19,6 +19,22 @@ namespace IS_17
         public FormZavhoz()
         {
             InitializeComponent();
+
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
         }
 
 
@@ -965,7 +981,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-           
+
             tablee = 1;
             Inventupdate();
         }
@@ -999,7 +1015,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-           
+
             panel1.Controls.Clear();
             panel1.Visible = true;
             tablee = 0;
@@ -1122,7 +1138,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-           
+
             dataGridView1.Visible = true;
             tablee = 0;
             panel1.Controls.Clear();
@@ -1187,13 +1203,23 @@ namespace IS_17
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
+
         }
 
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }
