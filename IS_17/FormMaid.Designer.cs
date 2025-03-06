@@ -31,14 +31,14 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaid));
             sidebar = new FlowLayoutPanel();
-            buttonCheckRooms = new Button();
+            button7 = new Button();
             menuConteiner = new FlowLayoutPanel();
             panel3 = new Panel();
             menu = new Button();
             panel4 = new Panel();
-            button_CreateWorkers = new Button();
+            button_EditPassword = new Button();
             panel5 = new Panel();
-            button_EditWorkers = new Button();
+            button_EditData = new Button();
             buttonLogout = new Button();
             panel1 = new Panel();
             pictureBox2 = new PictureBox();
@@ -46,6 +46,7 @@
             label1 = new Label();
             btnHum = new PictureBox();
             sidebarTransition = new System.Windows.Forms.Timer(components);
+            menuTransition1 = new System.Windows.Forms.Timer(components);
             sidebar.SuspendLayout();
             menuConteiner.SuspendLayout();
             panel3.SuspendLayout();
@@ -60,36 +61,34 @@
             // sidebar
             // 
             sidebar.BackColor = Color.FromArgb(29, 29, 67);
-            sidebar.Controls.Add(buttonCheckRooms);
+            sidebar.Controls.Add(button7);
             sidebar.Controls.Add(menuConteiner);
             sidebar.Controls.Add(buttonLogout);
             sidebar.Dock = DockStyle.Left;
-            sidebar.Location = new Point(0, 73);
-            sidebar.Margin = new Padding(3, 4, 3, 4);
+            sidebar.Location = new Point(0, 55);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(343, 716);
+            sidebar.Size = new Size(62, 537);
             sidebar.TabIndex = 4;
             // 
-            // buttonCheckRooms
+            // button7
             // 
-            buttonCheckRooms.BackColor = Color.FromArgb(29, 29, 67);
-            buttonCheckRooms.Font = new Font("Century Gothic", 14F);
-            buttonCheckRooms.ForeColor = Color.White;
-            buttonCheckRooms.Image = (Image)resources.GetObject("buttonCheckRooms.Image");
-            buttonCheckRooms.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonCheckRooms.Location = new Point(3, 4);
-            buttonCheckRooms.Margin = new Padding(3, 4, 3, 4);
-            buttonCheckRooms.Name = "buttonCheckRooms";
-            buttonCheckRooms.Size = new Size(293, 64);
-            buttonCheckRooms.TabIndex = 6;
-            buttonCheckRooms.TabStop = false;
-            buttonCheckRooms.Text = "           Уборка";
-            buttonCheckRooms.TextAlign = ContentAlignment.MiddleLeft;
-            buttonCheckRooms.UseVisualStyleBackColor = false;
-            buttonCheckRooms.Click += buttonCheckRooms_Click;
+            button7.BackColor = Color.FromArgb(29, 29, 67);
+            button7.Font = new Font("Century Gothic", 13.8F);
+            button7.ForeColor = Color.White;
+            button7.Image = (Image)resources.GetObject("button7.Image");
+            button7.ImageAlign = ContentAlignment.MiddleLeft;
+            button7.Location = new Point(3, 3);
+            button7.Name = "button7";
+            button7.Size = new Size(256, 48);
+            button7.TabIndex = 8;
+            button7.TabStop = false;
+            button7.Text = "Учет комнат";
+            button7.UseVisualStyleBackColor = false;
+            button7.Click += button7_Click;
             // 
             // menuConteiner
             // 
+            menuConteiner.BackColor = Color.FromArgb(29, 29, 67);
             menuConteiner.Controls.Add(panel3);
             menuConteiner.Controls.Add(panel4);
             menuConteiner.Controls.Add(panel5);
@@ -108,7 +107,9 @@
             // 
             // menu
             // 
-            menu.BackColor = Color.Lavender;
+            menu.BackColor = Color.FromArgb(29, 29, 67);
+            menu.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            menu.ForeColor = Color.White;
             menu.Image = (Image)resources.GetObject("menu.Image");
             menu.ImageAlign = ContentAlignment.MiddleLeft;
             menu.Location = new Point(0, 0);
@@ -116,50 +117,59 @@
             menu.Size = new Size(256, 48);
             menu.TabIndex = 2;
             menu.TabStop = false;
-            menu.Text = "Управление аккаунтом";
+            menu.Text = "Профиль";
             menu.UseVisualStyleBackColor = false;
+            menu.Click += menu_Click;
             // 
             // panel4
             // 
-            panel4.Controls.Add(button_CreateWorkers);
+            panel4.Controls.Add(button_EditPassword);
             panel4.Location = new Point(3, 57);
             panel4.Name = "panel4";
             panel4.Size = new Size(256, 48);
             panel4.TabIndex = 4;
             // 
-            // button_CreateWorkers
+            // button_EditPassword
             // 
-            button_CreateWorkers.Dock = DockStyle.Fill;
-            button_CreateWorkers.Image = (Image)resources.GetObject("button_CreateWorkers.Image");
-            button_CreateWorkers.ImageAlign = ContentAlignment.MiddleLeft;
-            button_CreateWorkers.Location = new Point(0, 0);
-            button_CreateWorkers.Name = "button_CreateWorkers";
-            button_CreateWorkers.Size = new Size(256, 48);
-            button_CreateWorkers.TabIndex = 2;
-            button_CreateWorkers.TabStop = false;
-            button_CreateWorkers.Text = "Изменить данные";
-            button_CreateWorkers.UseVisualStyleBackColor = true;
+            button_EditPassword.BackColor = Color.FromArgb(29, 29, 67);
+            button_EditPassword.Dock = DockStyle.Fill;
+            button_EditPassword.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            button_EditPassword.ForeColor = Color.White;
+            button_EditPassword.Image = (Image)resources.GetObject("button_EditPassword.Image");
+            button_EditPassword.ImageAlign = ContentAlignment.MiddleLeft;
+            button_EditPassword.Location = new Point(0, 0);
+            button_EditPassword.Name = "button_EditPassword";
+            button_EditPassword.Size = new Size(256, 48);
+            button_EditPassword.TabIndex = 2;
+            button_EditPassword.TabStop = false;
+            button_EditPassword.Text = "Изменить пароль";
+            button_EditPassword.UseVisualStyleBackColor = false;
+            button_EditPassword.Click += button_EditPassword_Click;
             // 
             // panel5
             // 
-            panel5.Controls.Add(button_EditWorkers);
+            panel5.Controls.Add(button_EditData);
             panel5.Location = new Point(3, 111);
             panel5.Name = "panel5";
             panel5.Size = new Size(256, 48);
             panel5.TabIndex = 5;
             // 
-            // button_EditWorkers
+            // button_EditData
             // 
-            button_EditWorkers.Dock = DockStyle.Fill;
-            button_EditWorkers.Image = (Image)resources.GetObject("button_EditWorkers.Image");
-            button_EditWorkers.ImageAlign = ContentAlignment.MiddleLeft;
-            button_EditWorkers.Location = new Point(0, 0);
-            button_EditWorkers.Name = "button_EditWorkers";
-            button_EditWorkers.Size = new Size(256, 48);
-            button_EditWorkers.TabIndex = 2;
-            button_EditWorkers.TabStop = false;
-            button_EditWorkers.Text = "Изменить пароль";
-            button_EditWorkers.UseVisualStyleBackColor = true;
+            button_EditData.BackColor = Color.FromArgb(29, 29, 67);
+            button_EditData.Dock = DockStyle.Fill;
+            button_EditData.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            button_EditData.ForeColor = Color.White;
+            button_EditData.Image = (Image)resources.GetObject("button_EditData.Image");
+            button_EditData.ImageAlign = ContentAlignment.MiddleLeft;
+            button_EditData.Location = new Point(0, 0);
+            button_EditData.Name = "button_EditData";
+            button_EditData.Size = new Size(256, 48);
+            button_EditData.TabIndex = 2;
+            button_EditData.TabStop = false;
+            button_EditData.Text = "Изменить данные";
+            button_EditData.UseVisualStyleBackColor = false;
+            button_EditData.Click += button_EditData_Click;
             // 
             // buttonLogout
             // 
@@ -168,10 +178,9 @@
             buttonLogout.ForeColor = Color.White;
             buttonLogout.Image = (Image)resources.GetObject("buttonLogout.Image");
             buttonLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonLogout.Location = new Point(3, 148);
-            buttonLogout.Margin = new Padding(3, 4, 3, 4);
+            buttonLogout.Location = new Point(3, 111);
             buttonLogout.Name = "buttonLogout";
-            buttonLogout.Size = new Size(293, 64);
+            buttonLogout.Size = new Size(256, 48);
             buttonLogout.TabIndex = 5;
             buttonLogout.TabStop = false;
             buttonLogout.Text = "             Выход";
@@ -188,9 +197,8 @@
             panel1.Controls.Add(btnHum);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1008, 73);
+            panel1.Size = new Size(882, 55);
             panel1.TabIndex = 3;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
@@ -201,9 +209,10 @@
             pictureBox2.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Location = new Point(960, 15);
+            pictureBox2.Location = new Point(840, 11);
+            pictureBox2.Margin = new Padding(3, 2, 3, 2);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(34, 40);
+            pictureBox2.Size = new Size(30, 30);
             pictureBox2.TabIndex = 8;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
@@ -213,9 +222,10 @@
             pictureBox3.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox3.Location = new Point(919, 15);
+            pictureBox3.Location = new Point(804, 11);
+            pictureBox3.Margin = new Padding(3, 2, 3, 2);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(34, 40);
+            pictureBox3.Size = new Size(30, 30);
             pictureBox3.TabIndex = 7;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
@@ -225,19 +235,18 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(76, 15);
+            label1.Location = new Point(66, 11);
             label1.Name = "label1";
-            label1.Size = new Size(216, 40);
+            label1.Size = new Size(173, 32);
             label1.TabIndex = 2;
             label1.Text = "ГОРНИЧНАЯ";
             // 
             // btnHum
             // 
             btnHum.Image = (Image)resources.GetObject("btnHum.Image");
-            btnHum.Location = new Point(7, 4);
-            btnHum.Margin = new Padding(3, 4, 3, 4);
+            btnHum.Location = new Point(6, 3);
             btnHum.Name = "btnHum";
-            btnHum.Size = new Size(63, 67);
+            btnHum.Size = new Size(55, 50);
             btnHum.SizeMode = PictureBoxSizeMode.StretchImage;
             btnHum.TabIndex = 1;
             btnHum.TabStop = false;
@@ -248,18 +257,23 @@
             sidebarTransition.Interval = 10;
             sidebarTransition.Tick += sidebarTransition_Tick;
             // 
+            // menuTransition1
+            // 
+            menuTransition1.Interval = 10;
+            menuTransition1.Tick += menuTransition1_Tick;
+            // 
             // FormMaid
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1008, 789);
+            ClientSize = new Size(882, 592);
             Controls.Add(sidebar);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             IsMdiContainer = true;
-            Margin = new Padding(3, 4, 3, 4);
             Name = "FormMaid";
             Text = "FormMaid";
+            Load += FormMaid_Load;
             sidebar.ResumeLayout(false);
             menuConteiner.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -284,5 +298,14 @@
         private PictureBox btnHum;
         private Button buttonCheckRooms;
         private System.Windows.Forms.Timer sidebarTransition;
+        private FlowLayoutPanel menuConteiner;
+        private Panel panel3;
+        private Button menu;
+        private Panel panel4;
+        private Button button_EditPassword;
+        private Panel panel5;
+        private Button button_EditData;
+        private Button button7;
+        private System.Windows.Forms.Timer menuTransition1;
     }
 }

@@ -43,7 +43,7 @@ namespace IS_17
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-                MessageRichTextBox.Enabled = false ;
+                MessageRichTextBox.Enabled = false;
             }
             else if (radioButtonBreaking.Checked)
             {
@@ -51,11 +51,7 @@ namespace IS_17
                 {
                     messageMaid = MessageRichTextBox.Text;
 
-                    using (StreamWriter streamReader = new StreamWriter("messagesMaids.txt"))
-                    {
-                        streamReader.WriteLine(FormMaid_Rooms.IdThisMaid + " " + messageMaid);
-                        streamReader.Close();
-                    }
+                    CustomMessageBox.MessageMaid = messageMaid;
 
                     SendMessage("aggata.serggeeva@mail.ru");
 
@@ -93,6 +89,46 @@ namespace IS_17
             {
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private bool isDragging = false;
+        private Point startPoint;
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                startPoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point newPoint = panel1.PointToScreen(new Point(e.X, e.Y));
+                newPoint.Offset(-startPoint.X, -startPoint.Y);
+                this.Location = newPoint;
+            }
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
+            }
+        }
+
+        private void pictureBox4_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

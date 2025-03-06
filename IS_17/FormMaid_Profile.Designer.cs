@@ -39,6 +39,7 @@
             pictureBox1 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
+            labelWHO = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -117,7 +118,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(15, 9);
+            label1.Location = new Point(17, 11);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(156, 18);
@@ -129,10 +130,10 @@
             pictureBox1.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Location = new Point(412, 0);
+            pictureBox1.Location = new Point(413, 0);
             pictureBox1.Margin = new Padding(4, 3, 4, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(42, 42);
+            pictureBox1.Size = new Size(44, 45);
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
@@ -161,11 +162,22 @@
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
             // 
+            // labelWHO
+            // 
+            labelWHO.Font = new Font("Century Gothic", 12F);
+            labelWHO.Location = new Point(74, 73);
+            labelWHO.Name = "labelWHO";
+            labelWHO.Size = new Size(300, 23);
+            labelWHO.TabIndex = 10;
+            labelWHO.Text = "???";
+            labelWHO.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // FormMaid_Profile
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(459, 443);
+            Controls.Add(labelWHO);
             Controls.Add(panel1);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
@@ -197,5 +209,6 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
+        private Label labelWHO;
     }
 }

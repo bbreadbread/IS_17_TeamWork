@@ -51,11 +51,6 @@ namespace IS_17
             button8.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void FormAdmin_Load(object sender, EventArgs e)
         {
             if (formAdmin_Workers_Create == null)
@@ -71,7 +66,6 @@ namespace IS_17
                 formAdmin_Workers_Create.Activate();
             }
         }
-        //открывашка основного меню
         //открывашка основного меню
         private void btnHum_Click(object sender, EventArgs e)
         {
@@ -304,7 +298,7 @@ namespace IS_17
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+           Application.Exit();
         }
 
         private void button8_Click(object sender, EventArgs e)

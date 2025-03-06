@@ -68,31 +68,37 @@ namespace IS_17
                 panel.Size = new Size(panelSize, panelSize);
                 panel.BorderStyle = BorderStyle.FixedSingle;
 
-                // Устанавливаем цвет панели в зависимости от статуса
-                switch (status)
-                {
-                    case "Доступно":
-                        if (maidHad == "") panel.BackColor = Color.Green;
-                        else panel.BackColor = Color.Chartreuse;
-                        break;
-                    case "Забронировано":
-                        if (maidHad == "") panel.BackColor = Color.Orange;
-                        else panel.BackColor = Color.Yellow;
-                        break;
-                    case "Тех. обслуживание":
-                        panel.BackColor = Color.Red;
-                        break;
-                    default:
-                        panel.BackColor = Color.LightGray;
-                        break;
-                }
-
                 // Добавляем номер комнаты на панель
                 Label label = new Label();
                 label.Text = roomId.ToString();
                 label.AutoSize = true;
                 label.Font = new Font("Arial", 12, FontStyle.Bold);
                 label.ForeColor = Color.White;
+
+                // Устанавливаем цвет панели в зависимости от статуса
+                switch (status)
+                {
+                    case "Доступно":
+                        if (maidHad == "")
+                        {
+                            panel.BackColor = Color.White;
+                            label.ForeColor = Color.Black;
+                        }
+                        else panel.BackColor = Color.FromArgb(243, 233, 251);
+                        break;
+                    case "Забронировано":
+                        if (maidHad == "") panel.BackColor = Color.FromArgb(100, 100, 185);
+                        else panel.BackColor = Color.FromArgb(158, 158, 209);
+                        break;
+                    case "Тех. обслуживание":
+                        panel.BackColor = Color.FromArgb(238, 165, 176);
+                        break;
+                    default:
+                        panel.BackColor = Color.White;
+                        break;
+                }
+
+                
 
                 label.Location = new Point(10, 10);
                 panel.Controls.Add(label);
@@ -150,7 +156,7 @@ namespace IS_17
                             return;
                         }
                     }
-                    ///Color [Yellow]
+                    ///Color [A=255, R=238, G=165, B=176]
                     string colorPanel = panel.BackColor.ToString();
                     CustomMessageBox customMessageBox = new CustomMessageBox(MaidName, MaidSurname, roomId, colorPanel);
                     DialogResult result = customMessageBox.ShowDialog();

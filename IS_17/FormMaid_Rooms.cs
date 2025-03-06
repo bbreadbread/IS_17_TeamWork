@@ -21,17 +21,16 @@ namespace IS_17
         public static string Room { get; set; }
 
         List<string[]> preferencesList = new List<string[]>();
-        List<string[]> maidList = new List<string[]>();
         public FormMaid_Rooms()
         {
-            IdThisMaid = 8;
+            IdThisMaid = FormMaid.IdSelected;
             InitializeComponent();
             LoadPanels();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = $"SELECT TOP (1000) [Имя], [Фамилия] FROM [HotelDB].[dbo].[Работники] WHERE [ID_Пользователя] = {IdThisMaid}";
+                string query = $"SELECT TOP (1000) [Имя], [Фамилия] FROM [HotelDB].[dbo].[Работники] WHERE [ID_Пользователя] = @id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -47,8 +46,8 @@ namespace IS_17
                     }
                 }
             }
-
         }
+
         private void LoadPanels()
         {
             flowLayoutPanel1.Controls.Clear();
@@ -114,8 +113,9 @@ namespace IS_17
                     foreach (string[] str in preferencesList)
                         stream.WriteLine(str[0] + " " + str[1]);
                 }
-                int i = 0;
                 // Создаем панели на основе полученных данных
+                int i = 0; // Индекс для preferencesList
+
                 foreach (DataRow row in dataTable1.Rows)
                 {
                     bool isCleaning = false;
@@ -141,13 +141,13 @@ namespace IS_17
                     {
                         if (preferencesList.Count > i)
                         {
-
                             time = preferencesList[i][0];
                             label3.Text = $"Время уборки: {preferencesList[i][1]}";
                         }
                         else
+                        {
                             label3.Text = $"Время уборки: 10:00 - 12:00";
-                        i++;
+                        }
                     }
                     else
                     {
@@ -157,31 +157,32 @@ namespace IS_17
                     label3.AutoSize = true;
                     panel.Controls.Add(label3);
 
-                    
                     Label label4 = new Label();
                     if (isCleaning == false)
                     {
                         if (preferencesList.Count > i)
-                            label4.Text = $"Прредпочтения: {preferencesList[i][0]}";
+                        {
+                            label4.Text = $"Предпочтения: {preferencesList[i][0]}";
+                        }
                         else
+                        {
                             label4.Text = $"Предпочтения: -";
-                        i++;
+                        }
                     }
                     else
                     {
-
+                        // Логика для убранного номера
                     }
                     label4.Location = new Point(400, 20);
                     label4.AutoSize = true;
                     panel.Controls.Add(label4);
 
-
                     Button button = new Button();
-                    button.Text = "Действие";
+                    button.Text = "Отметить уборку";
                     button.Tag = row["ID_Номера"];
                     button.Width = 256;
                     button.Height = 48;
-                    button.Location = new Point(flowLayoutPanel1.Width / 3, 40);
+                    button.Location = new Point(flowLayoutPanel1.Width - 265, 40);
                     panel.Controls.Add(button);
                     flowLayoutPanel1.Controls.Add(panel);
 
@@ -200,10 +201,13 @@ namespace IS_17
                             }
                             else if (result == DialogResult.Cancel)
                             {
-
+                                label3.Text = $"Номер убран! Тех. Поломка зафиксирована";
+                                button.Enabled = false;
                             }
                         }
                     };
+
+                    i++;
                 }
             }
         }

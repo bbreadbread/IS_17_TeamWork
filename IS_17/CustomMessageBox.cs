@@ -25,8 +25,10 @@ namespace IS_17
         string query = "";
         string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
         string colorPanel;
+        public static string MessageMaid {  get; set; }
         public CustomMessageBox(string name, string surname, int roomId, string colorPanel)
         {
+
             InitializeComponent();
             this.colorPanel = colorPanel;
             this.roomId = roomId;
@@ -99,17 +101,17 @@ namespace IS_17
 
             switch (colorPanel)
             {
-                case "Color [Green]":
+                case "Color [White]":
                     buttonUnassign.Enabled = false;
                     break;
 
-                case "Color [Yellow]":
+                case "Color [A=255, R=100, G=100, B=185]":
                     buttonUnassign.Enabled = true;
                     buttonReservation.Text = "Поменять ответственного за комнату";
                     break;
 
-                case "Color [Red]":
-                    string message = "Сообщение от горничной: [текст сообщения]";
+                case "Color [A=255, R=238, G=165, B=176]":
+                    string message = $"Сообщение от горничной: {MessageMaid}";
                     MessageBox.Show(message);
                     break;
 
@@ -225,6 +227,36 @@ namespace IS_17
         {
             this.DialogResult = DialogResult.No;
             this.Close();
+        }
+
+
+        private bool isDragging = false;
+        private Point startPoint;
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                startPoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point newPoint = panel1.PointToScreen(new Point(e.X, e.Y));
+                newPoint.Offset(-startPoint.X, -startPoint.Y);
+                this.Location = newPoint;
+            }
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
+            }
         }
     }
 }

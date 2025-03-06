@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,62 +14,156 @@ namespace IS_17
 {
     public partial class Authoriz : Form
     {
+        int userId;
+        string firstName;
+        string lastName;
+        string mail;
         public Authoriz()
         {
             InitializeComponent();
         }
-
+        string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
         private void button1_Click(object sender, EventArgs e)
         {
-            int contin = 0;
             string email = emailTB.Text;
-            string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
+            string password = passTB.Text;
 
             if (emailTB.Text == "zroot")
             {
                 FormZavhoz a = new FormZavhoz();
+                this.Hide();
                 a.Show();
             }
             if (emailTB.Text == "aroot")
             {
                 FormAdmin a = new FormAdmin();
+                this.Hide();
                 a.Show();
             }
             if (emailTB.Text == "mroot")
             {
-                FormMaid a = new FormMaid();
+                FormMaid a = new FormMaid(1, "", "", "breadtt00@gmail.com");
+                this.Hide();
                 a.Show();
             }
-            if (Regex.IsMatch(email, pattern))
-            {
-                contin++;
-            }
-            else
+
+
+            // Проверка валидности email
+            string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
+            if (!Regex.IsMatch(email, pattern))
             {
                 emailTB.BackColor = Color.FromArgb(238, 165, 176);
-                contin--;
-            }
-
-            string password = passTB.Text;
-
-            string validationMessage = ValidatePassword(password);
-
-            if (string.IsNullOrEmpty(validationMessage))
-            {
-
-                contin++;
+                MessageBox.Show("Некорректный email.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             else
+            {
+                emailTB.BackColor = Color.White; // Сброс цвета, если email корректен
+            }
+
+            // Проверка валидности пароля
+            string validationMessage = ValidatePassword(password);
+            if (!string.IsNullOrEmpty(validationMessage))
             {
                 passTB.BackColor = Color.FromArgb(238, 165, 176);
                 passShow.BackColor = Color.FromArgb(238, 165, 176);
-                contin--;
+                MessageBox.Show(validationMessage, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                passTB.BackColor = Color.White; // Сброс цвета, если пароль корректен
+                passShow.BackColor = Color.White;
             }
 
-            if (contin == 2)
+            // Проверка наличия пользователя в базе данных
+            string role = CheckUserCredentials(email, password);
+
+            if (role != null)
             {
-                MessageBox.Show("Сделайте переход на форму, соответсвующую роли чела", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Переход на форму в зависимости от роли
+                switch (role)
+                {
+                    case "Администратор":
+                        FormAdmin adminForm = new FormAdmin();
+                        this.Hide();
+                        adminForm.Show();
+                        break;
+                    case "Завхоз":
+                        FormZavhoz zavhozForm = new FormZavhoz();
+                        this.Hide();
+                        zavhozForm.Show();
+                        break;
+                    case "Горничная":
+                        FormMaid maidForm = new FormMaid(userId, firstName, lastName, mail);
+                        this.Hide();
+                        maidForm.Show();
+                        break;
+                    default:
+                        MessageBox.Show("Роль пользователя не определена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
+            else
+            {
+                MessageBox.Show("Неверный email или пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Метод для проверки пароля
+        private string ValidatePassword(string password)
+        {
+            if (string.IsNullOrEmpty(password))
+            {
+                return "Пароль не может быть пустым.";
+            }
+            if (password.Length < 6)
+            {
+                return "Пароль должен содержать не менее 6 символов.";
+            }
+            return null; // Пароль корректен
+        }
+
+        // Метод для проверки наличия пользователя в базе данных
+        private string CheckUserCredentials(string email, string password)
+        {
+            string role = null;
+
+            // Подключение к базе данных
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // SQL-запрос для проверки email и пароля
+                    string query = "SELECT [Роль], [ID_Пользователя], [Имя], [Фамилия], [Почта] FROM [HotelDB].[dbo].[Работники] WHERE [Почта] = @Почта AND [Пароль] = @Пароль";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Почта", email);
+                        command.Parameters.AddWithValue("@Пароль", password);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                role = reader["Роль"].ToString();
+                                userId = Convert.ToInt32(reader["ID_Пользователя"]);
+                                firstName = reader["Имя"].ToString();
+                                lastName = reader["Фамилия"].ToString();
+                                mail = reader["Почта"].ToString();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при подключении к базе данных: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            return role;
         }
 
 
@@ -136,54 +231,6 @@ namespace IS_17
                 passTB.PasswordChar = '·';
         }
 
-        private string ValidatePassword(string password)
-        {
-            // Проверяем длину пароля
-            if (password.Length < 8)
-            {
-                return "0";
-            }
-
-            // Проверяем наличие цифр
-            if (!password.Any(char.IsDigit))
-            {
-                return "0";
-            }
-
-            // Проверяем наличие специальных символов
-            if (!password.Any(ch => !char.IsLetterOrDigit(ch)))
-            {
-                return "0";
-            }
-
-            // Проверяем наличие букв разного регистра
-            if (!password.Any(char.IsUpper) || !password.Any(char.IsLower))
-            {
-                return "0";
-            }
-
-            // Проверяем, чтобы не было более двух подряд идущих букв, которые на клавиатуре стоят рядом
-            string keyboardLayout = "qwertyuiopasdfghjklzxcvbnm";
-            string keyboardLayoutUpper = keyboardLayout.ToUpper();
-
-            for (int i = 0; i < password.Length - 2; i++)
-            {
-                char first = password[i];
-                char second = password[i + 1];
-                char third = password[i + 2];
-
-                if (IsAdjacentOnKeyboard(first, second, keyboardLayout) && IsAdjacentOnKeyboard(second, third, keyboardLayout))
-                {
-                    return "0";
-                }
-
-                if (IsAdjacentOnKeyboard(first, second, keyboardLayoutUpper) && IsAdjacentOnKeyboard(second, third, keyboardLayoutUpper))
-                {
-                    return "0";
-                }
-            }
-            return string.Empty;
-        }
 
         private bool IsAdjacentOnKeyboard(char first, char second, string keyboardLayout)
         {

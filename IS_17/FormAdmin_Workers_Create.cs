@@ -116,13 +116,34 @@ namespace IS_17
 
             // Если все проверки пройдены, выполняем запрос к базе данных
             LoadWorkers($"INSERT INTO [HotelDB].[dbo].[Работники] ([Имя], [Фамилия], [Почта], [Телефон], [Пароль], [Роль]) VALUES " +
-                $"('{имя}', '{фамилия}', '{почта}', '{телефон}', 'Qw12G5J4Dcl000', '{роль}');");
+                $"('{имя}', '{фамилия}', '{почта}', '{телефон}', '{GeneratePassword(12)}', '{роль}');");
             LoadWorkers(allView);
 
             // Отправка сообщения
             SendMessage(почта);
         }
+        static string GeneratePassword(int length)
+        {
+            const string upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Заглавные буквы
+            const string lowerChars = "abcdefghijklmnopqrstuvwxyz"; // Строчные буквы
+            const string digits = "0123456789"; // Цифры
+            const string additionalChars = "!" + "$" + "%" + "&" + "@" + "#"; // Дополнительные символы (по желанию)
 
+            // Объединяем все символы в один набор
+            string allChars = upperChars + lowerChars + digits + additionalChars;
+
+            // Генерируем пароль
+            Random random = new Random();
+            char[] password = new char[length];
+
+            // Генерируем случайные символы
+            for (int i = 0; i < length; i++)
+            {
+                password[i] = allChars[random.Next(allChars.Length)];
+            }
+
+            return new string(password);
+        }
         // Метод для проверки, что строка содержит только буквы
         private bool ContainsOnlyLetters(string input)
         {
@@ -163,7 +184,7 @@ namespace IS_17
             Message.From = new MailAddress("agata_andreevna@mail.ru");
             Message.To.Add(new MailAddress($"{email}"));
             Message.Subject = "Вы в системе!";
-            Message.Body = "Хорошо трудитель на благо партии! Ваш дефолтный пароль:\n Qw12G5J4Dcl000 \n измените его для вашей же безопасности!";
+            Message.Body = "Хорошо трудитеcь на благо партии! \n\nВаш дефолтный пароль:\n           Qw12G5J4Dcl000 \nИзмените его для вашей же безопасности!";
 
             try
             {

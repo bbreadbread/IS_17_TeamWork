@@ -19,10 +19,15 @@ namespace IS_17
         //false = пароль
         //true = данные
         //SELECT TOP (1000)[Пароль]
-        string query = "FROM [HotelDB].[dbo].[Работники] where [Имя] = 'Агата' and [Фамилия] = 'Сергеева' and [Почта] = 'breadtt00@gmail.com'";
+
+        string query = $"SELECT TOP (1000) [ID_Пользователя], [Имя], [Фамилия], [Пароль], [Почта], [Телефон] FROM [HotelDB].[dbo].[Работники] WHERE [ID_Пользователя] = {FormMaid.IdSelected}";
         string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
         public static bool typeDialogForm;
         string password;
+        string mail;
+        string number;
+        Random random = new Random();
+        int num;
         public FormMaid_Profile()
         {
             InitializeComponent();
@@ -30,37 +35,43 @@ namespace IS_17
 
         private void FormMaid_Profile_Load(object sender, EventArgs e)
         {
-
+            labelWHO.Text = $"{FormMaid.SurnameSelected} {FormMaid.NameSelected}";
+            buttonConfirm.Enabled = false;
         }
+
         private void buttonSendCode_Click(object sender, EventArgs e)
         {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        password = reader["Пароль"].ToString();
+                        mail = reader["Почта"].ToString();
+                        number = reader["Телефон"].ToString();
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка: " + ex.Message);
+                }
+            }
+
             if (typeDialogForm == false)
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    try
-                    {
-                        connection.Open();
-                        SqlDataReader reader = command.ExecuteReader();
-
-                        while (reader.Read())
-                        {
-                            password = reader["Пароль"].ToString();
-                        }
-                        reader.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ошибка: " + ex.Message);
-                    }
-                }
-
+                label1.Text = "Изменение пароля";
                 if (password == textBox1.Text)
                 {
                     if (ValidatePassword(textBox2.Text) == "0")
                     {
-                        SendMessage("breadtt00@gmail.com");
+                        SendMessage(FormMaid.MailSelected);
+                        buttonConfirm.Enabled = true;
                     }
                     else
                     {
@@ -74,16 +85,109 @@ namespace IS_17
             }
             else
             {
-                if (IsValidEmail(textBox1.Text)==true)
+                if (IsValidEmail(textBox1.Text) == true)
                 {
                     if (IsValidPhoneNumber(textBox2.Text) == true)
                     {
-
+                        SendMessage(textBox1.Text);
+                        buttonConfirm.Enabled = true;
                     }
                 }
             }
         }
+        private void buttonConfirm_Click(object sender, EventArgs e)
+        {
+            if(textBox3.Text != "")
+            {
+                if (int.TryParse(textBox3.Text, out int a))
+                {
+                    if(a == num)
+                    {
+                        if (typeDialogForm == false) Update(textBox2.Text);
+                        else Update(textBox1.Text, textBox2.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Введен неверный код!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введен неверный код!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Код не введен!");
+            }
+        }
+        void Update(string newPassword)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = $"UPDATE [Работники] SET [Пароль] = @НовыйПароль WHERE [ID_Пользователя] = @ID_Пользователя";
 
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@НовыйПароль", newPassword);
+                    command.Parameters.AddWithValue("@ID_Пользователя", FormMaid.IdSelected);
+
+                    try
+                    {
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Пароль успешно обновлён.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Пользователь не найден или пароль не изменён.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Произошла ошибка: " + ex.Message);
+                    }
+                }
+            }
+        }
+        void Update(string newMail, string newNumber)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = $"UPDATE [Работники] SET [Почта] = @НоваяПочта, [Телефон] = @НовыйТелефон WHERE [ID_Пользователя] = @ID_Пользователя";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@НоваяПочта", newMail);
+                    command.Parameters.AddWithValue("@НовыйТелефон", newNumber);
+                    command.Parameters.AddWithValue("@ID_Пользователя", FormMaid.IdSelected);
+
+                    try
+                    {
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Пароль успешно обновлён.");
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Пользователь не найден или пароль не изменён.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Произошла ошибка: " + ex.Message);
+                    }
+                }
+            }
+        }
         public static bool IsValidEmail(string email)
         {
             string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
@@ -170,7 +274,6 @@ namespace IS_17
 
         private void SendMessage(string email)
         {
-            Random random = new Random();
 
             SmtpClient Smtp = new SmtpClient("smtp.mail.ru", 587);
             Smtp.EnableSsl = true;
@@ -180,7 +283,8 @@ namespace IS_17
             Message.From = new MailAddress("agata_andreevna@mail.ru");
             Message.To.Add(new MailAddress($"{email}"));
             Message.Subject = "Ваш код подтверждения!";
-            Message.Body = $"Чтобы изменить информацию о Вас, введите этот код в соответсвующее поле: {random.Next(9999)}";
+            num = random.Next(9999);
+            Message.Body = $"Чтобы изменить информацию о Вас, введите этот код в соответсвующее поле: {num}";
 
             try
             {
@@ -198,11 +302,7 @@ namespace IS_17
 
         private bool isDragging = false;
         private Point startPoint;
-        private void buttonConfirm_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

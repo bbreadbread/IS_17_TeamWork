@@ -49,11 +49,11 @@
             // 
             listBoxReservation.Font = new Font("Century Gothic", 10.2F);
             listBoxReservation.FormattingEnabled = true;
-            listBoxReservation.ItemHeight = 21;
-            listBoxReservation.Location = new Point(18, 124);
+            listBoxReservation.ItemHeight = 19;
+            listBoxReservation.Location = new Point(12, 142);
             listBoxReservation.Margin = new Padding(4);
             listBoxReservation.Name = "listBoxReservation";
-            listBoxReservation.Size = new Size(423, 235);
+            listBoxReservation.Size = new Size(435, 194);
             listBoxReservation.TabIndex = 0;
             // 
             // buttonReservation
@@ -62,10 +62,10 @@
             buttonReservation.BackColor = Color.FromArgb(29, 29, 67);
             buttonReservation.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold);
             buttonReservation.ForeColor = Color.White;
-            buttonReservation.Location = new Point(18, 382);
+            buttonReservation.Location = new Point(12, 368);
             buttonReservation.Margin = new Padding(4);
             buttonReservation.Name = "buttonReservation";
-            buttonReservation.Size = new Size(423, 43);
+            buttonReservation.Size = new Size(435, 53);
             buttonReservation.TabIndex = 1;
             buttonReservation.Text = "Закрепить за комнатой";
             buttonReservation.UseVisualStyleBackColor = false;
@@ -76,10 +76,10 @@
             buttonUnassign.BackColor = Color.FromArgb(29, 29, 67);
             buttonUnassign.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold);
             buttonUnassign.ForeColor = Color.White;
-            buttonUnassign.Location = new Point(280, 68);
+            buttonUnassign.Location = new Point(275, 68);
             buttonUnassign.Margin = new Padding(4);
             buttonUnassign.Name = "buttonUnassign";
-            buttonUnassign.Size = new Size(166, 41);
+            buttonUnassign.Size = new Size(166, 53);
             buttonUnassign.TabIndex = 2;
             buttonUnassign.Text = "Открепить";
             buttonUnassign.UseVisualStyleBackColor = false;
@@ -92,7 +92,7 @@
             labelName.Location = new Point(18, 78);
             labelName.Margin = new Padding(4, 0, 4, 0);
             labelName.Name = "labelName";
-            labelName.Size = new Size(0, 21);
+            labelName.Size = new Size(0, 19);
             labelName.TabIndex = 3;
             // 
             // labelSurname
@@ -102,7 +102,7 @@
             labelSurname.Location = new Point(122, 78);
             labelSurname.Margin = new Padding(4, 0, 4, 0);
             labelSurname.Name = "labelSurname";
-            labelSurname.Size = new Size(0, 21);
+            labelSurname.Size = new Size(0, 19);
             labelSurname.TabIndex = 4;
             // 
             // panel1
@@ -118,16 +118,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(459, 45);
             panel1.TabIndex = 8;
+            panel1.MouseDown += panel1_MouseDown;
+            panel1.MouseMove += panel1_MouseMove;
+            panel1.MouseUp += panel1_MouseUp;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(15, 9);
+            label1.Location = new Point(17, 11);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(236, 22);
+            label1.Size = new Size(194, 18);
             label1.TabIndex = 8;
             label1.Text = "Закрепление горничных";
             // 
@@ -136,10 +139,10 @@
             pictureBox1.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Location = new Point(412, 0);
+            pictureBox1.Location = new Point(413, 0);
             pictureBox1.Margin = new Padding(4, 3, 4, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(42, 42);
+            pictureBox1.Size = new Size(44, 45);
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
@@ -170,7 +173,7 @@
             // 
             // CustomMessageBox
             // 
-            AutoScaleDimensions = new SizeF(10F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(459, 443);
