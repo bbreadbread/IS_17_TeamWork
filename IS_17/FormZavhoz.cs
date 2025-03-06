@@ -732,6 +732,7 @@ namespace IS_17
 
         private void button8_Click(object sender, EventArgs e)
         {
+
             panel1.Enabled = true;
             panel1.Visible = true;
             dataGridView1.Visible = true;
