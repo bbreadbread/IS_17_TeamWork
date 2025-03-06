@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace IS_17
 {
@@ -17,6 +18,15 @@ namespace IS_17
         public FormMaid()
         {
             InitializeComponent();
+
+            buttonCheckRooms.FlatStyle = FlatStyle.Flat;
+            buttonCheckRooms.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            buttonLogout.FlatStyle = FlatStyle.Flat;
+            buttonLogout.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            buttonProfile.FlatStyle = FlatStyle.Flat;
+            buttonProfile.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
         }
 
         private void btnHum_Click(object sender, EventArgs e)

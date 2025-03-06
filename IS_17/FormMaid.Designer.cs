@@ -59,27 +59,32 @@
             // 
             // sidebar
             // 
-            sidebar.BackColor = Color.MidnightBlue;
+            sidebar.BackColor = Color.FromArgb(29, 29, 67);
             sidebar.Controls.Add(buttonCheckRooms);
             sidebar.Controls.Add(menuConteiner);
             sidebar.Controls.Add(buttonLogout);
             sidebar.Dock = DockStyle.Left;
-            sidebar.Location = new Point(0, 55);
+            sidebar.Location = new Point(0, 73);
+            sidebar.Margin = new Padding(3, 4, 3, 4);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(62, 537);
+            sidebar.Size = new Size(343, 716);
             sidebar.TabIndex = 4;
             // 
             // buttonCheckRooms
             // 
-            buttonCheckRooms.BackColor = Color.Lavender;
+            buttonCheckRooms.BackColor = Color.FromArgb(29, 29, 67);
+            buttonCheckRooms.Font = new Font("Century Gothic", 14F);
+            buttonCheckRooms.ForeColor = Color.White;
             buttonCheckRooms.Image = (Image)resources.GetObject("buttonCheckRooms.Image");
             buttonCheckRooms.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonCheckRooms.Location = new Point(3, 3);
+            buttonCheckRooms.Location = new Point(3, 4);
+            buttonCheckRooms.Margin = new Padding(3, 4, 3, 4);
             buttonCheckRooms.Name = "buttonCheckRooms";
-            buttonCheckRooms.Size = new Size(256, 48);
+            buttonCheckRooms.Size = new Size(293, 64);
             buttonCheckRooms.TabIndex = 6;
             buttonCheckRooms.TabStop = false;
-            buttonCheckRooms.Text = "Учет комнат";
+            buttonCheckRooms.Text = "           Уборка";
+            buttonCheckRooms.TextAlign = ContentAlignment.MiddleLeft;
             buttonCheckRooms.UseVisualStyleBackColor = false;
             buttonCheckRooms.Click += buttonCheckRooms_Click;
             // 
@@ -158,29 +163,34 @@
             // 
             // buttonLogout
             // 
-            buttonLogout.BackColor = Color.Lavender;
+            buttonLogout.BackColor = Color.FromArgb(29, 29, 67);
+            buttonLogout.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonLogout.ForeColor = Color.White;
             buttonLogout.Image = (Image)resources.GetObject("buttonLogout.Image");
             buttonLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonLogout.Location = new Point(3, 111);
+            buttonLogout.Location = new Point(3, 148);
+            buttonLogout.Margin = new Padding(3, 4, 3, 4);
             buttonLogout.Name = "buttonLogout";
-            buttonLogout.Size = new Size(256, 48);
+            buttonLogout.Size = new Size(293, 64);
             buttonLogout.TabIndex = 5;
             buttonLogout.TabStop = false;
-            buttonLogout.Text = "Выход";
+            buttonLogout.Text = "             Выход";
+            buttonLogout.TextAlign = ContentAlignment.MiddleLeft;
             buttonLogout.UseVisualStyleBackColor = false;
             buttonLogout.Click += buttonLogout_Click;
             // 
             // panel1
             // 
-            panel1.BackColor = Color.White;
+            panel1.BackColor = Color.FromArgb(29, 29, 67);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox3);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnHum);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(882, 55);
+            panel1.Size = new Size(1008, 73);
             panel1.TabIndex = 3;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
@@ -188,26 +198,24 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.White;
+            pictureBox2.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Location = new Point(840, 11);
-            pictureBox2.Margin = new Padding(3, 2, 3, 2);
+            pictureBox2.Location = new Point(960, 15);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(30, 30);
+            pictureBox2.Size = new Size(34, 40);
             pictureBox2.TabIndex = 8;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = Color.White;
+            pictureBox3.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox3.Location = new Point(804, 11);
-            pictureBox3.Margin = new Padding(3, 2, 3, 2);
+            pictureBox3.Location = new Point(919, 15);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(30, 30);
+            pictureBox3.Size = new Size(34, 40);
             pictureBox3.TabIndex = 7;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
@@ -215,19 +223,21 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.Location = new Point(68, 21);
+            label1.Font = new Font("Century Gothic", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(76, 15);
             label1.Name = "label1";
-            label1.Size = new Size(144, 17);
+            label1.Size = new Size(216, 40);
             label1.TabIndex = 2;
-            label1.Text = "РЕЖИМ ГОРНИЧНОЙ";
+            label1.Text = "ГОРНИЧНАЯ";
             // 
             // btnHum
             // 
             btnHum.Image = (Image)resources.GetObject("btnHum.Image");
-            btnHum.Location = new Point(6, 3);
+            btnHum.Location = new Point(7, 4);
+            btnHum.Margin = new Padding(3, 4, 3, 4);
             btnHum.Name = "btnHum";
-            btnHum.Size = new Size(55, 50);
+            btnHum.Size = new Size(63, 67);
             btnHum.SizeMode = PictureBoxSizeMode.StretchImage;
             btnHum.TabIndex = 1;
             btnHum.TabStop = false;
@@ -240,13 +250,14 @@
             // 
             // FormMaid
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(882, 592);
+            ClientSize = new Size(1008, 789);
             Controls.Add(sidebar);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             IsMdiContainer = true;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormMaid";
             Text = "FormMaid";
             sidebar.ResumeLayout(false);
@@ -273,12 +284,5 @@
         private PictureBox btnHum;
         private Button buttonCheckRooms;
         private System.Windows.Forms.Timer sidebarTransition;
-        private FlowLayoutPanel menuConteiner;
-        private Panel panel3;
-        private Button menu;
-        private Panel panel4;
-        private Button button_CreateWorkers;
-        private Panel panel5;
-        private Button button_EditWorkers;
     }
 }
