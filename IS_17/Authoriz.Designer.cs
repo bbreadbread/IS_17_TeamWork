@@ -49,7 +49,7 @@
             // 
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Location = new Point(-10, -59);
+            pictureBox1.Location = new Point(-11, -69);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(941, 831);
             pictureBox1.TabIndex = 0;
@@ -91,7 +91,7 @@
             passShow.BackColor = Color.White;
             passShow.BackgroundImage = (Image)resources.GetObject("passShow.BackgroundImage");
             passShow.BackgroundImageLayout = ImageLayout.Zoom;
-            passShow.Location = new Point(807, 397);
+            passShow.Location = new Point(806, 390);
             passShow.Name = "passShow";
             passShow.Size = new Size(32, 25);
             passShow.TabIndex = 4;
@@ -101,8 +101,9 @@
             // 
             // button1
             // 
-            button1.BackColor = Color.FromArgb(224, 214, 233);
+            button1.BackColor = Color.FromArgb(29, 29, 67);
             button1.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            button1.ForeColor = Color.White;
             button1.Location = new Point(622, 457);
             button1.Name = "button1";
             button1.Size = new Size(163, 47);
@@ -113,6 +114,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(29, 29, 67);
             panel1.Controls.Add(pictureBox3);
             panel1.Controls.Add(pictureBox2);
             panel1.Dock = DockStyle.Top;
@@ -128,7 +130,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = Color.White;
+            pictureBox3.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox3.Location = new Point(841, 0);
@@ -140,7 +142,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.White;
+            pictureBox2.BackColor = Color.FromArgb(29, 29, 67);
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox2.Location = new Point(882, 0);
@@ -154,7 +156,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(930, 708);
+            ClientSize = new Size(930, 643);
             Controls.Add(panel1);
             Controls.Add(button1);
             Controls.Add(passShow);
