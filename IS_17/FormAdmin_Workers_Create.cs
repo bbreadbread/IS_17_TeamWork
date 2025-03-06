@@ -72,48 +72,85 @@ namespace IS_17
 
         private void buttonAddWorkers_Click(object sender, EventArgs e)
         {
+            // Получаем значения из полей
             string имя = NametextBox.Text;
             string фамилия = SurnametextBox.Text;
             string почта = EmailtextBox.Text;
             string телефон = NumbertextBox.Text;
             string роль = TypecomboBox.Text;
 
-
+            // Проверка имени
             if (string.IsNullOrWhiteSpace(имя) || !ContainsOnlyLetters(имя))
             {
-                MessageBox.Show("Поле 'Имя' не может быть пустым.");
+                MessageBox.Show("Поле 'Имя' не может быть пустым и должно содержать только буквы.");
                 return;
             }
 
+            // Проверка фамилии
             if (string.IsNullOrWhiteSpace(фамилия) || !ContainsOnlyLetters(фамилия))
             {
-                MessageBox.Show("Поле 'Фамилия' не может быть пустым.");
+                MessageBox.Show("Поле 'Фамилия' не может быть пустым и должно содержать только буквы.");
                 return;
             }
 
+            // Проверка почты
             if (!IsValidEmail(почта))
             {
                 MessageBox.Show("Некорректный формат почты.");
                 return;
             }
 
+            // Проверка телефона
             if (!IsValidPhoneNumber(телефон))
             {
-                MessageBox.Show("Некорректный формат телефона.");
+                MessageBox.Show("Некорректный формат телефона. Телефон должен состоять из 10 цифр.");
                 return;
             }
 
+            // Проверка роли
             if (string.IsNullOrWhiteSpace(роль))
             {
                 MessageBox.Show("Поле 'Роль' не может быть пустым.");
                 return;
             }
 
-            LoadWorkers($"INSERT INTO [HotelDB].[dbo].[Работники] ([Имя], [Фамилия], [Почта], [Телефон], [Пароль], [Роль]) VALUES ('{NametextBox.Text}'," +
-                $" '{SurnametextBox.Text}', '{EmailtextBox.Text}', '{NumbertextBox.Text}', 'Qw12G5J4Dcl000', '{TypecomboBox.Text}');");
+            // Если все проверки пройдены, выполняем запрос к базе данных
+            LoadWorkers($"INSERT INTO [HotelDB].[dbo].[Работники] ([Имя], [Фамилия], [Почта], [Телефон], [Пароль], [Роль]) VALUES " +
+                $"('{имя}', '{фамилия}', '{почта}', '{телефон}', 'Qw12G5J4Dcl000', '{роль}');");
             LoadWorkers(allView);
 
-            SendMessage(EmailtextBox.Text);
+            // Отправка сообщения
+            SendMessage(почта);
+        }
+
+        // Метод для проверки, что строка содержит только буквы
+        private bool ContainsOnlyLetters(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsLetter(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Метод для проверки корректности email
+        private bool IsValidEmail(string email)
+        {
+            string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(email);
+        }
+
+        // Метод для проверки корректности телефона
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Проверка, что телефон состоит из 10 цифр
+            string pattern = @"^\d{10}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(phoneNumber);
         }
         //aggata.serggeeva@mail.ru
         private void SendMessage(string email)
@@ -140,27 +177,6 @@ namespace IS_17
             {
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
-        }
-        private static bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private static bool IsValidPhoneNumber(string phone)
-        {
-            return Regex.IsMatch(phone, @"^\d{10}$");
-        }
-        private static bool ContainsOnlyLetters(string input)
-        {
-            return Regex.IsMatch(input, @"^[a-zA-Zа-яА-Я]+$");
         }
     }
 }

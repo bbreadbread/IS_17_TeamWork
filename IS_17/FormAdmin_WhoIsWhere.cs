@@ -58,7 +58,6 @@ namespace IS_17
             int startX = (this.ClientSize.Width - totalWidth) / 2;
             int startY = (this.ClientSize.Height - totalHeight) / 2;
 
-
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 int roomId = Convert.ToInt32(dataTable.Rows[i]["ID_Номера"]);
@@ -73,18 +72,18 @@ namespace IS_17
                 switch (status)
                 {
                     case "Доступно":
-                        if (maidHad == "") panel.BackColor = Color.White;
-                        else panel.BackColor = Color.FromArgb(243, 233, 251);
+                        if (maidHad == "") panel.BackColor = Color.Green;
+                        else panel.BackColor = Color.Chartreuse;
                         break;
                     case "Забронировано":
-                        if (maidHad == "") panel.BackColor = Color.FromArgb(100, 100, 185); 
-                        else panel.BackColor = Color.FromArgb(158, 158, 209);
+                        if (maidHad == "") panel.BackColor = Color.Orange;
+                        else panel.BackColor = Color.Yellow;
                         break;
                     case "Тех. обслуживание":
-                        panel.BackColor = Color.FromArgb(238, 165, 176);
+                        panel.BackColor = Color.Red;
                         break;
                     default:
-                        panel.BackColor = Color.White;
+                        panel.BackColor = Color.LightGray;
                         break;
                 }
 
@@ -107,19 +106,6 @@ namespace IS_17
 
                 // Добавляем панель на форму
                 this.Controls.Add(panel);
-
-
-                // Создаем PictureBox
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.Size = new Size(panelSize, panelSize);
-                pictureBox.Location = new Point(panel.Location.X, panel.Location.Y + panelSize + spacing); // Располагаем ниже панели
-                pictureBox.BackColor = Color.Transparent; // Установите цвет фона, если необходимо
-                                                          // Вы можете установить изображение, если у вас есть его источник
-                pictureBox.Image = Image.FromFile("info.png"); // Укажите путь к изображению
-                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage; // Устанавливаем режим отображения изображения
-
-                // Добавляем PictureBox на форму
-                this.Controls.Add(pictureBox);
 
                 // Обработка клика по панели
                 panel.Click += (sender, e) =>
@@ -205,6 +191,8 @@ namespace IS_17
                         }
                     }
                 };
+
+               
             }
         }
 

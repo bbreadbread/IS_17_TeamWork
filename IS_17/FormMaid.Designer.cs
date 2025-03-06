@@ -32,7 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaid));
             sidebar = new FlowLayoutPanel();
             buttonCheckRooms = new Button();
-            buttonProfile = new Button();
+            menuConteiner = new FlowLayoutPanel();
+            panel3 = new Panel();
+            menu = new Button();
+            panel4 = new Panel();
+            button_CreateWorkers = new Button();
+            panel5 = new Panel();
+            button_EditWorkers = new Button();
             buttonLogout = new Button();
             panel1 = new Panel();
             pictureBox2 = new PictureBox();
@@ -41,6 +47,10 @@
             btnHum = new PictureBox();
             sidebarTransition = new System.Windows.Forms.Timer(components);
             sidebar.SuspendLayout();
+            menuConteiner.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
+            panel5.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -51,7 +61,7 @@
             // 
             sidebar.BackColor = Color.FromArgb(29, 29, 67);
             sidebar.Controls.Add(buttonCheckRooms);
-            sidebar.Controls.Add(buttonProfile);
+            sidebar.Controls.Add(menuConteiner);
             sidebar.Controls.Add(buttonLogout);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 73);
@@ -78,22 +88,78 @@
             buttonCheckRooms.UseVisualStyleBackColor = false;
             buttonCheckRooms.Click += buttonCheckRooms_Click;
             // 
-            // buttonProfile
+            // menuConteiner
             // 
-            buttonProfile.BackColor = Color.FromArgb(29, 29, 67);
-            buttonProfile.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            buttonProfile.ForeColor = Color.White;
-            buttonProfile.Image = (Image)resources.GetObject("buttonProfile.Image");
-            buttonProfile.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonProfile.Location = new Point(3, 76);
-            buttonProfile.Margin = new Padding(3, 4, 3, 4);
-            buttonProfile.Name = "buttonProfile";
-            buttonProfile.Size = new Size(293, 64);
-            buttonProfile.TabIndex = 4;
-            buttonProfile.TabStop = false;
-            buttonProfile.Text = "Настройки";
-            buttonProfile.UseVisualStyleBackColor = false;
-            buttonProfile.Click += buttonProfile_Click;
+            menuConteiner.Controls.Add(panel3);
+            menuConteiner.Controls.Add(panel4);
+            menuConteiner.Controls.Add(panel5);
+            menuConteiner.Location = new Point(3, 57);
+            menuConteiner.Name = "menuConteiner";
+            menuConteiner.Size = new Size(256, 48);
+            menuConteiner.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(menu);
+            panel3.Location = new Point(3, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(256, 48);
+            panel3.TabIndex = 4;
+            // 
+            // menu
+            // 
+            menu.BackColor = Color.Lavender;
+            menu.Image = (Image)resources.GetObject("menu.Image");
+            menu.ImageAlign = ContentAlignment.MiddleLeft;
+            menu.Location = new Point(0, 0);
+            menu.Name = "menu";
+            menu.Size = new Size(256, 48);
+            menu.TabIndex = 2;
+            menu.TabStop = false;
+            menu.Text = "Управление аккаунтом";
+            menu.UseVisualStyleBackColor = false;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(button_CreateWorkers);
+            panel4.Location = new Point(3, 57);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(256, 48);
+            panel4.TabIndex = 4;
+            // 
+            // button_CreateWorkers
+            // 
+            button_CreateWorkers.Dock = DockStyle.Fill;
+            button_CreateWorkers.Image = (Image)resources.GetObject("button_CreateWorkers.Image");
+            button_CreateWorkers.ImageAlign = ContentAlignment.MiddleLeft;
+            button_CreateWorkers.Location = new Point(0, 0);
+            button_CreateWorkers.Name = "button_CreateWorkers";
+            button_CreateWorkers.Size = new Size(256, 48);
+            button_CreateWorkers.TabIndex = 2;
+            button_CreateWorkers.TabStop = false;
+            button_CreateWorkers.Text = "Изменить данные";
+            button_CreateWorkers.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(button_EditWorkers);
+            panel5.Location = new Point(3, 111);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(256, 48);
+            panel5.TabIndex = 5;
+            // 
+            // button_EditWorkers
+            // 
+            button_EditWorkers.Dock = DockStyle.Fill;
+            button_EditWorkers.Image = (Image)resources.GetObject("button_EditWorkers.Image");
+            button_EditWorkers.ImageAlign = ContentAlignment.MiddleLeft;
+            button_EditWorkers.Location = new Point(0, 0);
+            button_EditWorkers.Name = "button_EditWorkers";
+            button_EditWorkers.Size = new Size(256, 48);
+            button_EditWorkers.TabIndex = 2;
+            button_EditWorkers.TabStop = false;
+            button_EditWorkers.Text = "Изменить пароль";
+            button_EditWorkers.UseVisualStyleBackColor = true;
             // 
             // buttonLogout
             // 
@@ -195,6 +261,10 @@
             Name = "FormMaid";
             Text = "FormMaid";
             sidebar.ResumeLayout(false);
+            menuConteiner.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel5.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -206,7 +276,6 @@
         #endregion
 
         private FlowLayoutPanel sidebar;
-        private Button buttonProfile;
         private Button buttonLogout;
         private Panel panel1;
         private PictureBox pictureBox2;

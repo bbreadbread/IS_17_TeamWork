@@ -58,7 +58,18 @@ namespace IS_17
 
         private void FormAdmin_Load(object sender, EventArgs e)
         {
-
+            if (formAdmin_Workers_Create == null)
+            {
+                formAdmin_Workers_Create = new FormAdmin_Workers_Create();
+                formAdmin_Workers_Create.FormClosed += FormAdmin_Workers_Create_FormClosed;
+                formAdmin_Workers_Create.MdiParent = this;
+                formAdmin_Workers_Create.Dock = DockStyle.Fill;
+                formAdmin_Workers_Create.Show();
+            }
+            else
+            {
+                formAdmin_Workers_Create.Activate();
+            }
         }
         //открывашка основного меню
         //открывашка основного меню
@@ -293,7 +304,7 @@ namespace IS_17
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Hide();
         }
 
         private void button8_Click(object sender, EventArgs e)
