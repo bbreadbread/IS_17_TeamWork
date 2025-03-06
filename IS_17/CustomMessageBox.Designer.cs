@@ -60,12 +60,12 @@
             // 
             buttonReservation.AccessibleRole = AccessibleRole.OutlineButton;
             buttonReservation.BackColor = Color.FromArgb(29, 29, 67);
-            buttonReservation.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonReservation.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold);
             buttonReservation.ForeColor = Color.White;
             buttonReservation.Location = new Point(18, 382);
             buttonReservation.Margin = new Padding(4);
             buttonReservation.Name = "buttonReservation";
-            buttonReservation.Size = new Size(411, 43);
+            buttonReservation.Size = new Size(423, 43);
             buttonReservation.TabIndex = 1;
             buttonReservation.Text = "Закрепить за комнатой";
             buttonReservation.UseVisualStyleBackColor = false;
@@ -74,12 +74,12 @@
             // buttonUnassign
             // 
             buttonUnassign.BackColor = Color.FromArgb(29, 29, 67);
-            buttonUnassign.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonUnassign.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold);
             buttonUnassign.ForeColor = Color.White;
-            buttonUnassign.Location = new Point(290, 68);
+            buttonUnassign.Location = new Point(280, 68);
             buttonUnassign.Margin = new Padding(4);
             buttonUnassign.Name = "buttonUnassign";
-            buttonUnassign.Size = new Size(154, 41);
+            buttonUnassign.Size = new Size(166, 41);
             buttonUnassign.TabIndex = 2;
             buttonUnassign.Text = "Открепить";
             buttonUnassign.UseVisualStyleBackColor = false;
