@@ -35,13 +35,13 @@
             button8 = new Button();
             button1 = new Button();
             button2 = new Button();
+            button3 = new Button();
             panel1 = new Panel();
             panel2 = new Panel();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             label1 = new Label();
             btnHum = new PictureBox();
-            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             sidebar.SuspendLayout();
             panel2.SuspendLayout();
@@ -146,6 +146,23 @@
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(29, 29, 67);
+            button3.Font = new Font("Century Gothic", 13.8F);
+            button3.ForeColor = Color.White;
+            button3.Image = (Image)resources.GetObject("button3.Image");
+            button3.ImageAlign = ContentAlignment.MiddleLeft;
+            button3.Location = new Point(3, 292);
+            button3.Margin = new Padding(3, 4, 3, 4);
+            button3.Name = "button3";
+            button3.Size = new Size(293, 64);
+            button3.TabIndex = 8;
+            button3.TabStop = false;
+            button3.Text = "            Выход";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.UseVisualStyleBackColor = false;
+            // 
             // panel1
             // 
             panel1.Location = new Point(537, 108);
@@ -178,6 +195,7 @@
             pictureBox2.Size = new Size(37, 43);
             pictureBox2.TabIndex = 8;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // pictureBox3
             // 
@@ -189,6 +207,7 @@
             pictureBox3.Size = new Size(37, 40);
             pictureBox3.TabIndex = 7;
             pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
             // 
             // label1
             // 
@@ -211,23 +230,6 @@
             btnHum.SizeMode = PictureBoxSizeMode.StretchImage;
             btnHum.TabIndex = 1;
             btnHum.TabStop = false;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.FromArgb(29, 29, 67);
-            button3.Font = new Font("Century Gothic", 13.8F);
-            button3.ForeColor = Color.White;
-            button3.Image = (Image)resources.GetObject("button3.Image");
-            button3.ImageAlign = ContentAlignment.MiddleLeft;
-            button3.Location = new Point(3, 292);
-            button3.Margin = new Padding(3, 4, 3, 4);
-            button3.Name = "button3";
-            button3.Size = new Size(293, 64);
-            button3.TabIndex = 8;
-            button3.TabStop = false;
-            button3.Text = "            Выход";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = false;
             // 
             // FormZavhoz
             // 

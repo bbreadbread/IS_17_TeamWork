@@ -699,7 +699,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-           
+
             tablee = 1;
             Inventupdate();
         }
@@ -733,7 +733,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-           
+
             panel1.Controls.Clear();
             panel1.Visible = true;
             tablee = 0;
@@ -856,7 +856,7 @@ namespace IS_17
             panel1.Visible = true;
             dataGridView1.Visible = true;
             dataGridView1.Enabled = true;
-           
+
             dataGridView1.Visible = true;
             tablee = 0;
             panel1.Controls.Clear();
@@ -921,13 +921,23 @@ namespace IS_17
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
+
         }
 
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }
