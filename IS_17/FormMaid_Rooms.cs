@@ -14,19 +14,46 @@ namespace IS_17
     public partial class FormMaid_Rooms : Form
     {
         string query = "" , timeClean = "", preferences = "";
-        int idThisMaid = 8;
+        string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
+        public static int IdThisMaid { get; set; }
+        public static string NameThisMaid { get; set; }
+        public static string SurameThisMaid { get; set; }
+        public static string Room { get; set; }
+
         List<string[]> preferencesList = new List<string[]>();
+        List<string[]> maidList = new List<string[]>();
         public FormMaid_Rooms()
         {
+            IdThisMaid = 8;
             InitializeComponent();
             LoadPanels();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = $"SELECT TOP (1000) [Имя], [Фамилия] FROM [HotelDB].[dbo].[Работники] WHERE [ID_Пользователя] = {IdThisMaid}";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", IdThisMaid);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            NameThisMaid = reader["Имя"].ToString();
+                            SurameThisMaid = reader["Фамилия"].ToString();
+                        }
+                    }
+                }
+            }
+
         }
         private void LoadPanels()
         {
             flowLayoutPanel1.Controls.Clear();
-
-            string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
-            query = $"SELECT [ID_Номера], [Статус], [Закрепленная горничная] FROM [HotelDB].[dbo].[Номера] WHERE [Закрепленная горничная] = {idThisMaid};";
+           
+            query = $"SELECT [ID_Номера], [Статус], [Закрепленная горничная] FROM [HotelDB].[dbo].[Номера] WHERE [Закрепленная горничная] = {IdThisMaid};";
 
             DataTable dataTable1 = new DataTable();
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -38,6 +65,15 @@ namespace IS_17
                     {
                         SqlDataAdapter adapter = new SqlDataAdapter(command);
                         adapter.Fill(dataTable1);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Room = reader["ID_Номера"].ToString();
+                            }
+                        }
+
                     }
                     query = $@"SELECT 
                         Бронирования.[ID_Номера],
@@ -50,7 +86,7 @@ namespace IS_17
                     ON 
                         Бронирования.[ID_Гостя] = Гости.[ID_Гостя]
                     WHERE 
-                        Бронирования.[ID_Горничной] = 3;";
+                        Бронирования.[ID_Горничной] = {IdThisMaid};";
 
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -72,10 +108,18 @@ namespace IS_17
                     return;
                 }
 
+                using (StreamWriter stream = new StreamWriter("cleaningListToday.txt"))
+                {
+                    int j = 0;
+                    foreach (string[] str in preferencesList)
+                        stream.WriteLine(str[0] + " " + str[1]);
+                }
                 int i = 0;
                 // Создаем панели на основе полученных данных
                 foreach (DataRow row in dataTable1.Rows)
                 {
+                    bool isCleaning = false;
+
                     Panel panel = new Panel();
                     panel.Size = new Size(flowLayoutPanel1.Width - 5, 100);
                     panel.BorderStyle = BorderStyle.FixedSingle;
@@ -91,15 +135,47 @@ namespace IS_17
                     label2.AutoSize = true;
                     panel.Controls.Add(label2);
 
+                    string time = "";
                     Label label3 = new Label();
-                    if (preferencesList[i][1] != null) label3.Text = $"Время уборки: {preferencesList[i][1]}";
-                    else label3.Text = $"Время уборки: 10:00 - 12:00";
-                    i++;
+                    if (isCleaning == false)
+                    {
+                        if (preferencesList.Count > i)
+                        {
 
+                            time = preferencesList[i][0];
+                            label3.Text = $"Время уборки: {preferencesList[i][1]}";
+                        }
+                        else
+                            label3.Text = $"Время уборки: 10:00 - 12:00";
+                        i++;
+                    }
+                    else
+                    {
+                        label3.Text = $"Номер убран: {preferencesList[i][1]}";
+                    }
                     label3.Location = new Point(200, 20);
                     label3.AutoSize = true;
                     panel.Controls.Add(label3);
+
                     
+                    Label label4 = new Label();
+                    if (isCleaning == false)
+                    {
+                        if (preferencesList.Count > i)
+                            label4.Text = $"Прредпочтения: {preferencesList[i][0]}";
+                        else
+                            label4.Text = $"Предпочтения: -";
+                        i++;
+                    }
+                    else
+                    {
+
+                    }
+                    label4.Location = new Point(400, 20);
+                    label4.AutoSize = true;
+                    panel.Controls.Add(label4);
+
+
                     Button button = new Button();
                     button.Text = "Действие";
                     button.Tag = row["ID_Номера"];
@@ -114,14 +190,15 @@ namespace IS_17
                         Button clickedButton = sender as Button;
                         if (clickedButton != null)
                         {
-                            MaidCustomMessageBox customMessageBox = new MaidCustomMessageBox();
+                            MaidCustomMessageBox customMessageBox = new MaidCustomMessageBox(isCleaning);
                             DialogResult result = customMessageBox.ShowDialog();
 
                             if (result == DialogResult.OK)
                             {
-
+                                label3.Text = $"Номер убран!";
+                                button.Enabled = false;
                             }
-                            else
+                            else if (result == DialogResult.Cancel)
                             {
 
                             }
