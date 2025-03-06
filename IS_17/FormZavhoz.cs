@@ -134,6 +134,7 @@ namespace IS_17
             postupdate();
 
 
+
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
