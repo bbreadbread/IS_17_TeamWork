@@ -61,7 +61,7 @@ namespace IS_17
 
         }
         //открывашка основного меню
-
+        //открывашка основного меню
         private void btnHum_Click(object sender, EventArgs e)
         {
             sidebarTransition.Start();
