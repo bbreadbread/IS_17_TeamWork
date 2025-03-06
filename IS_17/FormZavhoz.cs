@@ -20,6 +20,7 @@ namespace IS_17
         {
             InitializeComponent();
         }
+
         int tablee = 0;
         void postupdate()
         {
