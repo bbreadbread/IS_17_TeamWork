@@ -28,85 +28,168 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomMessageBox));
             listBoxReservation = new ListBox();
             buttonReservation = new Button();
             buttonUnassign = new Button();
             labelName = new Label();
             labelSurname = new Label();
-            labelInfo = new Label();
+            panel1 = new Panel();
+            label1 = new Label();
+            pictureBox1 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // listBoxReservation
             // 
+            listBoxReservation.Font = new Font("Century Gothic", 10.2F);
             listBoxReservation.FormattingEnabled = true;
-            listBoxReservation.ItemHeight = 15;
-            listBoxReservation.Location = new Point(12, 57);
+            listBoxReservation.ItemHeight = 21;
+            listBoxReservation.Location = new Point(18, 124);
+            listBoxReservation.Margin = new Padding(4);
             listBoxReservation.Name = "listBoxReservation";
-            listBoxReservation.Size = new Size(297, 244);
+            listBoxReservation.Size = new Size(423, 235);
             listBoxReservation.TabIndex = 0;
             // 
             // buttonReservation
             // 
             buttonReservation.AccessibleRole = AccessibleRole.OutlineButton;
-            buttonReservation.Location = new Point(21, 315);
+            buttonReservation.BackColor = Color.FromArgb(29, 29, 67);
+            buttonReservation.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonReservation.ForeColor = Color.White;
+            buttonReservation.Location = new Point(18, 382);
+            buttonReservation.Margin = new Padding(4);
             buttonReservation.Name = "buttonReservation";
-            buttonReservation.Size = new Size(288, 31);
+            buttonReservation.Size = new Size(411, 43);
             buttonReservation.TabIndex = 1;
             buttonReservation.Text = "Закрепить за комнатой";
-            buttonReservation.UseVisualStyleBackColor = true;
+            buttonReservation.UseVisualStyleBackColor = false;
             buttonReservation.Click += buttonReservation_Click;
             // 
             // buttonUnassign
             // 
-            buttonUnassign.Location = new Point(201, 5);
+            buttonUnassign.BackColor = Color.FromArgb(29, 29, 67);
+            buttonUnassign.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonUnassign.ForeColor = Color.White;
+            buttonUnassign.Location = new Point(290, 68);
+            buttonUnassign.Margin = new Padding(4);
             buttonUnassign.Name = "buttonUnassign";
-            buttonUnassign.Size = new Size(108, 44);
+            buttonUnassign.Size = new Size(154, 41);
             buttonUnassign.TabIndex = 2;
-            buttonUnassign.Text = "Открепить от комнаты";
-            buttonUnassign.UseVisualStyleBackColor = true;
+            buttonUnassign.Text = "Открепить";
+            buttonUnassign.UseVisualStyleBackColor = false;
             buttonUnassign.Click += buttonUnassign_Click;
             // 
             // labelName
             // 
             labelName.AutoSize = true;
-            labelName.Location = new Point(13, 34);
+            labelName.Font = new Font("Century Gothic", 10.2F);
+            labelName.Location = new Point(18, 78);
+            labelName.Margin = new Padding(4, 0, 4, 0);
             labelName.Name = "labelName";
-            labelName.Size = new Size(38, 15);
+            labelName.Size = new Size(0, 21);
             labelName.TabIndex = 3;
-            labelName.Text = "label1";
             // 
             // labelSurname
             // 
             labelSurname.AutoSize = true;
-            labelSurname.Location = new Point(85, 34);
+            labelSurname.Font = new Font("Century Gothic", 10.2F);
+            labelSurname.Location = new Point(122, 78);
+            labelSurname.Margin = new Padding(4, 0, 4, 0);
             labelSurname.Name = "labelSurname";
-            labelSurname.Size = new Size(38, 15);
+            labelSurname.Size = new Size(0, 21);
             labelSurname.TabIndex = 4;
-            labelSurname.Text = "label2";
             // 
-            // labelInfo
+            // panel1
             // 
-            labelInfo.AutoSize = true;
-            labelInfo.Location = new Point(46, 9);
-            labelInfo.Name = "labelInfo";
-            labelInfo.Size = new Size(38, 15);
-            labelInfo.TabIndex = 5;
-            labelInfo.Text = "label1";
+            panel1.BackColor = Color.FromArgb(29, 29, 67);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(pictureBox3);
+            panel1.Controls.Add(pictureBox2);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(459, 45);
+            panel1.TabIndex = 8;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Century Gothic", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(15, 9);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(236, 22);
+            label1.TabIndex = 8;
+            label1.Text = "Закрепление горничных";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.FromArgb(29, 29, 67);
+            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.Location = new Point(412, 0);
+            pictureBox1.Margin = new Padding(4, 3, 4, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(42, 42);
+            pictureBox1.TabIndex = 7;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = Color.FromArgb(29, 29, 67);
+            pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
+            pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox3.Location = new Point(1051, 0);
+            pictureBox3.Margin = new Padding(4, 3, 4, 3);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(42, 42);
+            pictureBox3.TabIndex = 6;
+            pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.FromArgb(29, 29, 67);
+            pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
+            pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox2.Location = new Point(1102, 0);
+            pictureBox2.Margin = new Padding(4, 3, 4, 3);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(42, 42);
+            pictureBox2.TabIndex = 5;
+            pictureBox2.TabStop = false;
             // 
             // CustomMessageBox
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(321, 358);
-            Controls.Add(labelInfo);
+            BackColor = Color.White;
+            ClientSize = new Size(459, 443);
+            Controls.Add(panel1);
             Controls.Add(labelSurname);
             Controls.Add(labelName);
             Controls.Add(buttonUnassign);
             Controls.Add(buttonReservation);
             Controls.Add(listBoxReservation);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            Font = new Font("Century Gothic", 10.2F);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "CustomMessageBox";
             Text = "Закрепление комнаты";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -118,6 +201,10 @@
         private Button buttonUnassign;
         private Label labelName;
         private Label labelSurname;
-        private Label labelInfo;
+        private Panel panel1;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
+        private Label label1;
     }
 }
