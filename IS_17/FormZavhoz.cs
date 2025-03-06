@@ -132,6 +132,7 @@ namespace IS_17
         private void FormZavhoz_Load(object sender, EventArgs e)
         {
             postupdate();
+
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
