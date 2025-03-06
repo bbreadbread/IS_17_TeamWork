@@ -739,6 +739,7 @@ namespace IS_17
             dataGridView1.Enabled = true;
             textBox1.Enabled = false;
             textBox2.Enabled = false;
+
             textBox3.Enabled = false;
             textBox1.Visible = false;
             textBox2.Visible = false;
