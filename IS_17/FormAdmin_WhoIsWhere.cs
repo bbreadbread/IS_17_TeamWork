@@ -11,16 +11,6 @@ using System.Windows.Forms;
 
 namespace IS_17
 {
-    //         @"SELECT 
-    //      b.[ID_Номера] AS Номер,
-    //         g.[Имя] AS Имя,
-    //      g.[Фамилия] AS Фамилия
-    //     FROM 
-    //         [HotelDB].[dbo].[Бронирования] b
-    //     JOIN 
-    //         [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
-    //     WHERE 
-    //         b.[Статус бронирования] = 'Подтверждено';";
     public partial class FormAdmin_WhoIsWhere : Form
     {
 
@@ -123,16 +113,16 @@ namespace IS_17
                 {
 
                     string query2 = $@"SELECT 
-                                    b.[ID_Номера] AS Номер,
-                                    g.[Имя] AS Имя,
-                                    g.[Фамилия] AS Фамилия
-                                FROM 
-                                    [HotelDB].[dbo].[Бронирования] b
-                                JOIN 
-                                    [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
-                                WHERE 
-                                    b.[Статус бронирования] = 'Подтверждено'
-                                AND b.[ID_Номера] = {roomId};";
+                                        b.[ID_Номера] AS Номер,
+                                        g.[Имя] AS Имя,
+                                        g.[Фамилия] AS Фамилия
+                                    FROM 
+                                        [HotelDB].[dbo].[Бронирования] b
+                                    JOIN 
+                                        [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
+                                    WHERE 
+                                        b.[Статус бронирования] = 'Подтверждено'
+                                    AND b.[ID_Номера] = {roomId};";
 
                     string MaidName = "";
                     string MaidSurname = "";

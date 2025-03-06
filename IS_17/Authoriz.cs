@@ -34,6 +34,11 @@ namespace IS_17
                 FormAdmin a = new FormAdmin();
                 a.Show();
             }
+            if (emailTB.Text == "mroot")
+            {
+                FormMaid a = new FormMaid();
+                a.Show();
+            }
             if (Regex.IsMatch(email, pattern))
             {
                 contin++;
