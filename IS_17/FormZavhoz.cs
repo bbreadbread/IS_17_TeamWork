@@ -14,6 +14,8 @@ namespace IS_17
 {
     public partial class FormZavhoz : Form
     {
+        //Эту строчку нужно будет заменить когда будете показывать проект!
+        string allconect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
         public FormZavhoz()
         {
             InitializeComponent();
@@ -22,7 +24,7 @@ namespace IS_17
         void postupdate()
         {
             PostList.Clear();
-            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+            string connect = allconect;
             string query = $"SELECT TOP (1000) [ID_Поставщика]\r\n      ,[Название компании]\r\n      ,[Телефон]\r\n      ,[Адрес]\r\n      ,[Категория]\r\n  FROM [HotelDB].[dbo].[Поставщики]";
 
             using (SqlConnection connect1 = new SqlConnection(connect))
@@ -68,7 +70,7 @@ namespace IS_17
             dataGridView1.Columns.Add("7", "id");
 
 
-            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+            string connect = allconect;
             string query = $"SELECT TOP (1000) [ID_Инвертарь]\r\n      ,[Название предмета]\r\n      ,[Общее кол-во]\r\n      ,[Кол-во на складе]\r\n      ,[Кол-во поврежденных]\r\n      ,[ID_Поставщика]\r\n      ,[Цена шт.]\r\n  FROM [HotelDB].[dbo].[Инвентарь]\r\n";
 
             using (SqlConnection connect1 = new SqlConnection(connect))
@@ -127,7 +129,7 @@ namespace IS_17
         }
         private void FormZavhoz_Load(object sender, EventArgs e)
         {
-             postupdate();
+            postupdate();
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -144,7 +146,7 @@ namespace IS_17
                             TextBox a = new TextBox();
                             a.Text = "";
                             TextBox a2 = new TextBox();
-                             a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                            a2.Location = new Point(0, (a.Size.Height + 6) * 1);
                             a2.Text = "";
                             TextBox a3 = new TextBox();
                             a3.Location = new Point(0, (a.Size.Height + 6) * 2);
@@ -178,7 +180,7 @@ namespace IS_17
                             d3.Click += new EventHandler(deleteinvent);
                             Button d4 = new Button();
                             d4.Location = new Point(0, (a.Size.Height + 6) * 10);
-                            d4.Text = "Дрбавить";
+                            d4.Text = "Добавить";
                             d4.Size = new Size(a.Size.Width, a.Size.Height);
                             d4.Click += new EventHandler(insertinvent);
                             btn = d1;
@@ -202,7 +204,7 @@ namespace IS_17
                             panel1.Controls.Add(d3);
                             panel1.Controls.Add(d4);
                             panel1.Visible = true;
-                            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+                            string connect = allconect;
                             string query = $"SELECT TOP (1000) [Название компании]\r\n  FROM [HotelDB].[dbo].[Поставщики]\r\n";
 
                             using (SqlConnection connect1 = new SqlConnection(connect))
@@ -227,8 +229,8 @@ namespace IS_17
                                     MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
                                 }
                             }
-                        
-                    }
+
+                        }
                         else
                         {
                             panel1.Controls.Clear();
@@ -269,7 +271,7 @@ namespace IS_17
                             d3.Click += new EventHandler(deleteinvent);
                             Button d4 = new Button();
                             d4.Location = new Point(0, (a.Size.Height + 6) * 10);
-                            d4.Text = "Дрбавить";
+                            d4.Text = "Добавить";
                             d4.Size = new Size(a.Size.Width, a.Size.Height);
                             d4.Click += new EventHandler(insertinvent);
                             btn = d1;
@@ -293,7 +295,7 @@ namespace IS_17
                             panel1.Controls.Add(d3);
                             panel1.Controls.Add(d4);
                             panel1.Visible = true;
-                            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+                            string connect = allconect;
                             string query = $"SELECT TOP (1000) [Название компании]\r\n  FROM [HotelDB].[dbo].[Поставщики]\r\n";
 
                             using (SqlConnection connect1 = new SqlConnection(connect))
@@ -321,47 +323,98 @@ namespace IS_17
                         }
                     }
                     catch (Exception eeee) { }
-                
+
                 }
                 else
                     if (tablee == 2)
                 {
-                    panel1.Controls.Clear();
-                    dataGridView1.Visible = true;
-                    TextBox a = new TextBox();
-                    a.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-                    TextBox a2 = new TextBox();
-                    a2.Location = new Point(0, (a.Size.Height + 6) * 1);
-                    a2.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-                    TextBox a3 = new TextBox();
-                    a3.Location = new Point(0, (a.Size.Height + 6) * 2);
-                    a3.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
-                    TextBox a4 = new TextBox();
-                    a4.Location = new Point(0, (a.Size.Height + 6) * 3);
-                    a4.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-                    Button d = new Button();
-                    d.Location = new Point(0, (a.Size.Height + 6) * 4);
-                    d.Text = "Сохранить";
-                    d.Size = new Size(a.Size.Width, a.Size.Height);
-                    d.Click += new EventHandler(savepost);
-                    Button d1 = new Button();
-                    d1.Location = new Point(0, (a.Size.Height + 6) * 5);
-                    d1.Text = "Удалить строку";
-                    d1.Size = new Size(a.Size.Width, a.Size.Height);
-                    d1.Click += new EventHandler(deletepost);
-                    panel1.Controls.Add(a);
-                    panel1.Controls.Add(a2);
-                    panel1.Controls.Add(a3);
-                    panel1.Controls.Add(a4);
-                    panel1.Controls.Add(d);
-                    panel1.Controls.Add(d1);
-                    aaa = a;
-                    aaa2 = a2;
-                    aaa3 = a3;
-                    aaa4 = a4;
+                    if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        panel1.Controls.Clear();
+                        dataGridView1.Visible = true;
+                        TextBox a = new TextBox();
+                        a.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                        TextBox a2 = new TextBox();
+                        a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                        a2.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+                        TextBox a3 = new TextBox();
+                        a3.Location = new Point(0, (a.Size.Height + 6) * 2);
+                        a3.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
+                        TextBox a4 = new TextBox();
+                        a4.Location = new Point(0, (a.Size.Height + 6) * 3);
+                        a4.Text = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+                        Button d = new Button();
+                        d.Location = new Point(0, (a.Size.Height + 6) * 4);
+                        d.Text = "Сохранить";
+                        d.Size = new Size(a.Size.Width, a.Size.Height);
+                        d.Click += new EventHandler(savepost);
+                        Button d1 = new Button();
+                        d1.Location = new Point(0, (a.Size.Height + 6) * 5);
+                        d1.Text = "Удалить строку";
+                        d1.Size = new Size(a.Size.Width, a.Size.Height);
+                        d1.Click += new EventHandler(deletepost);
+                        Button d2 = new Button();
+                        d2.Location = new Point(0, (a.Size.Height + 6) * 6);
+                        d2.Text = "Добавить";
+                        d2.Size = new Size(a.Size.Width, a.Size.Height);
+                        d2.Click += new EventHandler(insertpost);
+                        panel1.Controls.Add(a);
+                        panel1.Controls.Add(a2);
+                        panel1.Controls.Add(a3);
+                        panel1.Controls.Add(a4);
+                        panel1.Controls.Add(d);
+                        panel1.Controls.Add(d1);
+                        panel1.Controls.Add(d2);
+                        aaa = a;
+                        aaa2 = a2;
+                        aaa3 = a3;
+                        aaa4 = a4;
+                    }
+                    else
+                    {
+                        panel1.Controls.Clear();
+                        dataGridView1.Visible = true;
+                        TextBox a = new TextBox();
+                        a.Text = "";
+                        TextBox a2 = new TextBox();
+                        a2.Location = new Point(0, (a.Size.Height + 6) * 1);
+                        a2.Text = "";
+                        TextBox a3 = new TextBox();
+                        a3.Location = new Point(0, (a.Size.Height + 6) * 2);
+                        a3.Text = "";
+                        TextBox a4 = new TextBox();
+                        a4.Location = new Point(0, (a.Size.Height + 6) * 3);
+                        a4.Text = "";
+                        Button d = new Button();
+                        d.Location = new Point(0, (a.Size.Height + 6) * 4);
+                        d.Text = "Сохранить";
+                        d.Size = new Size(a.Size.Width, a.Size.Height);
+                        d.Click += new EventHandler(savepost);
+                        Button d1 = new Button();
+                        d1.Location = new Point(0, (a.Size.Height + 6) * 5);
+                        d1.Text = "Удалить строку";
+                        d1.Size = new Size(a.Size.Width, a.Size.Height);
+                        d1.Click += new EventHandler(deletepost);
+                        Button d2 = new Button();
+                        d2.Location = new Point(0, (a.Size.Height + 6) * 6);
+                        d2.Text = "Добавить";
+                        d2.Size = new Size(a.Size.Width, a.Size.Height);
+                        d2.Click += new EventHandler(insertpost);
+                        panel1.Controls.Add(a);
+                        panel1.Controls.Add(a2);
+                        panel1.Controls.Add(a3);
+                        panel1.Controls.Add(a4);
+                        panel1.Controls.Add(d);
+                        panel1.Controls.Add(d1);
+                        panel1.Controls.Add(d2);
+                        aaa = a;
+                        aaa2 = a2;
+                        aaa3 = a3;
+                        aaa4 = a4;
+                    }
                 }
             }
-            catch(Exception et) { }
+            catch (Exception et) { }
         }
         TextBox aa = new TextBox();
         TextBox aa2 = new TextBox();
@@ -369,9 +422,53 @@ namespace IS_17
         TextBox aa4 = new TextBox();
         ComboBox aa5 = new ComboBox();
         TextBox aa6 = new TextBox();
+        private void insertpost(object sender, EventArgs e)
+        {
+            bool a = false;
+            for (int i = 0; i < PostList.Count; i++)
+            {
+                if (PostList[i].namepost == aaa.Text)
+                {
+                    a = true;
+                }
+            }
+            if (a)
+            {
+                MessageBox.Show("Поставщик с таким названием уже есть!");
+            }
+            else
+            {
+                string connect4 = allconect;
+                string query4 = $"INSERT INTO Поставщики ([Название компании], Телефон, Адрес,Категория)\r\nVALUES ('{aaa.Text}', '{aaa2.Text}', '{aaa3.Text}','{aaa4.Text}')";
+                using (SqlConnection connect3 = new SqlConnection(connect4))
+                {
+
+                    try
+                    {
+                        connect3.Open();
+                        int index = 0;
+                        SqlCommand command = new SqlCommand(query4, connect3);
+                        command.ExecuteNonQuery();
+
+
+                        command.Dispose();
+
+                        connect3.Close();
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                    }
+                }
+                postupdate();
+                button8.PerformClick();
+            }
+        }
+
         private void insertinvent(object sender, EventArgs e)
         {
-            string connect2 = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+
+            string connect2 = allconect;
             string query1 = $"SELECT ID_Поставщика \r\nFROM Поставщики \r\nWHERE [Название компании] = '{aa5.Text}'";
             string id = "";
             using (SqlConnection connect3 = new SqlConnection(connect2))
@@ -394,143 +491,217 @@ namespace IS_17
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                    MessageBox.Show("Некорректные данные!");
                 }
 
 
             }
-            string connect4 = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-            string query4 = $"INSERT INTO Инвентарь ( [Название предмета], [Общее кол-во], [Кол-во на складе], [Кол-во поврежденных], ID_Поставщика, [Цена шт.])\r\nVALUES ('{aa.Text}', {aa2.Text}, {aa3.Text},{aa4.Text}, {id},{aa6.Text});";
-            using (SqlConnection connect3 = new SqlConnection(connect4))
+            bool f = false;
+            for (int i = 0; i < InventList.Count; i++)
             {
-
-                try
+                if (InventList[i].name == aa.Text && InventList[i].idpost == id)
                 {
-                    connect3.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query4, connect3);
-                    command.ExecuteNonQuery();
-
-
-                    command.Dispose();
-
-                    connect3.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                    f = true;
+                    break;
                 }
             }
-            Inventupdate();
+            if (f)
+            {
+                MessageBox.Show("Такой предмет закупаемый у этого поставщика уже есть в таблице!");
+            }
+            else
+            {
+                string connect4 = allconect;
+                string query4 = $"INSERT INTO Инвентарь ( [Название предмета], [Общее кол-во], [Кол-во на складе], [Кол-во поврежденных], ID_Поставщика, [Цена шт.])\r\nVALUES ('{aa.Text}', {aa2.Text}, {aa3.Text},{aa4.Text}, {id},{aa6.Text});";
+                using (SqlConnection connect3 = new SqlConnection(connect4))
+                {
+
+                    try
+                    {
+                        connect3.Open();
+                        int index = 0;
+                        SqlCommand command = new SqlCommand(query4, connect3);
+                        command.ExecuteNonQuery();
+
+
+                        command.Dispose();
+
+                        connect3.Close();
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Некорректные данные!");
+                    }
+                }
+                Inventupdate();
+            }
         }
         private void save(object sender, EventArgs e)
         {
-            string connect2 = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-            string query1 = $"SELECT ID_Поставщика \r\nFROM Поставщики \r\nWHERE [Название компании] = '{aa5.Text}'";
-            string id = "";
-            using (SqlConnection connect3 = new SqlConnection(connect2))
+            if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
             {
+                MessageBox.Show("Вы не выбрали строку!");
+            }
 
-                try
+            {
+                string connect2 = allconect;
+                string query1 = $"SELECT ID_Поставщика \r\nFROM Поставщики \r\nWHERE [Название компании] = '{aa5.Text}'";
+                string id = "";
+                using (SqlConnection connect3 = new SqlConnection(connect2))
                 {
-                    connect3.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query1, connect3);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+
+                    try
                     {
-                        id = reader["ID_Поставщика"].ToString();
+                        connect3.Open();
+                        int index = 0;
+                        SqlCommand command = new SqlCommand(query1, connect3);
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            id = reader["ID_Поставщика"].ToString();
+                        }
+
+                        command.Dispose();
+                        reader.Close();
+                        connect3.Close();
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
                     }
 
-                    command.Dispose();
-                    reader.Close();
-                    connect3.Close();
+
                 }
-                catch (SqlException ex)
+
+                bool f = false;
+                for (int i = 0; i < InventList.Count; i++)
                 {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                    if (InventList[i].name == aa.Text && InventList[i].idpost == id && InventList[i].idinvent != dataGridView1.SelectedRows[0].Cells[6].Value.ToString())
+                    {
+                        f = true;
+                        break;
+                    }
+                }
+                if (f)
+                {
+                    MessageBox.Show("Такой предмет закупаемый у этого поставщика уже есть в таблице!");
                 }
 
 
+                else
+                {
+                    ooo = false;
+                    string connect = allconect;
+                    string query = $"UPDATE Инвентарь SET [Название предмета]='{aa.Text}', [Общее кол-во]='{aa2.Text}', [Кол-во на складе]='{aa3.Text}', [Кол-во поврежденных]='{aa4.Text}',ID_поставщика='{id}',[Цена шт.]='{aa6.Text}' WHERE ID_Инвертарь='{dataGridView1.SelectedRows[0].Cells[6].Value.ToString()}'";
+                    using (SqlConnection connect1 = new SqlConnection(connect))
+                    {
+                        try
+                        {
+                            connect1.Open();
+                            int index = 0;
+                            SqlCommand command = new SqlCommand(query, connect1);
+
+
+                            command.ExecuteNonQuery();
+                            command.Dispose();
+
+                            connect1.Close();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                        }
+                    }
+                    Inventupdate();
+                }
             }
-
-
-
-            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-            string query = $"UPDATE Инвентарь SET [Название предмета]='{aa.Text}', [Общее кол-во]='{aa2.Text}', [Кол-во на складе]='{aa3.Text}', [Кол-во поврежденных]='{aa4.Text}',ID_поставщика='{id}',[Цена шт.]='{aa6.Text}' WHERE ID_Поставщика='{dataGridView1.SelectedRows[0].Cells[6].Value.ToString()}'";
-            using (SqlConnection connect1 = new SqlConnection(connect))
-            {
-                try
-                {
-                    connect1.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query, connect1);
-
-
-                    command.ExecuteNonQuery();
-                    command.Dispose();
-
-                    connect1.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
-                }
-            }
-            Inventupdate();
         }
         NumericUpDown s = new NumericUpDown();
         Button btn = new Button();
         private void deleteinvent(object sender, EventArgs e)
         {
-            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-            string query = $"DELETE FROM Инвентарь\r\nWHERE ID_Инвертарь = {dataGridView1.SelectedRows[0].Cells[6].Value.ToString()}";
-            using (SqlConnection connect1 = new SqlConnection(connect))
+            if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
             {
-                try
-                {
-                    connect1.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query, connect1);
-
-
-                    command.ExecuteNonQuery();
-                    command.Dispose();
-
-                    connect1.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
-                }
+                MessageBox.Show("Вы не выбрали строку!");
             }
-            Inventupdate();
-            
-
-        }
-        private void otchet(object sender, EventArgs e)
-        {
-            
-                string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-                string query = $"INSERT INTO Отчеты ([Тип], [Описание], [ID_Ответственного Работника], [Дата создания записи]) VALUES ('Финансовый', 'Покупка товара: {dataGridView1.SelectedRows[0].Cells[0].Value.ToString()} кол-во: {s.Value.ToString()} на сумму: {int.Parse(dataGridView1.SelectedRows[0].Cells[5].Value.ToString()) * s.Value}', '2', '{DateTime.Now.ToString()}')";
+            else
+            {
+                string connect = allconect;
+                string query = $"DELETE FROM Инвентарь\r\nWHERE ID_Инвертарь = {dataGridView1.SelectedRows[0].Cells[6].Value.ToString()}";
                 using (SqlConnection connect1 = new SqlConnection(connect))
                 {
-                    connect1.Open();
-                    SqlCommand command = new SqlCommand(query, connect1);
-                    command.ExecuteNonQuery();
-                }
-                //dataGridView1.SelectedRows[0].Cells[1].Value=int.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString()) + s.Value;
-                //dataGridView1.SelectedRows[0].Cells[2].Value = int.Parse(dataGridView1.SelectedRows[0].Cells[2].Value.ToString()) + s.Value;
-                aa2.Text = (int.Parse(aa2.Text) + s.Value).ToString();
-                aa3.Text = (int.Parse(aa3.Text) + s.Value).ToString();
-                btn.PerformClick();
-            
+                    try
+                    {
+                        connect1.Open();
+                        int index = 0;
+                        SqlCommand command = new SqlCommand(query, connect1);
 
+
+                        command.ExecuteNonQuery();
+                        command.Dispose();
+
+                        connect1.Close();
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                    }
+                }
+                Inventupdate();
+
+
+            }
+        }
+        bool ooo = false;
+        private void otchet(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
+            {
+                MessageBox.Show("Вы не выбрали строку!");
+            }
+            else
+            {
+                if (s.Value == 0)
+                {
+                    MessageBox.Show("Выберите вол-во!");
+                }
+                else
+                {
+                    string connect = allconect;
+                    string query = $"INSERT INTO Отчеты ([Тип], [Описание], [ID_Ответственного Работника], [Дата создания записи]) VALUES ('Финансовый', 'Покупка товара: {dataGridView1.SelectedRows[0].Cells[0].Value.ToString()} кол-во: {s.Value.ToString()} на сумму: {int.Parse(dataGridView1.SelectedRows[0].Cells[5].Value.ToString()) * s.Value}', '2', '{DateTime.Now.ToString()}')";
+                    using (SqlConnection connect1 = new SqlConnection(connect))
+                    {
+                        connect1.Open();
+                        SqlCommand command = new SqlCommand(query, connect1);
+                        command.ExecuteNonQuery();
+                    }
+                    //dataGridView1.SelectedRows[0].Cells[1].Value=int.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString()) + s.Value;
+                    //dataGridView1.SelectedRows[0].Cells[2].Value = int.Parse(dataGridView1.SelectedRows[0].Cells[2].Value.ToString()) + s.Value;
+
+                    aa2.Text = (int.Parse(aa2.Text) + s.Value).ToString();
+                    aa3.Text = (int.Parse(aa3.Text) + s.Value).ToString();
+
+                    btn.PerformClick();
+                }
+
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
+            panel1.Enabled = true;
+            panel1.Visible = true;
+            dataGridView1.Visible = true;
+            dataGridView1.Enabled = true;
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
+            textBox3.Enabled = false;
+            textBox1.Visible = false;
+            textBox2.Visible = false;
+            textBox3.Visible = false;
+            button3.Visible = false;
+            button3.Enabled = false;
             tablee = 1;
             Inventupdate();
         }
@@ -559,6 +730,18 @@ namespace IS_17
 
         private void button8_Click(object sender, EventArgs e)
         {
+            panel1.Enabled = true;
+            panel1.Visible = true;
+            dataGridView1.Visible = true;
+            dataGridView1.Enabled = true;
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
+            textBox3.Enabled = false;
+            textBox1.Visible = false;
+            textBox2.Visible = false;
+            textBox3.Visible = false;
+            button3.Visible = false;
+            button3.Enabled = false;
             panel1.Controls.Clear();
             panel1.Visible = true;
             tablee = 0;
@@ -580,76 +763,115 @@ namespace IS_17
         TextBox aaa2 = new TextBox();
         TextBox aaa3 = new TextBox();
         TextBox aaa4 = new TextBox();
-
+        bool ooo1 = false;
         private void savepost(object sender, EventArgs e)
         {
-
-
-
-
-            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-            string query = $"UPDATE Поставщики SET [Название компании]='{aaa.Text}', [Телефон]='{aaa2.Text}', [Адрес]='{aaa3.Text}',Категория='{aaa4.Text}' WHERE ID_Поставщика='{dataGridView1.SelectedRows[0].Cells[0].Value.ToString()}'";
-            using (SqlConnection connect1 = new SqlConnection(connect))
+            bool a = false;
+            for (int i = 0; i < PostList.Count; i++)
             {
-                try
+                if (PostList[i].namepost == aaa.Text && PostList[i].idpost != dataGridView1.SelectedRows[0].Cells[0].Value.ToString())
                 {
-                    connect1.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query, connect1);
-
-
-                    command.ExecuteNonQuery();
-                    command.Dispose();
-
-                    connect1.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                    a = true;
                 }
             }
+            if (a)
+            {
+                MessageBox.Show("Поставщик с таким названием уже есть!");
+            }
+            else
+            {
+                if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
+                {
+                    MessageBox.Show("Вы не выбрали строку!");
+                }
+                else
+                {
 
-            postupdate();
-            button8.PerformClick();
+
+                    string connect = allconect;
+                    string query = $"UPDATE Поставщики SET [Название компании]='{aaa.Text}', [Телефон]='{aaa2.Text}', [Адрес]='{aaa3.Text}',Категория='{aaa4.Text}' WHERE ID_Поставщика='{dataGridView1.SelectedRows[0].Cells[0].Value.ToString()}'";
+                    using (SqlConnection connect1 = new SqlConnection(connect))
+                    {
+                        try
+                        {
+                            connect1.Open();
+                            int index = 0;
+                            SqlCommand command = new SqlCommand(query, connect1);
+
+
+                            command.ExecuteNonQuery();
+                            command.Dispose();
+
+                            connect1.Close();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                        }
+                    }
+
+                    postupdate();
+                    button8.PerformClick();
+                }
+            }
         }
         private void deletepost(object sender, EventArgs e)
         {
-            string connect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
-            string query = $"DELETE FROM Поставщики WHERE ID_Поставщика = '{dataGridView1.SelectedRows[0].Cells[0].Value.ToString()}'";
-            using (SqlConnection connect1 = new SqlConnection(connect))
+            if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
             {
-                try
-                {
-                    connect1.Open();
-                    int index = 0;
-                    SqlCommand command = new SqlCommand(query, connect1);
-
-
-                    command.ExecuteNonQuery();
-                    command.Dispose();
-
-                    connect1.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
-                }
+                MessageBox.Show("Вы не выбрали строку!");
             }
+            else
+            {
+                string connect = allconect;
+                string query = $"DELETE FROM Поставщики WHERE ID_Поставщика = '{dataGridView1.SelectedRows[0].Cells[0].Value.ToString()}'";
+                using (SqlConnection connect1 = new SqlConnection(connect))
+                {
+                    try
+                    {
+                        connect1.Open();
+                        int index = 0;
+                        SqlCommand command = new SqlCommand(query, connect1);
 
-            postupdate();
-            button8.PerformClick();
+
+                        command.ExecuteNonQuery();
+                        command.Dispose();
+
+                        connect1.Close();
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Данный поставщик есть в таблице инвентарь! Удалите строку с этим поставщиком или поменяйте поставщика!");
+                    }
+                }
+
+                postupdate();
+                button8.PerformClick();
+            }
         }
         class ot
         {
-           public string idot;
+            public string idot;
             public string type;
             public string descript;
             public string idrab;
             public string date;
         }
-        List<ot> otList=new List<ot> { };
+        List<ot> otList = new List<ot> { };
         private void button1_Click(object sender, EventArgs e)
         {
+            panel1.Enabled = true;
+            panel1.Visible = true;
+            dataGridView1.Visible = true;
+            dataGridView1.Enabled = true;
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
+            textBox3.Enabled = false;
+            textBox1.Visible = false;
+            textBox2.Visible = false;
+            textBox3.Visible = false;
+            button3.Visible = false;
+            button3.Enabled = false;
             dataGridView1.Visible = true;
             tablee = 0;
             panel1.Controls.Clear();
@@ -661,9 +883,9 @@ namespace IS_17
             dataGridView1.Columns.Add("3", "Описание");
             dataGridView1.Columns.Add("4", "Работник");
             dataGridView1.Columns.Add("5", "Дата создания записи");
-          
-            
-            string connect2 = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+
+
+            string connect2 = allconect;
             string query2 = $"SELECT     Отчеты.ID_Отчета,    Отчеты.Тип,     Отчеты.Описание,    Работники.Имя,     Работники.Фамилия,     Отчеты.[Дата создания записи] FROM     Отчеты JOIN      Работники ON Отчеты.[ID_Ответственного Работника] = Работники.ID_Пользователя";
 
             using (SqlConnection connect1 = new SqlConnection(connect2))
@@ -681,7 +903,7 @@ namespace IS_17
                         g.idot = reader["ID_Отчета"].ToString();
                         g.type = reader["Тип"].ToString();
                         g.descript = reader["Описание"].ToString();
-                        g.idrab = reader["Имя"].ToString()+" "+ reader["Фамилия"].ToString();
+                        g.idrab = reader["Имя"].ToString() + " " + reader["Фамилия"].ToString();
                         g.date = reader["Дата создания записи"].ToString();
                         otList.Add(g);
                     }
@@ -700,6 +922,86 @@ namespace IS_17
                 dataGridView1.Rows.Add(otList[i].idot, otList[i].type, otList[i].descript, otList[i].idrab, otList[i].date);
             }
 
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Visible = false;
+            panel1.Visible = false;
+            panel1.Enabled = false;
+            dataGridView1.Enabled = false;
+            panel1.Visible = false;
+            textBox1.Visible = true;
+            textBox2.Visible = true;
+            textBox3.Visible = true;
+            textBox1.Enabled = true;
+            textBox2.Enabled = true;
+            textBox3.Enabled = true;
+            button3.Enabled = true;
+            button3.Visible = true;
+            string connect2 = allconect;
+            string query2 = $"SELECT   Почта, Телефон, Пароль\r\nFROM Работники\r\nWHERE ID_Пользователя = 2";
+
+            using (SqlConnection connect1 = new SqlConnection(connect2))
+            {
+                try
+                {
+                    connect1.Open();
+                    int index = 0;
+                    SqlCommand command = new SqlCommand(query2, connect1);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        textBox1.Text = reader.GetString(index++);
+                        textBox2.Text = reader.GetString(index++);
+                        textBox3.Text = reader.GetString(index++);
+                    }
+                    command.Dispose();
+                    reader.Close();
+                    connect1.Close();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                }
+
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string connect = allconect;
+            string query = $"UPDATE Работники\r\nSET Почта = '{textBox1.Text}', Телефон = '{textBox2.Text}', Пароль = '{textBox3.Text}' WHERE ID_Пользователя = 2";
+            using (SqlConnection connect1 = new SqlConnection(connect))
+            {
+                try
+                {
+                    connect1.Open();
+                    int index = 0;
+                    SqlCommand command = new SqlCommand(query, connect1);
+
+
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+
+                    connect1.Close();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ошибка подключения к базе данных: " + ex.Message);
+                }
+            }
         }
     }
 }
