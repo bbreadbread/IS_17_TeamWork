@@ -38,7 +38,7 @@ namespace IS_17
             listBoxReservation.DrawItem += ListBox_DrawItem;
 
             //// Добавление ListBox на форму
-            //this.Controls.Add(listBox);
+            this.Controls.Add(listBoxReservation);
         }
 
         private void ListBox_DrawItem(object sender, DrawItemEventArgs e)

@@ -88,61 +88,133 @@ namespace IS_17
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int int1 = int.Parse(CountSeatnumericUpDown.Text);
-            int int2 = int.Parse(PricetextBox.Text);
-            int idSet = dataGridView1.CurrentRow.Index;
-            string query = $"UPDATE [HotelDB].[dbo].[Номера] SET [Тип комнаты] = '{typeRoomcomboBox.Text}', [Количество мест] = {int1},  [Цена за сутки] = {int2}, [Статус] = '{StatuscomboBox.Text}' WHERE [ID_Номера] = {idSet + 1};";
-            LoadWorkers(query);
-            LoadWorkers($@"DELETE FROM[HotelDB].[dbo].[Бронирования]
-                        WHERE[ID_Номера] IN(
-                            SELECT[ID_Номера]
-                            FROM[HotelDB].[dbo].[Номера]
-                            WHERE[Статус] = 'Доступно'
-                        );");
-            LoadWorkers(allView);
+            try
+            {
+                // Проверка, что выбрана строка в dataGridView1
+                if (dataGridView1.CurrentRow == null)
+                {
+                    MessageBox.Show("Выберите номер для редактирования.");
+                    return;
+                }
+
+                // Получаем ID выбранного номера
+                int idSet = dataGridView1.CurrentRow.Index + 1; // +1, если ID начинается с 1
+
+                // Получаем значения из полей
+                string типКомнаты = typeRoomcomboBox.Text;
+                string количество_мест = CountSeatnumericUpDown.Text;
+                string цена_за_сутки = PricetextBox.Text;
+                string статус = StatuscomboBox.Text;
+
+                // Проверка, что количество мест — целое число
+                if (!int.TryParse(количество_мест, out int количествоМест) || количествоМест <= 0)
+                {
+                    MessageBox.Show("Поле 'Количество мест' должно быть положительным целым числом.");
+                    return;
+                }
+
+                // Проверка, что цена за сутки — число
+                if (!int.TryParse(цена_за_сутки, out int ценаЗаСутки) || ценаЗаСутки <= 0)
+                {
+                    MessageBox.Show("Поле 'Цена за сутки' должно быть положительным числом.");
+                    return;
+                }
+
+                // Проверка, что тип комнаты и статус не пустые
+                if (string.IsNullOrWhiteSpace(типКомнаты) || string.IsNullOrWhiteSpace(статус))
+                {
+                    MessageBox.Show("Поля 'Тип комнаты' и 'Статус' не могут быть пустыми.");
+                    return;
+                }
+
+                // Формируем SQL-запрос для обновления номера
+                string query = $"UPDATE [HotelDB].[dbo].[Номера] SET " +
+                    $"[Тип комнаты] = '{типКомнаты}', " +
+                    $"[Количество мест] = {количествоМест}, " +
+                    $"[Цена за сутки] = {ценаЗаСутки}, " +
+                    $"[Статус] = '{статус}' " +
+                    $"WHERE [ID_Номера] = {idSet};";
+
+                // Выполняем запрос на обновление
+                LoadWorkers(query);
+
+                // Удаляем бронирования для номеров со статусом "Доступно"
+                LoadWorkers($@"DELETE FROM [HotelDB].[dbo].[Бронирования]
+                    WHERE [ID_Номера] IN (
+                        SELECT [ID_Номера]
+                        FROM [HotelDB].[dbo].[Номера]
+                        WHERE [Статус] = 'Доступно'
+                    );");
+
+                // Обновляем отображение данных
+                LoadWorkers(allView);
+
+                MessageBox.Show("Данные номера успешно обновлены.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            try
             {
-                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                // Проверка, что выбрана строка в dataGridView1
+                if (dataGridView1.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Выберите номер для удаления.");
+                    return;
+                }
 
+                // Получаем ID выбранного номера
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
                 object value = selectedRow.Cells[0].Value;
 
-                if (value != null)
+                if (value == null)
                 {
-                    int roomId = Convert.ToInt32(value);
-                    int int1 = int.Parse(CountSeatnumericUpDown.Text);
-                    int int2 = int.Parse(PricetextBox.Text);
-                    int idSet = dataGridView1.CurrentRow.Index;
-                    string query = $@"IF EXISTS (SELECT 1 FROM [HotelDB].[dbo].[Номера]
-                                        WHERE [ID_Номера] = {roomId} 
-                                        AND [Статус] = 'Забронировано')
-
-                                    BEGIN
-                                        DELETE FROM [HotelDB].[dbo].[Бронирования]
-                                        WHERE [ID_Номера] = {roomId};
-
-                                        DELETE FROM [HotelDB].[dbo].[Номера]
-                                        WHERE [ID_Номера] = {roomId};
-                                    END
-                                    ELSE 
-                                    BEGIN 
-                                        DELETE FROM [HotelDB].[dbo].[Номера]
-                                        WHERE [ID_Номера] = {roomId};
-                                    END";
-                    LoadWorkers(query);
-                    LoadWorkers(allView);
+                    MessageBox.Show("Не удалось получить ID номера.");
+                    return;
                 }
-                else
+
+                int roomId = Convert.ToInt32(value);
+
+                // Подтверждение удаления
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этот номер?", "Подтверждение удаления", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes)
                 {
-                    MessageBox.Show("Значение в первом столбце отсутствует.");
+                    return;
                 }
+
+                // Формируем SQL-запрос для удаления номера
+                string query = $@"IF EXISTS (SELECT 1 FROM [HotelDB].[dbo].[Номера]
+                            WHERE [ID_Номера] = {roomId} 
+                            AND [Статус] = 'Забронировано')
+                        BEGIN
+                            DELETE FROM [HotelDB].[dbo].[Бронирования]
+                            WHERE [ID_Номера] = {roomId};
+
+                            DELETE FROM [HotelDB].[dbo].[Номера]
+                            WHERE [ID_Номера] = {roomId};
+                        END
+                        ELSE 
+                        BEGIN 
+                            DELETE FROM [HotelDB].[dbo].[Номера]
+                            WHERE [ID_Номера] = {roomId};
+                        END";
+
+                // Выполняем запрос на удаление
+                LoadWorkers(query);
+
+                // Обновляем отображение данных
+                LoadWorkers(allView);
+
+                MessageBox.Show("Номер успешно удалён.");
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Строка не выбрана.");
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
     }

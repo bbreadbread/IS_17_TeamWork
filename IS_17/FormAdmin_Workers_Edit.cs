@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -81,19 +82,131 @@ namespace IS_17
 
         private void buttonEditWorker_Click(object sender, EventArgs e)
         {
-            int idSet = dataGridView1.CurrentRow.Index;
-            string query = $"UPDATE [HotelDB].[dbo].[Работники] SET [Имя] = '{NametextBox.Text}', [Фамилия] = '{SurnametextBox.Text}', [Почта] = '{EmailtextBox.Text}', [Телефон] = '{NumbertextBox.Text}', " +
-                $"[Роль] = '{TypecomboBox.Text}' WHERE [ID_Пользователя] = {idSet + 1};";
+            // Проверка, что выбрана строка в dataGridView1
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Выберите работника для редактирования.");
+                return;
+            }
+
+            // Получаем ID выбранного работника
+            int idSet = dataGridView1.CurrentRow.Index + 1; // +1, если ID начинается с 1
+
+            // Получаем значения из полей
+            string имя = NametextBox.Text;
+            string фамилия = SurnametextBox.Text;
+            string почта = EmailtextBox.Text;
+            string телефон = NumbertextBox.Text;
+            string роль = TypecomboBox.Text;
+
+            // Проверка имени
+            if (string.IsNullOrWhiteSpace(имя) || !ContainsOnlyLetters(имя))
+            {
+                MessageBox.Show("Поле 'Имя' не может быть пустым и должно содержать только буквы.");
+                return;
+            }
+
+            // Проверка фамилии
+            if (string.IsNullOrWhiteSpace(фамилия) || !ContainsOnlyLetters(фамилия))
+            {
+                MessageBox.Show("Поле 'Фамилия' не может быть пустым и должно содержать только буквы.");
+                return;
+            }
+
+            // Проверка почты
+            if (!IsValidEmail(почта))
+            {
+                MessageBox.Show("Некорректный формат почты.");
+                return;
+            }
+
+            // Проверка телефона
+            if (!IsValidPhoneNumber(телефон))
+            {
+                MessageBox.Show("Некорректный формат телефона. Телефон должен состоять из 10 цифр.");
+                return;
+            }
+
+            // Проверка роли
+            if (string.IsNullOrWhiteSpace(роль))
+            {
+                MessageBox.Show("Поле 'Роль' не может быть пустым.");
+                return;
+            }
+
+            // Формируем SQL-запрос
+            string query = $"UPDATE [HotelDB].[dbo].[Работники] SET " +
+                $"[Имя] = '{имя}', " +
+                $"[Фамилия] = '{фамилия}', " +
+                $"[Почта] = '{почта}', " +
+                $"[Телефон] = '{телефон}', " +
+                $"[Роль] = '{роль}' " +
+                $"WHERE [ID_Пользователя] = {idSet};";
+
+            // Выполняем запрос
             LoadWorkers(query);
             LoadWorkers(allView);
+
+            MessageBox.Show("Данные работника успешно обновлены.");
         }
 
         private void buttonDeleteWorker_Click(object sender, EventArgs e)
         {
-            int idSet = dataGridView1.CurrentRow.Index;
-            string query = $"DELETE FROM [HotelDB].[dbo].[Работники] WHERE [Имя] = '{NametextBox.Text}' and [Фамилия] = '{SurnametextBox.Text}' and [Почта] = '{EmailtextBox.Text}' and [Телефон] = '{NumbertextBox.Text}';";
+            // Проверка, что выбрана строка в dataGridView1
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Выберите работника для удаления.");
+                return;
+            }
+
+            // Получаем ID выбранного работника
+            int idSet = dataGridView1.CurrentRow.Index + 1; // +1, если ID начинается с 1
+
+            // Подтверждение удаления
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этого работника?", "Подтверждение удаления", MessageBoxButtons.YesNo);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+
+            // Формируем SQL-запрос
+            string query = $"DELETE FROM [HotelDB].[dbo].[Работники] WHERE [ID_Пользователя] = {idSet};";
+
+            // Выполняем запрос
             LoadWorkers(query);
             LoadWorkers(allView);
+
+            MessageBox.Show("Работник успешно удалён.");
+        }
+
+        // Метод для проверки, что строка содержит только буквы
+        private bool ContainsOnlyLetters(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsLetter(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Метод для проверки корректности email
+        private bool IsValidEmail(string email)
+        {
+            string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(email);
+        }
+
+        // Метод для проверки корректности телефона
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Проверка, что телефон состоит из 10 цифр
+            string pattern = @"^\d{10}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(phoneNumber);
         }
     }
 }

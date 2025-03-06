@@ -71,37 +71,85 @@ namespace IS_17
             string цена_за_сутки = PricetextBox.Text;
             string статус = StatuscomboBox.Text;
 
-
+            // Проверка на пустые поля
             if (string.IsNullOrWhiteSpace(тип))
             {
-                MessageBox.Show("Поле 'тип' не может быть пустым.");
+                MessageBox.Show("Поле 'Тип комнаты' не может быть пустым.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(количество_мест))
             {
-                MessageBox.Show("Поле 'количество_мест' не может быть пустым.");
+                MessageBox.Show("Поле 'Количество мест' не может быть пустым.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(цена_за_сутки))
             {
-                MessageBox.Show("Поле 'цена_за_сутки' не может быть пустым.");
+                MessageBox.Show("Поле 'Цена за сутки' не может быть пустым.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(статус))
             {
-                MessageBox.Show("Поле 'статус' не может быть пустым.");
+                MessageBox.Show("Поле 'Статус' не может быть пустым.");
                 return;
             }
 
+            // Проверка, что количество мест — целое число
+            if (!int.TryParse(количество_мест, out int количествоМестЧисло) || количествоМестЧисло <= 0)
+            {
+                MessageBox.Show("Поле 'Количество мест' должно быть положительным целым числом.");
+                return;
+            }
+
+            // Проверка, что цена за сутки — число
+            if (!decimal.TryParse(цена_за_сутки, out decimal ценаЗаСуткиЧисло) || ценаЗаСуткиЧисло <= 0)
+            {
+                MessageBox.Show("Поле 'Цена за сутки' должно быть положительным числом.");
+                return;
+            }
+
+            // Проверка допустимых значений в комбобоксах
+            var допустимыеТипы = new List<string> { "Стандарт", "Люкс", "Делюкс" };
+            if (!допустимыеТипы.Contains(тип))
+            {
+                MessageBox.Show("Недопустимое значение в поле 'Тип комнаты'.");
+                return;
+            }
+
+            var допустимыеСтатусы = new List<string> { "Свободен", "Занят", "На уборке" };
+            if (!допустимыеСтатусы.Contains(статус))
+            {
+                MessageBox.Show("Недопустимое значение в поле 'Статус'.");
+                return;
+            }
+
+            // Проверка корректности email
+            string email = "aggata.serggeeva@mail.ru";
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Некорректный email.");
+                return;
+            }
+
+            // Если все проверки пройдены, выполняем запрос к базе данных
             LoadWorkers($"INSERT INTO [HotelDB].[dbo].[Номера] ([Тип комнаты], [Количество мест], [Цена за сутки], [Статус]) VALUES" +
                 $" ('{тип}', '{количество_мест}', '{цена_за_сутки}', '{статус}');");
             LoadWorkers(allView);
 
-            SendMessage("aggata.serggeeva@mail.ru");
+            // Отправка сообщения
+            SendMessage(email);
         }
+
+        // Метод для проверки корректности email
+        private bool IsValidEmail(string email)
+        {
+            string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(email);
+        }
+
         //aggata.serggeeva@mail.ru
         private void SendMessage(string email)
         {

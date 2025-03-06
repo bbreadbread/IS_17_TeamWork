@@ -58,6 +58,8 @@ namespace IS_17
             int startX = (this.ClientSize.Width - totalWidth) / 2;
             int startY = (this.ClientSize.Height - totalHeight) / 2;
 
+            
+
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 int roomId = Convert.ToInt32(dataTable.Rows[i]["ID_Номера"]);
@@ -191,6 +193,8 @@ namespace IS_17
                         }
                     }
                 };
+
+               
             }
         }
 
