@@ -51,6 +51,7 @@ namespace IS_17
                 FormPorter a = new FormPorter();
                 a.Show();
             }
+            string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
             if (Regex.IsMatch(email, pattern))
             {
                 emailTB.BackColor = Color.FromArgb(238, 165, 176);

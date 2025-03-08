@@ -14,8 +14,7 @@ namespace IS_17
 {
     public partial class FormPorter : Form
     {
-        //Эту строчку нужно будет заменить когда будете показывать проект!
-        string allconect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+        string allconect =  "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
 
         public FormPorter()
         {
@@ -151,7 +150,6 @@ namespace IS_17
                 textBox5.Text = "";
                 dateTimePicker1.Value = DateTime.Now;
                 dateTimePicker2.Value = DateTime.Now;
-
             }
 
             else

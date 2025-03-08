@@ -16,7 +16,7 @@ namespace IS_17
     {
 
         //Эту строчку нужно будет заменить когда будете показывать проект!
-        string allconect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+        string allconect = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
         
         public FormZavhoz()
         {
