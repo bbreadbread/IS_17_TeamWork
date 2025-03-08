@@ -14,7 +14,7 @@ namespace IS_17
 {
     public partial class FormPorter : Form
     {
-        string allconect =  "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
+        string allconect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
 
         public FormPorter()
         {

@@ -36,35 +36,35 @@
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
+            panel9 = new Panel();
+            panel3 = new Panel();
+            pictureBox1 = new PictureBox();
             panel1 = new Panel();
             panel2 = new Panel();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             label1 = new Label();
             btnHum = new PictureBox();
-            pictureBox1 = new PictureBox();
-            panel9 = new Panel();
-            panel3 = new Panel();
+            button4 = new Button();
+            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             sidebar.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnHum).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-
-            dataGridView1.Location = new Point(359, 12);
+            dataGridView1.Location = new Point(360, 77);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(439, 480);
-
             dataGridView1.TabIndex = 5;
             dataGridView1.Visible = false;
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
@@ -172,13 +172,36 @@
             button3.TextAlign = ContentAlignment.MiddleLeft;
             button3.UseVisualStyleBackColor = false;
             // 
+            // panel9
+            // 
+            panel9.Location = new Point(3, 363);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(282, 242);
+            panel9.TabIndex = 10;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(pictureBox1);
+            panel3.Location = new Point(3, 611);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(293, 100);
+            panel3.TabIndex = 11;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.Location = new Point(43, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(222, 103);
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
+            // 
             // panel1
             // 
-
-            panel1.Location = new Point(804, 12);
+            panel1.Location = new Point(805, 77);
             panel1.Name = "panel1";
             panel1.Size = new Size(248, 514);
-
             panel1.TabIndex = 7;
             panel1.Visible = false;
             // 
@@ -242,38 +265,34 @@
             btnHum.TabIndex = 1;
             btnHum.TabStop = false;
             // 
-            // pictureBox1
+            // button4
             // 
-            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
-            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Location = new Point(43, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(222, 103);
-            pictureBox1.TabIndex = 9;
-            pictureBox1.TabStop = false;
+            button4.Location = new Point(202, 149);
+            button4.Name = "button4";
+            button4.Size = new Size(135, 30);
+            button4.TabIndex = 8;
+            button4.Text = "Отсортировать";
+            button4.UseVisualStyleBackColor = true;
+            button4.Visible = false;
+            button4.TextChanged += button4_TextChanged;
+            button4.Click += button4_Click;
             // 
-            // panel9
+            // textBox1
             // 
-            panel9.Location = new Point(3, 363);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(282, 242);
-            panel9.TabIndex = 10;
-            // 
-            // panel3
-            // 
-            panel3.Controls.Add(pictureBox1);
-            panel3.Location = new Point(3, 611);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(293, 100);
-            panel3.TabIndex = 11;
+            textBox1.Location = new Point(200, 100);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(125, 27);
+            textBox1.TabIndex = 9;
+            textBox1.Visible = false;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // FormZavhoz
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-
             ClientSize = new Size(1056, 595);
-
+            Controls.Add(textBox1);
+            Controls.Add(button4);
             Controls.Add(panel1);
             Controls.Add(sidebar);
             Controls.Add(dataGridView1);
@@ -283,14 +302,15 @@
             Load += FormZavhoz_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             sidebar.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)btnHum).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel3.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -311,5 +331,7 @@
         private Panel panel9;
         private Panel panel3;
         private PictureBox pictureBox1;
+        private Button button4;
+        private TextBox textBox1;
     }
 }
