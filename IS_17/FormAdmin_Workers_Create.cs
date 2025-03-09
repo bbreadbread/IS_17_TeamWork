@@ -20,6 +20,7 @@ namespace IS_17
         public FormAdmin_Workers_Create()
         {
             InitializeComponent();
+            dataGridView1.GridColor = Color.FromArgb(29, 29, 67);
         }
 
         private void FormAdmin_Workers_Create_Load(object sender, EventArgs e)
@@ -79,38 +80,46 @@ namespace IS_17
             string телефон = NumbertextBox.Text;
             string роль = TypecomboBox.Text;
 
-            // Проверка имени
+            bool isValid = true;
+
+            NametextBox.BackColor = Color.White;;
+            SurnametextBox.BackColor = Color.White;;
+            EmailtextBox.BackColor = Color.White;;
+            NumbertextBox.BackColor = Color.White;;
+            TypecomboBox.BackColor = Color.White;;
+
             if (string.IsNullOrWhiteSpace(имя) || !ContainsOnlyLetters(имя))
             {
-                MessageBox.Show("Поле 'Имя' не может быть пустым и должно содержать только буквы.");
-                return;
+                NametextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка фамилии
             if (string.IsNullOrWhiteSpace(фамилия) || !ContainsOnlyLetters(фамилия))
             {
-                MessageBox.Show("Поле 'Фамилия' не может быть пустым и должно содержать только буквы.");
-                return;
+                SurnametextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка почты
             if (!IsValidEmail(почта))
             {
-                MessageBox.Show("Некорректный формат почты.");
-                return;
+                EmailtextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка телефона
             if (!IsValidPhoneNumber(телефон))
             {
-                MessageBox.Show("Некорректный формат телефона. Телефон должен состоять из 10 цифр.");
-                return;
+                NumbertextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка роли
             if (string.IsNullOrWhiteSpace(роль))
             {
-                MessageBox.Show("Поле 'Роль' не может быть пустым.");
+                TypecomboBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
+            }
+
+            if (!isValid)
+            {
                 return;
             }
 

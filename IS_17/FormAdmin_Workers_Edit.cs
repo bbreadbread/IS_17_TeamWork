@@ -19,16 +19,18 @@ namespace IS_17
         public FormAdmin_Workers_Edit()
         {
             InitializeComponent();
+            dataGridView1.GridColor = Color.FromArgb(29, 29, 67);
             LoadWorkers(allView);
             dataGridView1.CellClick += DataGridView1_CellClick;
         }
-
+        int ID_SET = 0;
         private void DataGridView1_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
+                ID_SET = (int)row.Cells["ID"].Value;
                 NametextBox.Text = row.Cells["Имя"].Value.ToString();
                 SurnametextBox.Text = row.Cells["Фамилия"].Value.ToString();
                 EmailtextBox.Text = row.Cells["Почта"].Value.ToString();
@@ -36,7 +38,6 @@ namespace IS_17
                 TypecomboBox.Text = row.Cells["Роль"].Value.ToString();
             }
         }
-
         private void LoadWorkers(string query)
         {
             string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
@@ -50,6 +51,7 @@ namespace IS_17
                     SqlDataReader reader = command.ExecuteReader();
 
                     DataTable dataTable = new DataTable();
+                    dataTable.Columns.Add("ID", typeof(int));
                     dataTable.Columns.Add("Имя", typeof(string));
                     dataTable.Columns.Add("Фамилия", typeof(string));
                     dataTable.Columns.Add("Почта", typeof(string));
@@ -58,13 +60,14 @@ namespace IS_17
 
                     while (reader.Read())
                     {
+                        int id = reader.GetInt32("ID_Пользователя");
                         string name = reader["Имя"].ToString();
                         string surname = reader["Фамилия"].ToString();
                         string email = reader["Почта"].ToString();
                         string number = reader["Телефон"].ToString();
                         string role = reader["Роль"].ToString();
 
-                        dataTable.Rows.Add(name, surname, email, number, role);
+                        dataTable.Rows.Add(id, name, surname, email, number, role);
                     }
                     reader.Close();
 
@@ -89,9 +92,6 @@ namespace IS_17
                 return;
             }
 
-            // Получаем ID выбранного работника
-            int idSet = dataGridView1.CurrentRow.Index + 1; // +1, если ID начинается с 1
-
             // Получаем значения из полей
             string имя = NametextBox.Text;
             string фамилия = SurnametextBox.Text;
@@ -99,49 +99,56 @@ namespace IS_17
             string телефон = NumbertextBox.Text;
             string роль = TypecomboBox.Text;
 
-            // Проверка имени
+            bool isValid = true;
+
+            NametextBox.BackColor = Color.White;
+            SurnametextBox.BackColor = Color.White;
+            EmailtextBox.BackColor = Color.White;
+            NumbertextBox.BackColor = Color.White;
+            TypecomboBox.BackColor = Color.White;
+
             if (string.IsNullOrWhiteSpace(имя) || !ContainsOnlyLetters(имя))
             {
-                MessageBox.Show("Поле 'Имя' не может быть пустым и должно содержать только буквы.");
-                return;
+                NametextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка фамилии
             if (string.IsNullOrWhiteSpace(фамилия) || !ContainsOnlyLetters(фамилия))
             {
-                MessageBox.Show("Поле 'Фамилия' не может быть пустым и должно содержать только буквы.");
-                return;
+                SurnametextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка почты
             if (!IsValidEmail(почта))
             {
-                MessageBox.Show("Некорректный формат почты.");
-                return;
+                EmailtextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка телефона
             if (!IsValidPhoneNumber(телефон))
             {
-                MessageBox.Show("Некорректный формат телефона. Телефон должен состоять из 10 цифр.");
-                return;
+                NumbertextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка роли
             if (string.IsNullOrWhiteSpace(роль))
             {
-                MessageBox.Show("Поле 'Роль' не может быть пустым.");
+                TypecomboBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
+            }
+
+            if (!isValid)
+            {
                 return;
             }
 
-            // Формируем SQL-запрос
             string query = $"UPDATE [HotelDB].[dbo].[Работники] SET " +
                 $"[Имя] = '{имя}', " +
                 $"[Фамилия] = '{фамилия}', " +
                 $"[Почта] = '{почта}', " +
                 $"[Телефон] = '{телефон}', " +
                 $"[Роль] = '{роль}' " +
-                $"WHERE [ID_Пользователя] = {idSet};";
+                $"WHERE [ID_Пользователя] = {ID_SET};";
 
             // Выполняем запрос
             LoadWorkers(query);
