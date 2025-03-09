@@ -30,9 +30,10 @@ namespace IS_17
 
             if (emailTB.Text == "zroot")
             {
-                FormZavhoz a = new FormZavhoz();
+                FormZavhoz zavhozForm = new FormZavhoz();
                 this.Hide();
-                a.Show();
+                zavhozForm.Show();
+                return;
             }
             if (emailTB.Text == "aroot")
             {
@@ -50,6 +51,7 @@ namespace IS_17
             {
                 FormPorter a = new FormPorter();
                 a.Show();
+                return;
             }
             string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
             if (Regex.IsMatch(email, pattern))
@@ -299,6 +301,11 @@ namespace IS_17
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
