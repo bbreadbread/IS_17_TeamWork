@@ -191,7 +191,7 @@ namespace IS_17
                         Button clickedButton = sender as Button;
                         if (clickedButton != null)
                         {
-                            MaidCustomMessageBox customMessageBox = new MaidCustomMessageBox(isCleaning);
+                            MaidCustomMessageBox customMessageBox = new MaidCustomMessageBox(isCleaning, (int)button.Tag);
                             DialogResult result = customMessageBox.ShowDialog();
 
                             if (result == DialogResult.OK)

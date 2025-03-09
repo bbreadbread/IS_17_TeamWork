@@ -9,6 +9,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Data.SqlClient;
 
 namespace IS_17
 {
@@ -16,11 +18,41 @@ namespace IS_17
     {
         bool isClening = false;
         public string messageMaid { get; private set; }
-        public MaidCustomMessageBox(bool isCleaning)
+        private int roomId;
+
+        string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
+        public MaidCustomMessageBox(bool isCleaning, int roomId)
         {
             this.isClening = isCleaning;
+            this.roomId = roomId;
+
             InitializeComponent();
+
+            MessageRichTextBox.Text = "Опишите причину тряски, по объему превышающую 15 символов.";
+            MessageRichTextBox.ForeColor = SystemColors.GrayText;
+            MessageRichTextBox.Enter += MessageRichTextBox_Enter;
+            MessageRichTextBox.Leave += MessageRichTextBox_Leave;
+
         }
+
+        private void MessageRichTextBox_Enter(object? sender, EventArgs e)
+        {
+            if (MessageRichTextBox.Text == "Опишите причину тряски, по объему превышающую 15 символов.")
+            {
+                MessageRichTextBox.Text = "";
+                MessageRichTextBox.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void MessageRichTextBox_Leave(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(MessageRichTextBox.Text))
+            {
+                MessageRichTextBox.Text = "Опишите причину тряски, по объему превышающую 15 символов.";
+                MessageRichTextBox.ForeColor = SystemColors.GrayText;
+            }
+        }
+
         //отмечена уборка
         private void radioButtonCleaning_CheckedChanged(object sender, EventArgs e)
         {
@@ -55,12 +87,29 @@ namespace IS_17
 
                     SendMessage("aggata.serggeeva@mail.ru");
 
+                    UpdateRoomStatusToMaintenance();
+
                     this.DialogResult = DialogResult.Cancel;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Вы не описали причину тряски");
+                    MessageBox.Show("Вы не описали причину тряски или причина тряски незначительна по объему");
+                }
+            }
+        }
+
+        private void UpdateRoomStatusToMaintenance()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "UPDATE [HotelDB].[dbo].[Номера] SET [Статус] = 'Тех. обслуживание' WHERE [ID_Номера] = @roomId"; 
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@roomId", roomId);
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -75,7 +124,7 @@ namespace IS_17
             Message.From = new MailAddress("agata_andreevna@mail.ru");
             Message.To.Add(new MailAddress($"{email}"));
             Message.Subject = "Сообщение о технических неполадках!";
-            Message.Body = $"Горничная {FormMaid_Rooms.NameThisMaid} {FormMaid_Rooms.SurameThisMaid} сообщает о тех. неполадках в номере {FormMaid_Rooms.Room}: {messageMaid}!";
+            Message.Body = $"Горничная {FormMaid_Rooms.NameThisMaid} {FormMaid_Rooms.SurameThisMaid} сообщает о тех. неполадках в номере {roomId}: {messageMaid}!";
 
             try
             {
@@ -128,7 +177,8 @@ namespace IS_17
 
         private void pictureBox4_Click_1(object sender, EventArgs e)
         {
-
+            this.DialogResult = DialogResult.No;
+            this.Close();
         }
     }
 }

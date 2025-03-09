@@ -11,18 +11,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace IS_17
 {
     public partial class FormMaid_Profile : Form
     {
-        //false = пароль
-        //true = данные
-        //SELECT TOP (1000)[Пароль]
+        public static bool typeDialogForm;
+        //false = меняем пароль
+        //true = меняем данные
 
         string query = $"SELECT TOP (1000) [ID_Пользователя], [Имя], [Фамилия], [Пароль], [Почта], [Телефон] FROM [HotelDB].[dbo].[Работники] WHERE [ID_Пользователя] = {FormMaid.IdSelected}";
         string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
-        public static bool typeDialogForm;
+        
         string password;
         string mail;
         string number;
@@ -35,12 +36,105 @@ namespace IS_17
 
         private void FormMaid_Profile_Load(object sender, EventArgs e)
         {
+            if (typeDialogForm == false)
+            {
+                textBox1.Text = "Старый пароль";
+                textBox2.Text = "Новый пароль";
+            }
+            else 
+            {
+                textBox1.Text = "Новая/старая почта";
+                textBox2.Text = "Новый/старый номер телефона";
+            }
+
+            textBox3.Text = "Код подтверждения";
+
+            textBox1.ForeColor = SystemColors.GrayText;
+            textBox1.Enter += textBox1_Enter;
+            textBox1.Leave += textBox1_Leave;
+
+
+            textBox2.ForeColor = SystemColors.GrayText;
+            textBox2.Enter += textBox2_Enter;
+            textBox2.Leave += textBox2_Leave;
+
+
+            textBox3.ForeColor = SystemColors.GrayText;
+            textBox3.Enter += textBox3_Enter;
+            textBox3.Leave += textBox3_Leave;
+
             labelWHO.Text = $"{FormMaid.SurnameSelected} {FormMaid.NameSelected}";
             buttonConfirm.Enabled = false;
         }
+        //подсказка первого поля
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "Старый пароль" || textBox1.Text == "Новая/старая почта")
+            {
+                textBox1.Text = "";
+                textBox1.ForeColor = SystemColors.WindowText;
+            }
+        }
 
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                if (typeDialogForm == false)
+                    textBox1.Text = "Старый пароль";
+                else textBox1.Text = "Новая/старая почта";
+
+                textBox1.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        //подсказка второго поля
+        private void textBox2_Enter(object sender, EventArgs e)
+        {
+            if (textBox2.Text == "Новый пароль" || textBox2.Text == "Новый/старый номер телефона")
+            {
+                textBox2.Text = "";
+                textBox2.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void textBox2_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBox2.Text))
+            {
+                if (typeDialogForm == false)
+                    textBox2.Text = "Новый пароль";
+                else textBox2.Text = "Новый/старый номер телефона";
+
+                textBox2.ForeColor = SystemColors.GrayText;
+            }
+        }
+        //подсказка третьего поля
+        private void textBox3_Enter(object sender, EventArgs e)
+        {
+            if (textBox3.Text == "Код подтверждения")
+            {
+                textBox3.Text = "";
+                textBox3.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void textBox3_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBox3.Text))
+            {
+                textBox3.Text = "Код подтверждения";
+                textBox3.ForeColor = SystemColors.GrayText;
+            }
+        }
         private void buttonSendCode_Click(object sender, EventArgs e)
         {
+            // Сброс цвета текстовых полей
+            textBox1.BackColor = Color.White;
+            textBox2.BackColor = Color.White;
+            textBox3.BackColor = Color.White;
+
+            // Получение данных из базы данных
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
@@ -63,35 +157,48 @@ namespace IS_17
                 }
             }
 
+            bool isValid = true;
+
             if (typeDialogForm == false)
             {
                 label1.Text = "Изменение пароля";
-                if (password == textBox1.Text)
+
+                if (password != textBox1.Text)
                 {
-                    if (ValidatePassword(textBox2.Text) == "0")
-                    {
-                        SendMessage(FormMaid.MailSelected);
-                        buttonConfirm.Enabled = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Неверный формат нового пароля");
-                    }
+                    textBox1.BackColor = Color.FromArgb(255, 35, 0);
+                    isValid = false;
                 }
-                else
+
+                if (ValidatePassword(textBox2.Text) != "0")
                 {
-                    MessageBox.Show("Неверный пароль");
+                    textBox2.BackColor = Color.FromArgb(255, 35, 0);
+                    isValid = false;
+                }
+
+                if (isValid)
+                {
+                    SendMessage(FormMaid.MailSelected);
+                    buttonConfirm.Enabled = true;
                 }
             }
             else
             {
-                if (IsValidEmail(textBox1.Text) == true)
+                if (!IsValidEmail(textBox1.Text))
                 {
-                    if (IsValidPhoneNumber(textBox2.Text) == true)
-                    {
-                        SendMessage(textBox1.Text);
-                        buttonConfirm.Enabled = true;
-                    }
+                    textBox1.BackColor = Color.FromArgb(255, 35, 0);
+                    isValid = false;
+                }
+
+                if (!IsValidPhoneNumber(textBox2.Text))
+                {
+                    textBox2.BackColor = Color.FromArgb(255, 35, 0);
+                    isValid = false;
+                }
+
+                if (isValid)
+                {
+                    SendMessage(textBox1.Text);
+                    buttonConfirm.Enabled = true;
                 }
             }
         }
@@ -108,17 +215,17 @@ namespace IS_17
                     }
                     else
                     {
-                        MessageBox.Show("Введен неверный код!");
+                        textBox3.BackColor = Color.FromArgb(255, 35, 0);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Введен неверный код!");
+                    textBox3.BackColor = Color.FromArgb(255, 35, 0);
                 }
             }
             else
             {
-                MessageBox.Show("Код не введен!");
+                textBox3.BackColor = Color.FromArgb(255, 35, 0);
             }
         }
         void Update(string newPassword)

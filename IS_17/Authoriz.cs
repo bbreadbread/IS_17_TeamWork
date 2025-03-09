@@ -54,7 +54,7 @@ namespace IS_17
                 return;
             }
             string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
-            if (Regex.IsMatch(email, pattern))
+            if (!Regex.IsMatch(email, pattern))
             {
                 emailTB.BackColor = Color.FromArgb(238, 165, 176);
                 MessageBox.Show("Некорректный email.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
