@@ -17,15 +17,18 @@ namespace IS_17
         public FormAdmin_Rooms_Edit()
         {
             InitializeComponent();
+            dataGridView1.GridColor = Color.FromArgb(29, 29, 67);
             LoadWorkers(allView);
             dataGridView1.CellClick += DataGridView1_CellClick;
         }
+        int ID_SET = 0;
         private void DataGridView1_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
+                ID_SET = (int)row.Cells["Номер комнаты"].Value;
                 typeRoomcomboBox.Text = row.Cells["Тип комнаты"].Value.ToString();
                 CountSeatnumericUpDown.Text = row.Cells["Количество мест"].Value.ToString();
                 PricetextBox.Text = row.Cells["Цена за сутки"].Value.ToString();
@@ -54,7 +57,7 @@ namespace IS_17
                     SqlDataReader reader = command.ExecuteReader();
 
                     DataTable dataTable = new DataTable();
-                    dataTable.Columns.Add("Номер комнаты", typeof(string));
+                    dataTable.Columns.Add("Номер комнаты", typeof(int));
                     dataTable.Columns.Add("Тип комнаты", typeof(string));
                     dataTable.Columns.Add("Количество мест", typeof(int));
                     dataTable.Columns.Add("Цена за сутки", typeof(int));
@@ -62,7 +65,7 @@ namespace IS_17
 
                     while (reader.Read())
                     {
-                        string num = reader["ID_Номера"].ToString();
+                        int num = (int)reader["ID_Номера"];
                         string type = reader["Тип комнаты"].ToString();
                         string count = reader["Количество мест"].ToString();
                         string price = reader["Цена за сутки"].ToString();
@@ -84,61 +87,59 @@ namespace IS_17
             }
         }
 
-
-
         private void button3_Click(object sender, EventArgs e)
         {
             try
             {
-                // Проверка, что выбрана строка в dataGridView1
                 if (dataGridView1.CurrentRow == null)
                 {
                     MessageBox.Show("Выберите номер для редактирования.");
                     return;
                 }
-
-                // Получаем ID выбранного номера
-                int idSet = dataGridView1.CurrentRow.Index + 1; // +1, если ID начинается с 1
-
-                // Получаем значения из полей
                 string типКомнаты = typeRoomcomboBox.Text;
                 string количество_мест = CountSeatnumericUpDown.Text;
                 string цена_за_сутки = PricetextBox.Text;
                 string статус = StatuscomboBox.Text;
 
-                // Проверка, что количество мест — целое число
+                bool isValid = true;
+
+                typeRoomcomboBox.BackColor = Color.White;
+                CountSeatnumericUpDown.BackColor = Color.White;
+                PricetextBox.BackColor = Color.White;
+                StatuscomboBox.BackColor = Color.White;
+
                 if (!int.TryParse(количество_мест, out int количествоМест) || количествоМест <= 0)
                 {
-                    MessageBox.Show("Поле 'Количество мест' должно быть положительным целым числом.");
-                    return;
+                    CountSeatnumericUpDown.BackColor = Color.FromArgb(255, 35, 0);
+                    isValid = false;
                 }
 
-                // Проверка, что цена за сутки — число
                 if (!int.TryParse(цена_за_сутки, out int ценаЗаСутки) || ценаЗаСутки <= 0)
                 {
-                    MessageBox.Show("Поле 'Цена за сутки' должно быть положительным числом.");
-                    return;
+                    PricetextBox.BackColor = Color.FromArgb(255, 35, 0);
+                    isValid = false;
                 }
 
-                // Проверка, что тип комнаты и статус не пустые
                 if (string.IsNullOrWhiteSpace(типКомнаты) || string.IsNullOrWhiteSpace(статус))
                 {
-                    MessageBox.Show("Поля 'Тип комнаты' и 'Статус' не могут быть пустыми.");
-                    return;
+                    typeRoomcomboBox.BackColor = Color.FromArgb(255, 35, 0);
+                    isValid = false;
                 }
 
-                // Формируем SQL-запрос для обновления номера
+                if (!isValid)
+                {
+                    isValid = false;
+                }
+
                 string query = $"UPDATE [HotelDB].[dbo].[Номера] SET " +
                     $"[Тип комнаты] = '{типКомнаты}', " +
                     $"[Количество мест] = {количествоМест}, " +
                     $"[Цена за сутки] = {ценаЗаСутки}, " +
                     $"[Статус] = '{статус}' " +
-                    $"WHERE [ID_Номера] = {idSet};";
+                    $"WHERE [ID_Номера] = {ID_SET};";
 
-                // Выполняем запрос на обновление
                 LoadWorkers(query);
 
-                // Удаляем бронирования для номеров со статусом "Доступно"
                 LoadWorkers($@"DELETE FROM [HotelDB].[dbo].[Бронирования]
                     WHERE [ID_Номера] IN (
                         SELECT [ID_Номера]
@@ -146,10 +147,8 @@ namespace IS_17
                         WHERE [Статус] = 'Доступно'
                     );");
 
-                // Обновляем отображение данных
                 LoadWorkers(allView);
 
-                MessageBox.Show("Данные номера успешно обновлены.");
             }
             catch (Exception ex)
             {
@@ -210,7 +209,6 @@ namespace IS_17
                 // Обновляем отображение данных
                 LoadWorkers(allView);
 
-                MessageBox.Show("Номер успешно удалён.");
             }
             catch (Exception ex)
             {

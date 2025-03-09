@@ -24,6 +24,26 @@ namespace IS_17
         private void LoadPanels()
         {
             this.Controls.Clear();
+
+            Panel bottomPanel = new Panel();
+            bottomPanel.Dock = DockStyle.Bottom;
+            bottomPanel.Height = this.ClientSize.Height / 4;
+
+            Panel topPanel = new Panel();
+            topPanel.Dock = DockStyle.Fill;
+            topPanel.AutoScroll = true;
+            this.Controls.Add(topPanel);
+
+            
+            this.Controls.Add(bottomPanel);
+
+            LoadDataIntoTopPanel(topPanel);
+
+            LoadImageIntoBottomPanel(bottomPanel);
+        }
+
+        private void LoadDataIntoTopPanel(Panel topPanel)
+        {
             string connectionString = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
             string query = "SELECT [ID_Номера], [Статус],[Закрепленная горничная] FROM [HotelDB].[dbo].[Номера];";
             DataTable dataTable = new DataTable();
@@ -46,23 +66,24 @@ namespace IS_17
                 }
             }
 
+            int panelSize = 80; // Размер каждой панели
+            int panelsPerRow = 8; // Количество панелей в строке
+            int spacing = 10; // Расстояние между панелями
 
-
-            int panelSize = 80;
-            int panelsPerRow = 8;
-            int spacing = 10;
-
+            // Рассчитываем общую ширину и высоту для всех панелей
             int totalWidth = panelsPerRow * (panelSize + spacing) - spacing;
             int totalHeight = ((dataTable.Rows.Count + panelsPerRow - 1) / panelsPerRow) * (panelSize + spacing) - spacing;
 
-            int startX = (this.ClientSize.Width - totalWidth) / 2;
-            int startY = (this.ClientSize.Height - totalHeight) / 2;
+            // Рассчитываем начальные координаты для центрирования панелей на верхней панели
+            int startX = (topPanel.ClientSize.Width - totalWidth) / 2; // Центрирование по горизонтали
+            int startY = 10; // Отступ сверху
 
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 int roomId = Convert.ToInt32(dataTable.Rows[i]["ID_Номера"]);
                 string status = dataTable.Rows[i]["Статус"].ToString();
                 string maidHad = dataTable.Rows[i]["Закрепленная горничная"].ToString();
+
                 // Создаем новую панель
                 Panel panel = new Panel();
                 panel.Size = new Size(panelSize, panelSize);
@@ -98,11 +119,10 @@ namespace IS_17
                         break;
                 }
 
-                
-
                 label.Location = new Point(10, 10);
                 panel.Controls.Add(label);
-                this.Text = "Закрепление комнаты " + $"{roomId}";
+
+                // Рассчитываем позицию панели
                 int row = i / panelsPerRow;
                 int col = i % panelsPerRow;
                 panel.Location = new Point(
@@ -110,24 +130,23 @@ namespace IS_17
                     startY + row * (panelSize + spacing)  // Y
                 );
 
-                // Добавляем панель на форму
-                this.Controls.Add(panel);
+                // Добавляем панель на верхнюю панель
+                topPanel.Controls.Add(panel);
 
                 // Обработка клика по панели
                 panel.Click += (sender, e) =>
                 {
 
                     string query2 = $@"SELECT 
-                                        b.[ID_Номера] AS Номер,
-                                        g.[Имя] AS Имя,
-                                        g.[Фамилия] AS Фамилия
-                                    FROM 
-                                        [HotelDB].[dbo].[Бронирования] b
-                                    JOIN 
-                                        [HotelDB].[dbo].[Работники] g ON b.[ID_Горничной] = g.[ID_Пользователя]
-                                    WHERE 
-                                        b.[Статус бронирования] = 'Подтверждено'
-                                    AND b.[ID_Номера] = {roomId};";
+                             n.[ID_Номера] AS Номер,
+                             g.[Имя] AS Имя,
+                             g.[Фамилия] AS Фамилия
+                         FROM 
+                             [HotelDB].[dbo].[Номера] n
+                         LEFT JOIN 
+                             [HotelDB].[dbo].[Работники] g ON n.[Закрепленная горничная] = g.[ID_Пользователя]
+                         WHERE 
+                             n.[ID_Номера] = {roomId};";
 
                     string MaidName = "";
                     string MaidSurname = "";
@@ -180,11 +199,7 @@ namespace IS_17
                                     command.Parameters.AddWithValue("@ID_Номера", idSelected);
                                     int rowsAffected = command.ExecuteNonQuery();
 
-                                    if (rowsAffected > 0)
-                                    {
-                                        MessageBox.Show("Статус номера успешно обновлен.");
-                                    }
-                                    else
+                                    if (rowsAffected !> 0)
                                     {
                                         MessageBox.Show("Ошибка: номер не найден или не обновлен.");
                                     }
@@ -197,9 +212,30 @@ namespace IS_17
                         }
                     }
                 };
-
-               
             }
+        }
+
+        private void LoadImageIntoBottomPanel(Panel bottomPanel)
+        {
+            // Загружаем картинку
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.Dock = DockStyle.Fill; // Картинка занимает всю нижнюю панель
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage; // Растягиваем картинку
+
+            // Укажите путь к вашей картинке
+            string imagePath = "help.jpg";
+            if (File.Exists(imagePath))
+            {
+                pictureBox.Image = Image.FromFile(imagePath);
+                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            else
+            {
+                MessageBox.Show("Картинка не найдена.");
+            }
+
+            // Добавляем PictureBox на нижнюю панель
+            bottomPanel.Controls.Add(pictureBox);
         }
 
         private void FormAdmin_WhoIsWhere_Load(object sender, EventArgs e)

@@ -21,6 +21,7 @@ namespace IS_17
         public FormAdmin_Rooms_Create()
         {
             InitializeComponent();
+            dataGridView1.GridColor = Color.FromArgb(29, 29, 67);
             LoadWorkers(allView);
         }
         private void LoadWorkers(string query)
@@ -72,61 +73,68 @@ namespace IS_17
             string цена_за_сутки = PricetextBox.Text;
             string статус = StatuscomboBox.Text;
 
-            // Проверка на пустые поля
+            bool isValid = true;
+
+            typeRoomComboBox.BackColor = Color.White;
+            CountSeatnumericUpDown.BackColor = Color.White;
+            PricetextBox.BackColor = Color.White;
+            StatuscomboBox.BackColor = Color.White;
+
             if (string.IsNullOrWhiteSpace(тип))
             {
-                MessageBox.Show("Поле 'Тип комнаты' не может быть пустым.");
-                return;
+                typeRoomComboBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(количество_мест))
             {
-                MessageBox.Show("Поле 'Количество мест' не может быть пустым.");
-                return;
+                CountSeatnumericUpDown.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
+            }
+
+            if (!int.TryParse(количество_мест, out int количествоМестЧисло) || количествоМестЧисло <= 0)
+            {
+                CountSeatnumericUpDown.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(цена_за_сутки))
             {
-                MessageBox.Show("Поле 'Цена за сутки' не может быть пустым.");
-                return;
+                PricetextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
+            }
+
+            if (!decimal.TryParse(цена_за_сутки, out decimal ценаЗаСуткиЧисло) || ценаЗаСуткиЧисло <= 0)
+            {
+                PricetextBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(статус))
             {
-                MessageBox.Show("Поле 'Статус' не может быть пустым.");
-                return;
+                StatuscomboBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
-            // Проверка, что количество мест — целое число
-            if (!int.TryParse(количество_мест, out int количествоМестЧисло) || количествоМестЧисло <= 0)
-            {
-                MessageBox.Show("Поле 'Количество мест' должно быть положительным целым числом.");
-                return;
-            }
-
-            // Проверка, что цена за сутки — число
-            if (!decimal.TryParse(цена_за_сутки, out decimal ценаЗаСуткиЧисло) || ценаЗаСуткиЧисло <= 0)
-            {
-                MessageBox.Show("Поле 'Цена за сутки' должно быть положительным числом.");
-                return;
-            }
-
-            // Проверка допустимых значений в комбобоксах
             var допустимыеТипы = new List<string> { "Стандарт", "Люкс" };
             if (!допустимыеТипы.Contains(тип))
             {
-                MessageBox.Show("Недопустимое значение в поле 'Тип комнаты'.");
-                return;
+                typeRoomComboBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
             }
 
             var допустимыеСтатусы = new List<string> { "Доступно", "Забронировано", "Тех. обслуживание" };
             if (!допустимыеСтатусы.Contains(статус))
             {
-                MessageBox.Show("Недопустимое значение в поле 'Статус'.");
+                StatuscomboBox.BackColor = Color.FromArgb(255, 35, 0);
+                isValid = false;
+            }
+
+            if (!isValid)
+            {
                 return;
             }
 
-            // Проверка корректности email
             string email = "aggata.serggeeva@mail.ru";
             if (!IsValidEmail(email))
             {
@@ -134,16 +142,13 @@ namespace IS_17
                 return;
             }
 
-            // Если все проверки пройдены, выполняем запрос к базе данных
             LoadWorkers($"INSERT INTO [HotelDB].[dbo].[Номера] ([Тип комнаты], [Количество мест], [Цена за сутки], [Статус]) VALUES" +
                 $" ('{тип}', '{количество_мест}', '{цена_за_сутки}', '{статус}');");
             LoadWorkers(allView);
 
-            // Отправка сообщения
             SendMessage(email);
         }
 
-        // Метод для проверки корректности email
         private bool IsValidEmail(string email)
         {
             string pattern = @"^(?!.*\.\.)(?!.*\.$)(?!^\.)[a-zA-Z]+[a-zA-Z0-9]{0,3}(\.[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,6}$";
