@@ -18,6 +18,8 @@ namespace IS_17
         string firstName;
         string lastName;
         string mail;
+        public static int WHOAREYOU_ID { get; set; }
+        public static string WHOAREYOU_FIO { get; set; } 
         public Authoriz()
         {
             InitializeComponent();
@@ -40,16 +42,19 @@ namespace IS_17
                 FormAdmin a = new FormAdmin();
                 this.Hide();
                 a.Show();
+                return;
             }
             if (emailTB.Text == "mroot")
             {
                 FormMaid a = new FormMaid(1, "", "", "breadtt00@gmail.com");
                 this.Hide();
                 a.Show();
+                return;
             }
             if (emailTB.Text == "proot")
             {
                 FormPorter a = new FormPorter();
+                this.Hide();
                 a.Show();
                 return;
             }
@@ -57,7 +62,6 @@ namespace IS_17
             if (!Regex.IsMatch(email, pattern))
             {
                 emailTB.BackColor = Color.FromArgb(238, 165, 176);
-                MessageBox.Show("Некорректный email.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -71,7 +75,6 @@ namespace IS_17
             {
                 passTB.BackColor = Color.FromArgb(238, 165, 176);
                 passShow.BackColor = Color.FromArgb(238, 165, 176);
-                MessageBox.Show(validationMessage, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -94,6 +97,7 @@ namespace IS_17
                         adminForm.Show();
                         break;
                     case "Завхоз":
+                        WHOAREYOU_ID = userId;
                         FormZavhoz zavhozForm = new FormZavhoz();
                         this.Hide();
                         zavhozForm.Show();
@@ -103,6 +107,12 @@ namespace IS_17
                         this.Hide();
                         maidForm.Show();
                         break;
+                    case "Портье":
+                        WHOAREYOU_ID = userId;
+                        FormPorter formPorter = new FormPorter();
+                        this.Hide();
+                        formPorter.Show();
+                        break;
                     default:
                         MessageBox.Show("Роль пользователя не определена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
@@ -110,7 +120,8 @@ namespace IS_17
             }
             else
             {
-                MessageBox.Show("Неверный email или пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                passTB.BackColor = Color.FromArgb(238, 165, 176);
+                passShow.BackColor = Color.FromArgb(238, 165, 176);
             }
         }
 
@@ -157,6 +168,8 @@ namespace IS_17
                                 firstName = reader["Имя"].ToString();
                                 lastName = reader["Фамилия"].ToString();
                                 mail = reader["Почта"].ToString();
+
+                                WHOAREYOU_FIO = $"{firstName} {lastName}";
                             }
                         }
                     }

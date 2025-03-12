@@ -9,16 +9,75 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace IS_17
 {
     public partial class FormPorter : Form
     {
-        string allconect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+        //Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False
+        string allconect = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
 
         public FormPorter()
         {
             InitializeComponent();
+
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            menu.FlatStyle = FlatStyle.Flat;
+            menu.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            button10.FlatStyle = FlatStyle.Flat;
+            button10.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+
+            textBox6.Visible = true;
+            indexxx = 2;
+            textBox1.Visible = true;
+            textBox2.Visible = true;
+            textBox3.Visible = true;
+            textBox4.Visible = true;
+            textBox5.Visible = true;
+            textBox1.Enabled = true;
+            textBox2.Enabled = true;
+            textBox3.Enabled = true;
+            textBox4.Enabled = true;
+            textBox5.Enabled = true;
+            /////
+
+            button2.Visible = true;
+            button1.Visible = true;
+            button5.Visible = true;
+            button2.Enabled = true;
+            button1.Enabled = true;
+            button5.Enabled = true;
+            button2.Text = "Сохранить";
+            button1.Text = "Удалить";
+            button5.Text = "Добавить";
+            ///
+            label1.Text = "Фамилия Имя:";
+            label2.Text = "Номер телефона:";
+            label3.Text = "Серия Номер паспорта:";
+            label4.Text = "Время уборки:";
+            label5.Text = "Предпочтения:";
+
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = true;
+            label5.Visible = true;
+
+
+            dateTimePicker2.Enabled = false;
+            dateTimePicker2.Visible = false;
+            dateTimePicker1.Enabled = false;
+            dateTimePicker1.Visible = false;
+            updateclient();
         }
         class number
         {
@@ -33,75 +92,6 @@ namespace IS_17
         List<number> numberlist = new List<number>();
         private void button3_Click(object sender, EventArgs e)
         {
-            button6.Visible = false;
-            textBox6.Visible = false;
-            indexxx = 1;
-            button2.Text = "Забронировать";
-            button1.Text = "Отменить бронь";
-            button5.Text = "Сохранить изменения";
-
-            label1.Text = "Фамилия Имя:";
-            label2.Text = "Номер телефона:";
-            label3.Text = "Серия Номер паспорта:";
-            label4.Text = "Время уборки:";
-            label5.Text = "Предпочтения:";
-
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-
-
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            textBox3.Visible = true;
-            textBox4.Visible = true;
-            textBox5.Visible = true;
-            textBox1.Enabled = true;
-            textBox2.Enabled = true;
-            textBox3.Enabled = true;
-            textBox4.Enabled = true;
-            textBox5.Enabled = true;
-            dateTimePicker2.Enabled = true;
-            dateTimePicker2.Visible = true;
-            dateTimePicker1.Enabled = true;
-            dateTimePicker1.Visible = true;
-            button1.Visible = true;
-            button2.Visible = true;
-            button5.Visible = true;
-            button1.Enabled = true;
-            button2.Enabled = true;
-            button5.Enabled = true;
-
-            panel1.Controls.Clear();
-            int index = 0;
-            int index1 = 0;
-            for (int i = 0; i < numberlist.Count; i++)
-            {
-                if (i % 4 == 0)
-                {
-                    index = 0;
-                    index1++;
-                }
-                Button button = new Button();
-                button.Size = new Size(panel1.Size.Width / 5, panel1.Size.Width / 5);
-                button.Location = new Point((10 * index) + ((panel1.Size.Width / 5) * index), (10 * index1) + ((panel1.Size.Width / 5) * index1));
-                button.Tag = numberlist[i];
-                button.Text = i.ToString();
-                button.Click += new EventHandler(buttonnumber);
-                if (numberlist[i].status == "Доступно")
-                {
-                    button.BackColor = Color.Green;
-                }
-                else
-                {
-                    button.BackColor = Color.Red;
-                }
-                index++;
-                panel1.Controls.Add(button);
-
-            }
 
 
         }
@@ -181,10 +171,9 @@ namespace IS_17
             {
                 using (SqlConnection connect1 = new SqlConnection(allconect))
                 {
-
                     try
                     {
-                        string query = $"SELECT ID_Бронирования, [Дата заезда], [Дата выезда], [Общая стоимость бронирования],ID_Гостя\r\nFROM Бронирования\r\nWHERE ID_Номера = {a.idnumber}";
+                        string query = $"SELECT ID_Бронирования, [Дата заезда], [Дата выезда], [Общая стоимость бронирования],ID_Гостя FROM Бронирования WHERE ID_Номера = {a.idnumber}";
                         connect1.Open();
                         int index = 0;
                         SqlCommand command = new SqlCommand(query, connect1);
@@ -197,7 +186,6 @@ namespace IS_17
                             bron.datestart = reader["Дата заезда"].ToString();
                             bron.dateend = reader["Дата выезда"].ToString();
                             //number.status = reader["Статус"].ToString();
-
                         }
                         command.Dispose();
                         reader.Close();
@@ -213,7 +201,7 @@ namespace IS_17
 
                     try
                     {
-                        string query = $"SELECT *\r\nFROM Гости\r\nWHERE ID_Гостя = '{bron.idquest}'";
+                        string query = $"SELECT * FROM Гости WHERE ID_Гостя = '{bron.idquest}'";
                         connect1.Open();
                         int index = 0;
                         SqlCommand command = new SqlCommand(query, connect1);
@@ -384,7 +372,7 @@ namespace IS_17
                 if (aaa == null)
                 {
                     MessageBox.Show("Выберите номер!");
-
+                    return;
                 }
                 else
                 if (aaa.BackColor == Color.Red)
@@ -404,7 +392,7 @@ namespace IS_17
 
                         try
                         {
-                            string query = $"SELECT ID_Гостя\r\nFROM Гости\r\nWHERE [Паспорт(серия, номер)] = '{textBox3.Text}'";
+                            string query = $"SELECT ID_Гостя FROM Гости WHERE [Паспорт(серия, номер)] = '{textBox3.Text}'";
                             connect1.Open();
                             int index = 0;
                             SqlCommand command = new SqlCommand(query, connect1);
@@ -431,7 +419,7 @@ namespace IS_17
 
                             try
                             {
-                                string query = $"UPDATE Гости\r\nSET \r\n    Фамилия = '{a[0]}',\r\n    Имя = '{a[1]}',\r\n    Номер = '{textBox2.Text}'\r\n   , Предпочтения = '{textBox5.Text}',\r\n    [Время уборки] = '{textBox4.Text}'\r\nWHERE ID_Гостя = '{result}'";
+                                string query = $"UPDATE Гости SET Фамилия = '{a[0]}',\r\n    Имя = '{a[1]}',\r\n    Номер = '{textBox2.Text}'\r\n   , Предпочтения = '{textBox5.Text}',\r\n    [Время уборки] = '{textBox4.Text}'\r\nWHERE ID_Гостя = '{result}'";
                                 connect1.Open();
                                 int index = 0;
                                 SqlCommand command = new SqlCommand(query, connect1);
@@ -446,7 +434,7 @@ namespace IS_17
                             }
                         }
                     }
-                    else
+                    else////////////////////////////////////////////////////
                     {
                         using (SqlConnection connect1 = new SqlConnection(allconect))
                         {
@@ -476,7 +464,10 @@ namespace IS_17
 
                         try
                         {
-                            string query = $"INSERT INTO Бронирования ( ID_Гостя, ID_Номера, ID_Горничной, ID_Портье, [Дата заезда], [Дата выезда], [Общая стоимость бронирования], [Статус бронирования])\r\nVALUES ({result}, {idnum}, 5,4, '{dateTimePicker1.Value.Date}', '{dateTimePicker2.Value.Date}', {int.Parse(numinformation.price) * (dateTimePicker2.Value - dateTimePicker1.Value).Days}, 'Подтверждено');";
+                            string query = $"INSERT INTO Бронирования ( ID_Гостя, ID_Номера, ID_Горничной, ID_Портье," +
+                                $" [Дата заезда], [Дата выезда], [Общая стоимость бронирования], [Статус бронирования]) VALUES" +
+                                $" ({result}, {idnum}, 7,8, '{dateTimePicker1.Value.Date}', '{dateTimePicker2.Value.Date}'," +
+                                $" {int.Parse(numinformation.price) * (dateTimePicker2.Value - dateTimePicker1.Value).Days}, 'Подтверждено');";
                             connect1.Open();
                             int index = 0;
                             SqlCommand command = new SqlCommand(query, connect1);
@@ -513,7 +504,7 @@ namespace IS_17
                         }
                     }
                     updatelist();
-                    button3.PerformClick();
+                    button2.PerformClick();
                 }
             }
             else
@@ -632,7 +623,7 @@ namespace IS_17
 
                     try
                     {
-                        string query = $"UPDATE Гости\r\nSET Фамилия = '{df[0]}', Имя = '{df[1]}', Номер = '{textBox2.Text}', [Паспорт(серия, номер)] = '{textBox3.Text}', Предпочтения = '{textBox5.Text}', [Время уборки] = '{textBox4.Text}'\r\nWHERE ID_Гостя = '{f.SelectedRows[0].Cells[6].Value.ToString()}'";
+                        string query = $"UPDATE Гости SET Фамилия = '{df[0]}', Имя = '{df[1]}', Номер = '{textBox2.Text}', [Паспорт(серия, номер)] = '{textBox3.Text}', Предпочтения = '{textBox5.Text}', [Время уборки] = '{textBox4.Text}' WHERE ID_Гостя = '{f.SelectedRows[0].Cells[6].Value.ToString()}'";
                         connect1.Open();
                         int index = 0;
                         SqlCommand command = new SqlCommand(query, connect1);
@@ -713,7 +704,7 @@ namespace IS_17
                         }
                     }
                     updatelist();
-                    button3.PerformClick();
+                    button2.PerformClick();
                 }
             }
             else
@@ -751,7 +742,6 @@ namespace IS_17
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void button5_Click_1(object sender, EventArgs e)
@@ -965,7 +955,7 @@ namespace IS_17
                     dateTimePicker2.CustomFormat = "YYYY-MM-DD";
                     using (SqlConnection connect1 = new SqlConnection(allconect))
                     {
-
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         try
                         {
                             string query = $"UPDATE Бронирования\r\nSET\r\n    ID_Гостя ='{result}',\r\n      ID_Горничной = 5,\r\n    ID_Портье = 4,\r\n    [Дата заезда] = '{dateTimePicker1.Value.Date}',\r\n    [Дата выезда] = '{dateTimePicker2.Value.Date}',\r\n    [Общая стоимость бронирования] ='{int.Parse(numinformation.price) * (dateTimePicker2.Value - dateTimePicker1.Value).Days}',\r\n    [Статус бронирования] = 'да'\r\nWHERE\r\n    ID_Номера = {idnum}";
@@ -983,7 +973,7 @@ namespace IS_17
                         }
                     }
                     updatelist();
-                    button3.PerformClick();
+                    button2.PerformClick();
                 }
             }
             else
@@ -1121,71 +1111,33 @@ namespace IS_17
         DataGridView f;
         private void dataclick(object sender, EventArgs e)
         {
-            if (f != null && f.SelectedRows[0].Cells[0]!.Value != null)
+            try
             {
-                textBox1.Text = f.SelectedRows[0].Cells[0].Value.ToString() + " " + f.SelectedRows[0].Cells[1].Value.ToString();
-                textBox2.Text = f.SelectedRows[0].Cells[2].Value.ToString();
-                textBox3.Text = f.SelectedRows[0].Cells[3].Value.ToString();
-                textBox4.Text = f.SelectedRows[0].Cells[5].Value.ToString();
-                textBox5.Text = f.SelectedRows[0].Cells[4].Value.ToString();
+                if (f != null && f.SelectedRows[0].Cells[0]!.Value != null)
+                {
+                    textBox1.Text = f.SelectedRows[0].Cells[0].Value.ToString() + " " + f.SelectedRows[0].Cells[1].Value.ToString();
+                    textBox2.Text = f.SelectedRows[0].Cells[2].Value.ToString();
+                    textBox3.Text = f.SelectedRows[0].Cells[3].Value.ToString();
+                    textBox4.Text = f.SelectedRows[0].Cells[5].Value.ToString();
+                    textBox5.Text = f.SelectedRows[0].Cells[4].Value.ToString();
+                }
+                else
+                {
+                    textBox1.Text = "";
+                    textBox2.Text = "";
+                    textBox3.Text = "";
+                    textBox4.Text = "";
+                    textBox5.Text = "";
+                }
 
             }
-            else
-            {
-                textBox1.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
-                textBox4.Text = "";
-                textBox5.Text = "";
-
-            }
+            catch { }
+            
 
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            button6.Visible =true;
-            textBox6.Visible = true;
-            indexxx = 2;
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            textBox3.Visible = true;
-            textBox4.Visible = true;
-            textBox5.Visible = true;
-            textBox1.Enabled = true;
-            textBox2.Enabled = true;
-            textBox3.Enabled = true;
-            textBox4.Enabled = true;
-            textBox5.Enabled = true;
-            /////
 
-            button2.Visible = true;
-            button1.Visible = true;
-            button5.Visible = true;
-            button2.Enabled = true;
-            button1.Enabled = true;
-            button5.Enabled = true;
-            button2.Text = "Сохранить";
-            button1.Text = "Удалить";
-            button5.Text = "Добавить";
-            ///
-            label1.Text = "Фамилия Имя:";
-            label2.Text = "Номер телефона:";
-            label3.Text = "Серия Номер паспорта:";
-            label4.Text = "Время уборки:";
-            label5.Text = "Предпочтения:";
-
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-
-
-            dateTimePicker2.Enabled = false;
-            dateTimePicker2.Visible = false;
-            dateTimePicker1.Enabled = false;
-            dateTimePicker1.Visible = false;
-            updateclient();
 
         }
         public void updateclient()
@@ -1254,6 +1206,7 @@ namespace IS_17
             d.Columns.Add("6", "id пользователя");
             d.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             d.SelectionChanged += dataclick;
+            d.DefaultCellStyle.SelectionBackColor = Color.FromArgb(192, 192, 255);
             d.Size = new Size(panel1.Width, panel1.Height);
             using (SqlConnection connect1 = new SqlConnection(allconect))
             {
@@ -1295,7 +1248,282 @@ namespace IS_17
 
         private void button6_Click(object sender, EventArgs e)
         {
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+
+            textBox6.Visible = true;
+            indexxx = 2;
+            textBox1.Visible = true;
+            textBox2.Visible = true;
+            textBox3.Visible = true;
+            textBox4.Visible = true;
+            textBox5.Visible = true;
+            textBox1.Enabled = true;
+            textBox2.Enabled = true;
+            textBox3.Enabled = true;
+            textBox4.Enabled = true;
+            textBox5.Enabled = true;
+            /////
+
+            button2.Visible = true;
+            button1.Visible = true;
+            button5.Visible = true;
+            button2.Enabled = true;
+            button1.Enabled = true;
+            button5.Enabled = true;
+            button2.Text = "Сохранить";
+            button1.Text = "Удалить";
+            button5.Text = "Добавить";
+            ///
+            label1.Text = "Фамилия Имя:";
+            label2.Text = "Номер телефона:";
+            label3.Text = "Серия Номер паспорта:";
+            label4.Text = "Время уборки:";
+            label5.Text = "Предпочтения:";
+
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = true;
+            label5.Visible = true;
+
+
+            dateTimePicker2.Enabled = false;
+            dateTimePicker2.Visible = false;
+            dateTimePicker1.Enabled = false;
+            dateTimePicker1.Visible = false;
+            updateclient();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+            button3.Visible = false;
+
+            textBox6.Visible = false;
+            indexxx = 1;
+            button2.Text = "Забронировать";
+            button1.Text = "Отменить бронь";
+            button5.Text = "Сохранить изменения";
+
+            label1.Text = "Фамилия Имя:";
+            label2.Text = "Номер телефона:";
+            label3.Text = "Серия Номер паспорта:";
+            label4.Text = "Время уборки:";
+            label5.Text = "Предпочтения:";
+
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = true;
+            label5.Visible = true;
+
+            textBox1.Visible = true;
+            textBox2.Visible = true;
+            textBox3.Visible = true;
+            textBox4.Visible = true;
+            textBox5.Visible = true;
+            textBox1.Enabled = true;
+            textBox2.Enabled = true;
+            textBox3.Enabled = true;
+            textBox4.Enabled = true;
+            textBox5.Enabled = true;
+            dateTimePicker2.Enabled = true;
+            dateTimePicker2.Visible = true;
+            dateTimePicker1.Enabled = true;
+            dateTimePicker1.Visible = true;
+            button1.Visible = true;
+            button2.Visible = true;
+            button5.Visible = true;
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button5.Enabled = true;
+
+            panel1.Controls.Clear();
+
+            int buttonSize = panel1.Size.Width / 5;
+            int buttonsPerRow = 4;
+            int horizontalSpacing = 10;
+            int verticalSpacing = 10;
+
+            int totalWidth = buttonsPerRow * buttonSize + (buttonsPerRow - 1) * horizontalSpacing;
+            int totalHeight = ((numberlist.Count + buttonsPerRow - 1) / buttonsPerRow) * buttonSize +
+                              (((numberlist.Count + buttonsPerRow - 1) / buttonsPerRow) - 1) * verticalSpacing;
+
+            int margin = 20;
+
+            int startX = (panel1.Width - totalWidth) / 2;
+            int startY = (panel1.Height - totalHeight) / 2;
+
+            if (startY < margin)
+            {
+                startY = margin;
+            }
+
+            int index = 0;
+            for (int i = 0; i < numberlist.Count; i++)
+            {
+                Button button = new Button();
+                button.Size = new Size(buttonSize, buttonSize);
+                button.Location = new Point(
+                    startX + (index % buttonsPerRow) * (buttonSize + horizontalSpacing),
+                    startY + (index / buttonsPerRow) * (buttonSize + verticalSpacing)
+                );
+                button.Tag = numberlist[i];
+                button.Text = numberlist[i].idnumber;
+                button.Click += new EventHandler(buttonnumber);
+
+                if (numberlist[i].status == "Доступно")
+                {
+                    button.BackColor = Color.FromArgb(243, 233, 251);
+                }
+                else
+                {
+                    button.BackColor = Color.FromArgb(100, 100, 185);
+                }
+
+                panel1.Controls.Add(button);
+                index++;
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        //открывашка основного меню
+        private void btnHum_Click(object sender, EventArgs e)
+        {
+            sidebarTransition.Start();
+        }
+
+        bool sidebarExpand = false;
+        private void sidebarTransition_Tick(object sender, EventArgs e)
+        {
+            if (sidebarExpand == false)
+            {
+
+                sidebar.Width += 5;
+                if (sidebar.Width >= 258)
+                {
+                    sidebarExpand = true;
+                    sidebarTransition.Stop();
+                }
+            }
+            else
+            {
+                sidebar.Width -= 5;
+                if (sidebar.Width <= 62)
+                {
+                    sidebarExpand = false;
+                    sidebarTransition.Stop();
+                }
+            }
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
             f.Sort(f.Columns["1"], ListSortDirection.Ascending);
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private bool isDragging = false;
+        private Point startPoint;
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                startPoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void panel2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point newPoint = panel2.PointToScreen(new Point(e.X, e.Y));
+                newPoint.Offset(-startPoint.X, -startPoint.Y);
+                this.Location = newPoint;
+            }
+        }
+
+        private void panel2_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
+            }
+        }
+
+        Form_Profiles profiles;
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+            Form_Profiles.typeDialogForm = true;
+            profiles = new Form_Profiles();
+            DialogResult result = profiles.ShowDialog();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Authoriz authoriz = new Authoriz();
+            this.Hide();
+            authoriz.Show();
+        }
+
+        private void menu_Click(object sender, EventArgs e)
+        {
+            menuTransition1.Start();
+        }
+
+        bool menuExpand = false;
+
+        private void menuTransition1_Tick(object sender, EventArgs e)
+        {
+            if (menuExpand == false)
+            {
+                menuConteiner.Height += 10;
+                if (menuConteiner.Height >= 165)
+                {
+                    menuTransition1.Stop();
+                    menuExpand = true;
+                }
+            }
+            else
+            {
+                menuConteiner.Height -= 10;
+                if (menuConteiner.Height <= 48)
+                {
+                    menuTransition1.Stop();
+                    menuExpand = false;
+                }
+            }
+        }
+        Form_Profiles profile;
+        private void button_EditData_Click(object sender, EventArgs e)
+        {
+            Form_Profiles.typeDialogForm = true;
+            profile = new Form_Profiles();
+            DialogResult result = profile.ShowDialog();
+        }
+        private void button_EditPassword_Click(object sender, EventArgs e)
+        {
+            Form_Profiles.typeDialogForm = false;
+            profile = new Form_Profiles();
+            DialogResult result = profile.ShowDialog();
         }
     }
 }

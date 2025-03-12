@@ -183,6 +183,10 @@ namespace IS_17
                     button.Width = 256;
                     button.Height = 48;
                     button.Location = new Point(flowLayoutPanel1.Width - 265, 40);
+                    button.BackColor = Color.FromArgb(29, 29, 67); ;
+                    button.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                    button.ForeColor = Color.White;
+
                     panel.Controls.Add(button);
                     flowLayoutPanel1.Controls.Add(panel);
 

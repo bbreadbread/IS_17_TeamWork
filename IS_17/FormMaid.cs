@@ -31,6 +31,12 @@ namespace IS_17
             buttonLogout.FlatStyle = FlatStyle.Flat;
             buttonLogout.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
 
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
+            menu.FlatStyle = FlatStyle.Flat;
+            menu.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+
             button_EditData.FlatStyle = FlatStyle.Flat;
             button_EditData.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
 
@@ -134,11 +140,6 @@ namespace IS_17
             {
 
             }
-        }
-        
-        private void button7_Click(object sender, EventArgs e)
-        {
-            /////////////////////////////////////////////////////////////////////////////////////////////не имеет смысла
         }
 
         private void menu_Click(object sender, EventArgs e)

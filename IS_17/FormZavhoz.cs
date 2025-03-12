@@ -14,6 +14,7 @@ using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace IS_17
@@ -22,7 +23,7 @@ namespace IS_17
     {
         //Data Source=DESKTOP-60C99SS\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False
         //Эту строчку нужно будет заменить когда будете показывать проект!
-        string allconect = "Data Source=DESKTOP-60C99SS\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Encrypt=False";
+        string allconect = "Data Source=HOME-PC;Initial Catalog=HotelDB;Integrated Security=True";
 
         public FormZavhoz()
         {
@@ -37,8 +38,8 @@ namespace IS_17
             button1.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
 
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
+            menu.FlatStyle = FlatStyle.Flat;
+            menu.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
 
             button3.FlatStyle = FlatStyle.Flat;
             button3.FlatAppearance.BorderColor = Color.FromArgb(29, 29, 67);
@@ -163,10 +164,17 @@ namespace IS_17
         }
         private void FormZavhoz_Load(object sender, EventArgs e)
         {
+            textBox1.Visible = true;
+            button4.Visible = true;
+            panel1.Controls.Clear();
+            panel1.Enabled = true;
+            panel1.Visible = true;
+            dataGridView1.Visible = true;
+            dataGridView1.Enabled = true;
+
+            tablee = 1;
+            Inventupdate();
             postupdate();
-
-
-
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -180,125 +188,139 @@ namespace IS_17
                         if (dataGridView1.SelectedRows[0].Cells[0].Value == null)
                         {
                             panel1.Controls.Clear();
+
+                            int currentY = 0; // Текущая Y-координата
+                            int verticalPadding = 10; // Отступ между элементами
+
+                            // Создание и добавление меток
                             Label f = new Label();
-                            f.Location = new Point(3, 0);
+                            f.Location = new Point(3, currentY);
                             f.Text = "Название:";
                             f.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            ////////                            
+                            panel1.Controls.Add(f);
+                            currentY += f.Height + verticalPadding; // Обновляем Y-координату для следующего элемента
+
                             Label f1 = new Label();
-                            f1.Location = new Point(3, f.Size.Height + 20 + 3);
+                            f1.Location = new Point(3, currentY);
                             f1.Text = "Общее кол-во:";
-                            f1.Size = new Size(f.Width * 2, f.Height);
                             f1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            ///////
-                            /// ////////                            
+                            panel1.Controls.Add(f1);
+                            currentY += f1.Height + verticalPadding; // Обновляем Y-координату
+
                             Label f2 = new Label();
-                            f2.Location = new Point(3, (f.Size.Height + 20 + 3) * 2);
+                            f2.Location = new Point(3, currentY);
                             f2.Text = "Кол-во на складе:";
-                            f2.Size = new Size(f.Width * 3, f.Height);
                             f2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            ///////
-                            /// /// ////////                            
+                            panel1.Controls.Add(f2);
+                            currentY += f2.Height + verticalPadding; // Обновляем Y-координату
+
                             Label f3 = new Label();
-                            f3.Location = new Point(3, (f.Size.Height + 20 + 3) * 3);
+                            f3.Location = new Point(3, currentY);
                             f3.Text = "Кол-во повреждённых:";
-                            f3.Size = new Size(f.Width * 3, f.Height);
                             f3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            ///////
-                            ////// /// ////////                            
+                            panel1.Controls.Add(f3);
+                            currentY += f3.Height + verticalPadding; // Обновляем Y-координату
+
                             Label f4 = new Label();
-                            f4.Location = new Point(3, (f.Size.Height + 20 + 3) * 4 + 4);
+                            f4.Location = new Point(3, currentY);
                             f4.Text = "Поставщик:";
-                            f4.Size = new Size(f.Width * 4, f.Height);
                             f4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            ///////
-                            /// /// ////////                            
+                            panel1.Controls.Add(f4);
+                            currentY += f4.Height + verticalPadding; // Обновляем Y-координату
+
                             Label f5 = new Label();
-                            f5.Location = new Point(3, (f.Size.Height + 20 + 3) * 5 + 4);
+                            f5.Location = new Point(3, currentY);
                             f5.Text = "Цена:";
-                            f5.Size = new Size(f.Width * 3, f.Height);
                             f5.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            ///////
-                            /// /// /// ////////                            
+                            panel1.Controls.Add(f5);
+                            currentY += f5.Height + verticalPadding; // Обновляем Y-координату
+
                             Label f6 = new Label();
-                            f6.Location = new Point(3, (f.Size.Height + 20 + 3) * 6 + 4);
+                            f6.Location = new Point(3, currentY);
                             f6.Text = "Кол-во для покупки:";
-                            f6.Size = new Size(f.Width * 3, f.Height);
                             f6.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            ///////
+                            panel1.Controls.Add(f6);
+                            currentY += f6.Height + verticalPadding; // Обновляем Y-координату
+
+                            // Создание и добавление текстовых полей
                             TextBox a = new TextBox();
-                            a.Text = "";
-                            a.Location = new Point(3, 20);
+                            a.Location = new Point(3, currentY);
+                            panel1.Controls.Add(a);
+                            currentY += a.Height + verticalPadding; // Обновляем Y-координату
+
                             TextBox a2 = new TextBox();
-                            a2.Location = new Point(3, a.Size.Height * 1 + 20 * 2);
-                            a2.Text = "";
+                            a2.Location = new Point(3, currentY);
+                            panel1.Controls.Add(a2);
+                            currentY += a2.Height + verticalPadding; // Обновляем Y-координату
+
                             TextBox a3 = new TextBox();
-                            a3.Location = new Point(3, a.Size.Height * 2 + 20 * 3);
-                            a3.Text = "";
+                            a3.Location = new Point(3, currentY);
+                            panel1.Controls.Add(a3);
+                            currentY += a3.Height + verticalPadding; // Обновляем Y-координату
+
                             TextBox a4 = new TextBox();
-                            a4.Location = new Point(3, a.Size.Height * 3 + 20 * 4);
-                            a4.Text = "";
+                            a4.Location = new Point(3, currentY);
+                            panel1.Controls.Add(a4);
+                            currentY += a4.Height + verticalPadding; // Обновляем Y-координату
+
                             ComboBox b = new ComboBox();
-                            b.Location = new Point(3, a.Size.Height * 4 + 20 * 5);
-                            b.Text = "";
+                            b.Location = new Point(3, currentY);
+                            panel1.Controls.Add(b);
+                            currentY += b.Height + verticalPadding; // Обновляем Y-координату
+
                             TextBox a5 = new TextBox();
-                            a5.Location = new Point(3, a.Size.Height * 5 + 20 * 6);
-                            a5.Text = "";
+                            a5.Location = new Point(3, currentY);
+                            panel1.Controls.Add(a5);
+                            currentY += a5.Height + verticalPadding; // Обновляем Y-координату
+
                             NumericUpDown c = new NumericUpDown();
-                            c.Location = new Point(3, a.Size.Height * 6 + 20 * 7);
+                            c.Location = new Point(3, currentY);
+                            panel1.Controls.Add(c);
+                            currentY += c.Height + verticalPadding; // Обновляем Y-координату
+
+                            // Создание и добавление кнопок
                             Button d = new Button();
-                            d.Location = new Point(0, a.Size.Height * 6 + 20 * 9 - 10);
+                            d.Location = new Point(0, currentY);
                             d.Text = "Купить";
                             d.Size = new Size(a.Size.Width + 23, a.Size.Height + 10);
-                            // d.Click += new EventHandler(save);
+                            panel1.Controls.Add(d);
+                            currentY += d.Height + verticalPadding; // Обновляем Y-координату
+
                             Button d1 = new Button();
-                            d1.Location = new Point(0, a.Size.Height * 8 + 20 * 9 - 25);
+                            d1.Location = new Point(0, currentY);
                             d1.Size = new Size(a.Size.Width + 23, a.Size.Height + 10);
                             d1.Text = "Сохранить";
                             d1.Click += new EventHandler(save);
-                            d.Click += new EventHandler(otchet);
+                            panel1.Controls.Add(d1);
+                            currentY += d1.Height + verticalPadding; // Обновляем Y-координату
+
                             Button d3 = new Button();
-                            d3.Location = new Point(0, a.Size.Height * 9 + 20 * 10 - 33);
+                            d3.Location = new Point(0, currentY);
                             d3.Text = "Удалить";
                             d3.Size = new Size(a.Size.Width + 23, a.Size.Height + 10);
                             d3.Click += new EventHandler(deleteinvent);
+                            panel1.Controls.Add(d3);
+                            currentY += d3.Height + verticalPadding; // Обновляем Y-координату
+
                             Button d4 = new Button();
-                            d4.Location = new Point(0, a.Size.Height * 10 + 20 * 11 - 41);
+                            d4.Location = new Point(0, currentY);
                             d4.Text = "Добавить";
                             d4.Size = new Size(a.Size.Width + 23, a.Size.Height + 10);
                             d4.Click += new EventHandler(insertinvent);
-                            btn = d1;
-                            s = c;
-                            aa = a;
-                            aa2 = a2;
-                            aa3 = a3;
-                            aa4 = a4;
-                            aa5 = b;
-                            aa6 = a5;
-                            d.BackColor = Color.FromArgb(29, 29, 67);
-                            d1.BackColor = Color.FromArgb(29, 29, 67);
-                            d4.BackColor = Color.FromArgb(29, 29, 67);
-                            d3.BackColor = Color.FromArgb(29, 29, 67);
-                            d.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            d.ForeColor = Color.White;
-                            d1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            d1.ForeColor = Color.White;
-                            d3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            d3.ForeColor = Color.White;
-                            d4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                            d4.ForeColor = Color.White;
-                            /////
-                            d.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
-                            d1.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
-                            d3.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
-                            d4.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
-                            c.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
-                            b.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
-                            a.Size = new Size(a.Size.Width * 2, a.Size.Height + 10);
-                            a2.Size = new Size(a2.Size.Width * 2, a.Size.Height + 10);
-                            a3.Size = new Size(a3.Size.Width * 2, a.Size.Height + 10);
-                            a4.Size = new Size(a4.Size.Width * 2, a.Size.Height + 10);
-                            a5.Size = new Size(a5.Size.Width * 2, a.Size.Height + 10);
+                            panel1.Controls.Add(d4);
+
+                            // Установка стилей для кнопок
+                            Color buttonColor = Color.FromArgb(29, 29, 67);
+                            d.BackColor = buttonColor;
+                            d1.BackColor = buttonColor;
+                            d3.BackColor = buttonColor;
+                            d4.BackColor = buttonColor;
+
+                            Font buttonFont = new Font("Century Gothic", 9, FontStyle.Bold);
+                            d.Font = buttonFont;
+                            d1.Font = buttonFont;
+                            d3.Font = buttonFont;
+                            d4.Font = buttonFont;
 
                             /////
                             panel1.Controls.Add(a);
@@ -370,27 +392,36 @@ namespace IS_17
                             a5.Text = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
                             NumericUpDown c = new NumericUpDown();
                             c.Location = new Point(3, a.Size.Height * 6 + 20 * 7);
+
                             Button d = new Button();
                             d.Location = new Point(0, a.Size.Height * 6 + 20 * 9 - 10);
                             d.Text = "Купить";
                             d.Size = new Size(a.Size.Width, a.Size.Height);
+                            d.Font = new Font("Century Gothic", 10, FontStyle.Bold);
+                            d.Click += new EventHandler(otchet);
+
                             // d.Click += new EventHandler(save);
                             Button d1 = new Button();
                             d1.Location = new Point(0, a.Size.Height * 8 + 20 * 9 - 25);
                             d1.Size = new Size(a.Size.Width, a.Size.Height);
                             d1.Text = "Сохранить";
                             d1.Click += new EventHandler(save);
-                            d.Click += new EventHandler(otchet);
+                            d1.Font = new Font("Century Gothic", 10, FontStyle.Bold);
+
                             Button d3 = new Button();
                             d3.Location = new Point(0, a.Size.Height * 9 + 20 * 10 - 33);
                             d3.Text = "Удалить";
                             d3.Size = new Size(a.Size.Width, a.Size.Height);
                             d3.Click += new EventHandler(deleteinvent);
+                            d3.Font = new Font("Century Gothic", 10, FontStyle.Bold);
+
                             Button d4 = new Button();
                             d4.Location = new Point(0, a.Size.Height * 10 + 20 * 11 - 41);
                             d4.Text = "Добавить";
                             d4.Size = new Size(a.Size.Width, a.Size.Height);
                             d4.Click += new EventHandler(insertinvent);
+                            d4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+
                             btn = d1;
                             s = c;
                             aa = a;
@@ -417,42 +448,42 @@ namespace IS_17
                             f.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                             ////////                            
                             Label f1 = new Label();
-                            f1.Location = new Point(3, f.Size.Height + 20 + 3);
+                            f1.Location = new Point(3, f.Size.Height + 20 + 1);
                             f1.Text = "Общее кол-во:";
                             f1.Size = new Size(f.Width * 2, f.Height);
                             f1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                             ///////
                             /// ////////                            
                             Label f2 = new Label();
-                            f2.Location = new Point(3, (f.Size.Height + 20 + 3) * 2);
+                            f2.Location = new Point(3, (f.Size.Height + 20 + 1) * 2);
                             f2.Text = "Кол-во на складе:";
                             f2.Size = new Size(f.Width * 3, f.Height);
                             f2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                             ///////
                             /// /// ////////                            
                             Label f3 = new Label();
-                            f3.Location = new Point(3, (f.Size.Height + 20 + 3) * 3);
+                            f3.Location = new Point(3, (f.Size.Height + 20 + 1) * 3);
                             f3.Text = "Кол-во повреждённых:";
                             f3.Size = new Size(f.Width * 3, f.Height);
                             f3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                             ///////
                             ////// /// ////////                            
                             Label f4 = new Label();
-                            f4.Location = new Point(3, (f.Size.Height + 20 + 3) * 4 + 4);
+                            f4.Location = new Point(3, (f.Size.Height + 20) * 4 + 4);
                             f4.Text = "Поставщик:";
                             f4.Size = new Size(f.Width * 4, f.Height);
                             f4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                             ///////
                             /// /// ////////                            
                             Label f5 = new Label();
-                            f5.Location = new Point(3, (f.Size.Height + 20 + 3) * 5 + 4);
+                            f5.Location = new Point(3, (f.Size.Height + 20) * 5 + 4);
                             f5.Text = "Цена:";
                             f5.Size = new Size(f.Width * 3, f.Height);
                             f5.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                             ///////
                             /// /// /// ////////                            
                             Label f6 = new Label();
-                            f6.Location = new Point(3, (f.Size.Height + 20 + 3) * 6 + 4);
+                            f6.Location = new Point(3, (f.Size.Height + 20) * 6 + 4);
                             f6.Text = "Кол-во для покупки:";
                             f6.Size = new Size(f.Width * 3, f.Height);
                             f6.Font = new Font("Century Gothic", 9, FontStyle.Bold);
@@ -469,6 +500,7 @@ namespace IS_17
                             d3.ForeColor = Color.White;
                             d4.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                             d4.ForeColor = Color.White;
+
                             panel1.Controls.Add(a);
                             panel1.Controls.Add(a2);
                             panel1.Controls.Add(a3);
@@ -529,21 +561,21 @@ namespace IS_17
                         f.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                         ////////                            
                         Label f1 = new Label();
-                        f1.Location = new Point(3, f.Size.Height + 20 + 3);
+                        f1.Location = new Point(3, f.Size.Height + 20);
                         f1.Text = "Общее кол-во:";
                         f1.Size = new Size(f.Width * 2, f.Height);
                         f1.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                         ///////
                         /// ////////                            
                         Label f2 = new Label();
-                        f2.Location = new Point(3, (f.Size.Height + 20 + 3) * 2);
+                        f2.Location = new Point(3, (f.Size.Height + 20) * 2);
                         f2.Text = "Кол-во на складе:";
                         f2.Size = new Size(f.Width * 3, f.Height);
                         f2.Font = new Font("Century Gothic", 9, FontStyle.Bold);
                         ///////
                         /// /// ////////                            
                         Label f3 = new Label();
-                        f3.Location = new Point(3, ((f.Size.Height + 20 + 3) * 3) + 2);
+                        f3.Location = new Point(3, ((f.Size.Height + 20) * 3) + 2);
                         f3.Text = "Категория:";
                         f3.Size = new Size(f.Width * 3, f.Height);
                         f3.Font = new Font("Century Gothic", 9, FontStyle.Bold);
@@ -1331,11 +1363,7 @@ namespace IS_17
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            textBox1.Visible = false;
-            button4.Visible = false;
-        }
+
 
 
         private void button3_Click(object sender, EventArgs e)
@@ -1574,9 +1602,138 @@ namespace IS_17
                 .Replace("\r", "\\r")
                 .Replace("\n", "\\n");
         }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private bool isDragging = false;
+        private Point startPoint;
+        private void panel4_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                startPoint = new Point(e.X, e.Y);
+            }
+        }
+
+        private void panel4_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point newPoint = panel4.PointToScreen(new Point(e.X, e.Y));
+                newPoint.Offset(-startPoint.X, -startPoint.Y);
+                this.Location = newPoint;
+            }
+        }
+
+        private void panel4_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
+            }
+        }
+
+        //открывашка основного меню
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            sidebarTransition.Start();
+        }
+        bool sidebarExpand = false;
+
+        private void sidebarTransition_Tick(object sender, EventArgs e)
+        {
+            if (sidebarExpand == false)
+            {
+
+                sidebar.Width += 5;
+                if (sidebar.Width >= 258)
+                {
+                    sidebarExpand = true;
+                    sidebarTransition.Stop();
+                }
+            }
+            else
+            {
+                sidebar.Width -= 5;
+                if (sidebar.Width <= 62)
+                {
+                    sidebarExpand = false;
+                    sidebarTransition.Stop();
+                }
+            }
+        }
+
+        Form_Profiles profile;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            menuTransition1.Start();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            Authoriz authoriz = new Authoriz();
+            this.Hide();
+            authoriz.Show();
+        }
+
+        private void menu_Click(object sender, EventArgs e)
+        {
+            menuTransition1.Start();
+        }
+        private void button_EditPassword_Click(object sender, EventArgs e)
+        {
+            textBox1.Visible = false;
+            button4.Visible = false;
+
+            Form_Profiles.typeDialogForm = false;
+            profile = new Form_Profiles();
+            DialogResult result = profile.ShowDialog();
+        }
+
+        private void button_EditData_Click(object sender, EventArgs e)
+        {
+            textBox1.Visible = false;
+            button4.Visible = false;
+
+            Form_Profiles.typeDialogForm = true;
+            profile = new Form_Profiles();
+            DialogResult result = profile.ShowDialog();
+        }
+
+        bool menuExpand = false;
+
+        private void menuTransition1_Tick(object sender, EventArgs e)
+        {
+            if (menuExpand == false)
+            {
+                menuConteiner.Height += 10;
+                if (menuConteiner.Height >= 165)
+                {
+                    menuTransition1.Stop();
+                    menuExpand = true;
+                }
+            }
+            else
+            {
+                menuConteiner.Height -= 10;
+                if (menuConteiner.Height <= 48)
+                {
+                    menuTransition1.Stop();
+                    menuExpand = false;
+                }
+            }
+        }
     }
 }
-
 
 
 

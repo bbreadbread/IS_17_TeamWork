@@ -159,31 +159,33 @@ namespace IS_17
 
         private void buttonDeleteWorker_Click(object sender, EventArgs e)
         {
-            // Проверка, что выбрана строка в dataGridView1
             if (dataGridView1.CurrentRow == null)
             {
                 MessageBox.Show("Выберите работника для удаления.");
                 return;
             }
 
-            // Получаем ID выбранного работника
-            int idSet = dataGridView1.CurrentRow.Index + 1; // +1, если ID начинается с 1
+            DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+            object value = selectedRow.Cells[0].Value;
 
-            // Подтверждение удаления
+            if (value == null)
+            {
+                MessageBox.Show("Не удалось получить ID работяги.");
+                return;
+            }
+
+            int idSet = Convert.ToInt32(value);
             DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этого работника?", "Подтверждение удаления", MessageBoxButtons.YesNo);
             if (result != DialogResult.Yes)
             {
                 return;
             }
 
-            // Формируем SQL-запрос
             string query = $"DELETE FROM [HotelDB].[dbo].[Работники] WHERE [ID_Пользователя] = {idSet};";
 
             // Выполняем запрос
             LoadWorkers(query);
             LoadWorkers(allView);
-
-            MessageBox.Show("Работник успешно удалён.");
         }
 
         // Метод для проверки, что строка содержит только буквы
@@ -240,6 +242,11 @@ namespace IS_17
             {
                 e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(231, 212, 247)), e.RowBounds);
             }
+        }
+
+        private void FormAdmin_Workers_Edit_Load(object sender, EventArgs e)
+        {
+            LoadWorkers(allView);
         }
     }
 }

@@ -73,9 +73,10 @@
             // button7
             // 
             button7.BackColor = Color.FromArgb(29, 29, 67);
+            button7.BackgroundImage = (Image)resources.GetObject("button7.BackgroundImage");
+            button7.BackgroundImageLayout = ImageLayout.None;
             button7.Font = new Font("Century Gothic", 13.8F);
             button7.ForeColor = Color.White;
-            button7.Image = (Image)resources.GetObject("button7.Image");
             button7.ImageAlign = ContentAlignment.MiddleLeft;
             button7.Location = new Point(3, 3);
             button7.Name = "button7";
@@ -84,7 +85,6 @@
             button7.TabStop = false;
             button7.Text = "Учет комнат";
             button7.UseVisualStyleBackColor = false;
-            button7.Click += button7_Click;
             // 
             // menuConteiner
             // 
@@ -117,7 +117,8 @@
             menu.Size = new Size(256, 48);
             menu.TabIndex = 2;
             menu.TabStop = false;
-            menu.Text = "Профиль";
+            menu.Text = "            Настройки";
+            menu.TextAlign = ContentAlignment.MiddleLeft;
             menu.UseVisualStyleBackColor = false;
             menu.Click += menu_Click;
             // 
@@ -135,7 +136,6 @@
             button_EditPassword.Dock = DockStyle.Fill;
             button_EditPassword.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_EditPassword.ForeColor = Color.White;
-            button_EditPassword.Image = (Image)resources.GetObject("button_EditPassword.Image");
             button_EditPassword.ImageAlign = ContentAlignment.MiddleLeft;
             button_EditPassword.Location = new Point(0, 0);
             button_EditPassword.Name = "button_EditPassword";
@@ -160,7 +160,6 @@
             button_EditData.Dock = DockStyle.Fill;
             button_EditData.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_EditData.ForeColor = Color.White;
-            button_EditData.Image = (Image)resources.GetObject("button_EditData.Image");
             button_EditData.ImageAlign = ContentAlignment.MiddleLeft;
             button_EditData.Location = new Point(0, 0);
             button_EditData.Name = "button_EditData";
@@ -266,6 +265,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(882, 592);
             Controls.Add(sidebar);
             Controls.Add(panel1);
